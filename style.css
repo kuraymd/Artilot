@@ -1,1 +1,49 @@
 
+// ガチャ項目
+const categories = {
+    "人型": ["ヒューマン", "エルフ", "獣人", "ドワーフ", "吸血鬼"],
+    "モンスター": ["スライム型", "ドラゴン型", "海洋生物型", "虫型", "影の怪物"],
+    "異形系": ["多腕", "無顔", "黒いシルエット", "浮遊頭部", "関節が逆"],
+    "動物": ["猫", "犬", "フクロウ", "鹿", "ウサギ"],
+    "衣装": ["ローブ", "軍服", "民族衣装", "近未来スーツ", "作業服"],
+};
+
+// 色パレット（タロット風2色）
+const colors = [
+    ["#2b5f4c", "#d9e7d0"],
+    ["#1a4733", "#c6d6a6"],
+    ["#3a7254", "#ebf8df"],
+    ["#164a3a", "#d0e3c5"],
+    ["#2f6b57", "#e3f4d7"]
+];
+
+// ランダム選択
+function pick(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+// カード生成
+document.getElementById("draw-btn").addEventListener("click", () => {
+
+    const category = pick(Object.keys(categories));
+    const detail = pick(categories[category]);
+    const palette = pick(colors);
+
+    const title = `${category}カード`;
+    const content = `結果：${detail}`;
+
+    // 表示
+    document.getElementById("result-title").textContent = title;
+    document.getElementById("result-content").textContent = content;
+
+    // 色プレビュー
+    const preview = document.getElementById("color-preview");
+    preview.innerHTML = "";
+
+    palette.forEach(color => {
+        const box = document.createElement("div");
+        box.className = "color-box";
+        box.style.background = color;
+        preview.appendChild(box);
+    });
+});
