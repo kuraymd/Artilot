@@ -10,21 +10,22 @@
   <div class="wrap">
     <header>
       <div class="header-left">
-        <h1>ARTILOT</h1>
+        <h1>🔮 ARTILOT</h1>
         <p class="subtitle">デザインお題カード — 3枚引き</p>
       </div>
 
-      <div class="lang-toggle" id="langToggle" aria-hidden="false">
-        <button id="btnJP" class="lang-btn active">JP</button>
-        <button id="btnEN" class="lang-btn">EN</button>
+      <div class="header-right">
+        <div class="lang-toggle" id="langToggle" aria-hidden="false">
+          <button id="btnJP" class="lang-btn">JP</button>
+          <button id="btnEN" class="lang-btn">EN</button>
+        </div>
       </div>
     </header>
 
     <main>
-      <div class="controls">
-        <button id="drawBtn">カードを引く</button>
-        <button id="saveImgBtn">画像を保存</button>
-        <button id="clearHistoryBtn">履歴クリア</button>
+      <div class="controls-top">
+        <!-- 上部は「カードを引く」だけ -->
+        <button id="drawBtn" class="primary">カードを引く</button>
       </div>
 
       <section class="cards" id="cards">
@@ -56,20 +57,28 @@
             <div class="card-lines" id="card3-lines">
               <div class="line" id="c3-1">雰囲気：—</div>
               <div class="line" id="c3-2">色：—</div>
-
-              <div class="palette-row" id="paletteRow" aria-hidden="true">
-                <!-- color swatches inserted here -->
-              </div>
+              <div class="palette-row" id="paletteRow" aria-hidden="true"></div>
             </div>
           </div>
         </article>
       </section>
+
+      <!-- 結果下に 保存 / シェア を表示 -->
+      <div class="result-actions" id="resultActions" aria-hidden="true">
+        <button id="saveImgBtn">画像を保存</button>
+        <button id="shareBtn">シェア</button>
+      </div>
 
       <p class="note" id="noteText">※結果は自動で履歴に保存されます（localStorage）</p>
 
       <section class="historySection">
         <h2 id="historyTitle">履歴</h2>
         <div id="historyList" class="historyList"></div>
+
+        <!-- 履歴の下に一括削除 -->
+        <div class="history-actions">
+          <button id="clearHistoryBtn" class="danger">履歴をすべて削除</button>
+        </div>
       </section>
     </main>
 
