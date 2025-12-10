@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARTILOT — デザインお題カード</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ARTILOT — デザインお題カード</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>🔮 ARTILOT — デザインお題カード</h1>
+  <div class="wrap">
+    <header>
+      <h1>🔮 ARTILOT</h1>
+      <p class="subtitle">デザインお題カード — 3枚引き</p>
+    </header>
 
+    <main>
+      <div class="controls">
         <button id="drawBtn">カードを引く</button>
+        <button id="saveImgBtn">画像を保存</button>
+        <button id="clearHistoryBtn">履歴クリア</button>
+      </div>
 
-        <div class="cards">
-            <div class="card yellow" id="card1"></div>
-            <div class="card blue" id="card2"></div>
-            <div class="card pink" id="card3"></div>
-        </div>
+      <section class="cards" id="cards">
+        <div class="card card-yellow" id="card1"><span class="cardLabel">—</span></div>
+        <div class="card card-blue" id="card2"><span class="cardLabel">—</span></div>
+        <div class="card card-pink" id="card3"><span class="cardLabel">—</span></div>
+      </section>
 
-        <p class="note">※これはタロット風に生成されるデザイン用お題カードです。</p>
-    </div>
+      <p class="note">※結果は自動で履歴に保存されます（localStorage）</p>
 
-    <script src="script.js"></script>
+      <section class="historySection">
+        <h2>履歴</h2>
+        <div id="historyList" class="historyList"></div>
+      </section>
+    </main>
+
+    <footer>
+      <small>© 2025 Artilot</small>
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
