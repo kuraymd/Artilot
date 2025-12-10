@@ -10,7 +10,7 @@
   <div class="wrap">
     <header>
       <h1>🔮 ARTILOT</h1>
-      <p class="subtitle">デザインお題カード — 3枚引き</p>
+      <p class="subtitle">デザインお題カード — 3枚引き（詳細表示）</p>
     </header>
 
     <main>
@@ -20,13 +20,42 @@
         <button id="clearHistoryBtn">履歴クリア</button>
       </div>
 
+      <!-- 3枚カード表示（各カードは複数行で情報を出します） -->
       <section class="cards" id="cards">
-        <div class="card card-yellow" id="card1"><span class="cardLabel">—</span></div>
-        <div class="card card-blue" id="card2"><span class="cardLabel">—</span></div>
-        <div class="card card-pink" id="card3"><span class="cardLabel">—</span></div>
+        <article class="card card-yellow" id="card1">
+          <div class="card-inner">
+            <div class="card-title">Character</div>
+            <div class="card-lines" id="card1-lines">
+              <div class="line">種族：—</div>
+              <div class="line">性別：—</div>
+              <div class="line">年齢：—</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-blue" id="card2">
+          <div class="card-inner">
+            <div class="card-title">Design</div>
+            <div class="card-lines" id="card2-lines">
+              <div class="line">髪型：—</div>
+              <div class="line">服：—</div>
+              <div class="line">モチーフ：—</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-pink" id="card3">
+          <div class="card-inner">
+            <div class="card-title">Mood</div>
+            <div class="card-lines" id="card3-lines">
+              <div class="line">雰囲気：—</div>
+              <div class="line">色：—</div>
+            </div>
+          </div>
+        </article>
       </section>
 
-      <p class="note">※結果は自動で履歴に保存されます（localStorage）</p>
+      <p class="note">※クリックで履歴保存。結果は localStorage に保存されます。</p>
 
       <section class="historySection">
         <h2>履歴</h2>
