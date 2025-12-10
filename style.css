@@ -1,77 +1,66 @@
-body {
-    margin: 0;
-    padding: 0;
-    background: #062a28;
-    color: #f5f1d7;
-    font-family: "Yu Mincho", serif;
+/* Basic */
+:root{
+  --bg:#062a28; --panel:#12362d; --gold:#e7d9b4;
+  --yellow:#fff8b1; --blue:#b7ecff; --pink:#ffc6eb;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+  background:var(--bg); color:#f4f1df; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:980px;margin:0 auto;padding:22px;text-align:center}
+
+/* header */
+header h1{font-size:28px;margin:6px 0}
+.subtitle{margin:0 0 16px 0;color:rgba(255,255,255,.85)}
+
+/* controls */
+.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.controls button{
+  background:#1f8a70;color:#fff;border:none;padding:10px 16px;border-radius:10px;font-size:15px;
+  cursor:pointer;box-shadow:0 6px 12px rgba(0,0,0,.25);
+}
+.controls button:hover{transform:translateY(-2px)}
+
+/* cards layout */
+.cards{display:flex;flex-direction:column;gap:14px;align-items:center;margin:0 auto 10px}
+.card{width:88%;max-width:980px;border-radius:14px;padding:26px 18px;min-height:120px;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;transition:transform .45s cubic-bezier(.2,.9,.3,1),box-shadow .25s;
+  border:3px solid var(--gold); box-shadow:0 8px 20px rgba(0,0,0,.35), 0 0 12px rgba(231,217,180,.08);
+  background:var(--panel); color:#fff;position:relative;overflow:hidden;
 }
 
-.container {
-    text-align: center;
-    padding: 20px;
+/* individual colors */
+.card-yellow{background:var(--yellow);color:#222}
+.card-blue{background:var(--blue);color:#222}
+.card-pink{background:var(--pink);color:#222}
+
+/* simple decorative label */
+.cardLabel{display:inline-block;padding:6px 10px;border-radius:8px;background:transparent}
+
+/* flip / animate class */
+.animate-pop { transform: translateY(-14px) scale(1.02); box-shadow:0 18px 40px rgba(0,0,0,.45); }
+.animate-flip { transform: rotateY(10deg) translateY(-6px); }
+
+/* responsive: row on wide screens */
+@media(min-width:700px){
+  .cards{flex-direction:row;gap:20px}
+  .card{width:30%}
 }
 
-h1 {
-    font-size: 26px;
-    line-height: 1.4;
-    margin-bottom: 20px;
+/* history */
+.historySection{margin-top:20px;text-align:left}
+.historySection h2{margin:8px 0 10px 0;color:var(--gold)}
+.historyList{display:flex;gap:8px;flex-wrap:wrap}
+.historyItem{
+  background:#fff;border-radius:8px;padding:8px 10px;color:#222;font-size:13px;border:1px solid #ddd;
+  display:flex;flex-direction:column;gap:6px;min-width:150px;max-width:220px;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
 }
+.hRow{display:flex;gap:8px;flex-wrap:wrap}
+.hSmall{font-size:12px;color:#666}
+.hBtn{background:#1f8a70;color:#fff;border:none;border-radius:6px;padding:6px 8px;cursor:pointer}
 
-button {
-    background: #1f8a70;
-    color: #fff;
-    border: none;
-    padding: 14px 25px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-bottom: 25px;
-}
-
-.cards {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.card {
-    padding: 25px;
-    border-radius: 16px;
-    font-size: 20px;
-    min-height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-.yellow {
-    background: #fff8b1;
-    color: #444;
-}
-
-.blue {
-    background: #b7ecff;
-    color: #444;
-}
-
-.pink {
-    background: #ffc6eb;
-    color: #444;
-}
-
-.note {
-    margin-top: 30px;
-    font-size: 13px;
-    opacity: 0.8;
-}
-
-@media (min-width: 700px) {
-    .cards {
-        flex-direction: row;
-        justify-content: center;
-    }
-    .card {
-        width: 30%;
-    }
-}
+/* note/footer */
+.note{opacity:.85;margin-top:10px}
+footer{margin-top:22px;color:rgba(255,255,255,.6)}
