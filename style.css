@@ -1,112 +1,143 @@
-:root{
-  --bg:#071010; --card-bg:#0b0b0b; --gold:#c8a34d; --gold-dark:#a37f37;
-  --text:#f3efe6; --muted:#bfb8a8;
-  --accent:#1f8a70;
-}
-
-/* reset */
-*{box-sizing:border-box}
+/* -------- Basic layout -------- */
 body{
-  margin:0; font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
-  background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;
+  margin:0;
+  background:#ffffff;
+  color:#111;
+  font-family:"Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
 }
-.wrap{max-width:980px;margin:0 auto;padding:20px}
+.wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:20px;
+}
 
-/* header */
-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.header-left h1{margin:0;font-size:26px}
-.subtitle{margin:0;color:var(--muted);font-size:13px}
+/* Header */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.subtitle{color:#555;font-size:13px;margin:0;}
 
-/* language toggle */
-.header-right{display:flex;align-items:center}
-.lang-toggle{display:flex;gap:6px}
+/* Language toggle */
+.lang-toggle{
+  display:flex;
+  gap:8px;
+}
 .lang-btn{
-  background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06);
-  padding:6px 10px;border-radius:8px;font-weight:700;cursor:pointer;
-  transition:0.18s;
+  padding:6px 12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  background:#fff;
+  cursor:pointer;
 }
 .lang-btn.active{
-  background:linear-gradient(180deg,var(--gold),var(--gold-dark));
-  color:#071010;border:1px solid rgba(0,0,0,0.6); box-shadow:0 8px 20px rgba(0,0,0,.45) inset;
-  position:relative;
-}
-.lang-btn.active::after{
-  content:""; position:absolute; left:6px; right:6px; bottom:-8px; height:3px;
-  background:var(--gold); border-radius:3px; opacity:0.95;
+  background:#000;
+  color:#fff;
 }
 
-/* controls top */
-.controls-top{display:flex;justify-content:center;margin:18px 0}
+/* Draw button */
 .primary{
-  background:linear-gradient(180deg,var(--gold),var(--gold-dark));
-  color:#071010;border:none;padding:12px 20px;border-radius:10px;font-weight:800;
-  box-shadow:0 10px 28px rgba(0,0,0,.6) inset; cursor:pointer;
+  padding:12px 20px;
+  border-radius:6px;
+  border:none;
+  background:#000;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-/* cards */
-.cards{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
-.card{width:300px;border-radius:16px;padding:18px;position:relative;overflow:hidden;opacity:0;transform:translateY(24px) scale(.98);transition:transform .45s cubic-bezier(.2,.9,.3,1),opacity .35s}
-.card.show{opacity:1;transform:none}
-.card-frame{
-  background:linear-gradient(180deg,#0b0b0b 0%, #0f0f0f 100%);
-  border:3px solid var(--gold);
-  box-shadow:0 18px 38px rgba(0,0,0,.6), 0 0 30px rgba(0,0,0,.35) inset;
-  min-height:320px;
-  display:flex;flex-direction:column;justify-content:flex-start;
+/* -------- Cards layout -------- */
+.cards{
+  display:flex;
+  justify-content:space-between;
+  margin-top:16px;
 }
-/* title plate */
+
+/* スマホでも 3 枚横並びを維持 */
+@media(max-width:740px){
+  .cards{
+    gap:8px;
+  }
+  .card{
+    width:32% !important;
+  }
+}
+
+/* -------- Simple Card (Pinterest style) -------- */
+.card.simple-card{
+  width:32%;
+  background:#ffffff;
+  border:2px solid #000;
+  border-radius:6px;
+  padding:14px;
+  min-height:240px;
+}
+
+/* Title */
 .card-title{
-  margin:0 auto 12px auto;padding:6px 14px;border-radius:10px;
-  background:linear-gradient(90deg, rgba(0,0,0,0.25), rgba(255,255,255,0.02));
-  color:var(--gold);font-weight:800;letter-spacing:1px;text-align:center;width:80%;
-  border:1px solid rgba(255,255,255,0.03);
+  font-weight:700;
   font-size:16px;
+  margin-bottom:6px;
+  text-align:left;
 }
 
-/* inner text */
-.card-lines{color:var(--text);padding:6px 4px;font-size:15px}
+/* Divider line */
+.divider{
+  width:100%;
+  height:1px;
+  background:#000;
+  margin:6px 0 10px;
+}
+
+/* Lines */
 .line{
-  padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.03);
-  line-height:1.6; white-space:normal; word-break:break-word; /* ensure English wraps */
+  font-size:14px;
+  color:#111;
+  margin-bottom:8px;
+  word-break:break-word;
 }
-.line:last-child{border-bottom:none}
 
-/* palette squares: angle-rounded rectangles */
-.palette-row{display:flex;gap:8px;margin-top:12px;align-items:center}
+/* Palette */
+.palette-row{
+  display:flex;
+  gap:6px;
+  margin-top:4px;
+}
 .palette-swatch{
-  width:40px;height:24px;border-radius:6px;border:1px solid rgba(0,0,0,0.25);
-  box-shadow:0 2px 6px rgba(0,0,0,0.28) inset;
+  width:22px;
+  height:22px;
+  border:1px solid #111;
+  border-radius:4px;
 }
 
-/* per-card accent (subtle) */
-.card-yellow .card-title{background:linear-gradient(90deg, rgba(255,248,177,.04), rgba(255,248,177,.02))}
-.card-blue   .card-title{background:linear-gradient(90deg, rgba(183,236,255,.04), rgba(183,236,255,.02))}
-.card-pink   .card-title{background:linear-gradient(90deg, rgba(255,198,235,.04), rgba(255,198,235,.02))}
-
-/* result actions (below cards) */
-.result-actions{display:flex;gap:12px;justify-content:center;margin-bottom:10px}
+/* Buttons under result */
+.result-actions{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
 .result-actions button{
-  background:transparent;border:2px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;
+  background:#fff;
+  border:1px solid #000;
+  padding:8px 12px;
+  border-radius:4px;
+  cursor:pointer;
 }
-.result-actions button:hover{transform:translateY(-3px)}
-.result-actions button.primary-ghost{border-color:var(--gold);color:var(--gold);}
 
-/* history */
-.historySection{margin-top:18px}
-.historyList{display:flex;flex-direction:column;gap:10px}
+/* History */
 .historyItem{
-  background:#0e1110;border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:10px;font-size:13px;color:var(--muted);
-  display:flex;flex-direction:column;gap:6px;
+  border:1px solid #ccc;
+  padding:10px;
+  border-radius:6px;
+  font-size:13px;
+  margin-bottom:8px;
 }
 
-/* history actions */
-.history-actions{display:flex;justify-content:center;margin-top:12px}
 .danger{
-  background:transparent;border:2px solid rgba(255,255,255,0.06);color:#ff8080;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700;
-}
-
-/* responsive */
-@media(max-width:920px){
-  .cards{flex-direction:column;align-items:center}
-  .card{width:92%}
+  background:#fff;
+  border:1px solid #000;
+  padding:8px 12px;
+  border-radius:4px;
 }
