@@ -1,101 +1,77 @@
-/* ===============================
-   Base
-================================ */
 body {
-    background: #0f2e26;
-    color: #f4f4f4;
-    font-family: 'Cinzel', serif;
+    margin: 0;
+    padding: 0;
+    background: #062a28;
+    color: #f5f1d7;
+    font-family: "Yu Mincho", serif;
+}
+
+.container {
     text-align: center;
-    padding: 25px;
+    padding: 20px;
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 26px;
+    line-height: 1.4;
     margin-bottom: 20px;
-    letter-spacing: 1px;
 }
 
-/* ===============================
-   Button
-================================ */
 button {
-    background: #1a6d58;
-    color: white;
-    border: none;
-    padding: 11px 22px;
-    border-radius: 10px;
-    font-size: 16px;
-    margin: 12px;
-    cursor: pointer;
-    transition: 0.2s;
-    font-family: inherit;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
-}
-
-button:hover {
-    background: #1e7f67;
-}
-
-/* ===============================
-   Select Box
-================================ */
-select {
-    background: #144238;
-    color: white;
-    border: 2px solid #1e7f67;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-/* ===============================
-   Tarot-style Card
-================================ */
-#cardDisplay {
-    width: 330px;
-    margin: 28px auto;
-    padding: 28px 20px;
-    background: #12362d;
-    border-radius: 18px;
-
-    /* 柔らかいタロット風の枠 */
-    border: 3px solid #e7d9b4;
-
-    /* 優しい影 */
-    box-shadow:
-        0 0 10px rgba(230, 215, 140, 0.4),
-        0 5px 15px rgba(0, 0, 0, 0.35);
-
-    min-height: 240px;
-    position: relative;
-}
-
-/* タイトル用プレート風デザイン */
-.card-title {
-    font-size: 20px;
-    color: #f7eac8;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-
-    padding: 6px 15px;
-    border-bottom: 2px solid #e7d9b4;
-    display: inline-block;
-}
-
-/* カード本文 */
-.card-text {
-    font-size: 18px;
-    line-height: 1.7em;
-    margin-top: 10px;
+    background: #1f8a70;
     color: #fff;
-    padding: 10px 5px;
+    border: none;
+    padding: 14px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 25px;
 }
 
-/* ===============================
-   Note
-================================ */
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    padding: 25px;
+    border-radius: 16px;
+    font-size: 20px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.yellow {
+    background: #fff8b1;
+    color: #444;
+}
+
+.blue {
+    background: #b7ecff;
+    color: #444;
+}
+
+.pink {
+    background: #ffc6eb;
+    color: #444;
+}
+
 .note {
-    margin-top: 25px;
-    font-size: 14px;
-    opacity: 0.75;
+    margin-top: 30px;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+@media (min-width: 700px) {
+    .cards {
+        flex-direction: row;
+        justify-content: center;
+    }
+    .card {
+        width: 30%;
+    }
 }
