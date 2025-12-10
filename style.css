@@ -1,138 +1,91 @@
-/*------------------------------
-  基本レイアウト
-------------------------------*/
-body {
-  margin: 0;
-  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
-  background: #ffffff;
-  color: #333;
+:root{
+  --bg:#071010; --card-bg:#0b0b0b; --gold:#c8a34d; --gold-dark:#a37f37;
+  --text:#f3efe6; --muted:#bfb8a8;
+  --yellow:#fff8b1; --blue:#b7ecff; --pink:#ffc6eb;
 }
 
-.wrap {
-  width: 100%;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 20px;
+/* reset */
+*{box-sizing:border-box}
+body{
+  margin:0; font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
+  background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:980px;margin:0 auto;padding:20px}
+
+/* header */
+header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.header-left h1{margin:0;font-size:26px}
+.subtitle{margin:0;color:var(--muted);font-size:13px}
+
+/* language toggle */
+.lang-toggle{display:flex;gap:6px}
+.lang-btn{
+  background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.08);
+  padding:6px 10px;border-radius:8px;font-weight:600;cursor:pointer;
+}
+.lang-btn.active{
+  background:linear-gradient(180deg,var(--gold),var(--gold-dark));
+  color:#081010;border:1px solid rgba(0,0,0,0.6); box-shadow:0 6px 16px rgba(0,0,0,.5) inset;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 10px;
+/* controls */
+.controls{display:flex;gap:10px;justify-content:center;margin:18px 0;flex-wrap:wrap}
+.controls button{
+  background:transparent;border:2px solid rgba(255,255,255,0.06);color:var(--text);
+  padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700;
+}
+.controls button:hover{transform:translateY(-3px)}
+/* emphasize draw */
+#drawBtn{border-color:var(--gold);background:linear-gradient(180deg,var(--gold),var(--gold-dark));color:#071010}
+
+/* cards */
+.cards{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.card{width:300px;border-radius:16px;padding:18px;position:relative;overflow:hidden;opacity:0;transform:translateY(24px) scale(.98);transition:transform .45s cubic-bezier(.2,.9,.3,1),opacity .35s}
+.card.show{opacity:1;transform:none}
+.card-frame{
+  background:linear-gradient(180deg,#0b0b0b 0%, #111 100%);
+  border:3px solid var(--gold);
+  box-shadow:0 18px 38px rgba(0,0,0,.6), 0 0 30px rgba(0,0,0,.35) inset;
+  min-height:320px;
+  display:flex;flex-direction:column;justify-content:flex-start;
+}
+/* title plate */
+.card-title{
+  margin:0 auto 12px auto;padding:6px 14px;border-radius:10px;
+  background:linear-gradient(90deg, rgba(0,0,0,0.25), rgba(255,255,255,0.02));
+  color:var(--gold);font-weight:800;letter-spacing:1px;text-align:center;width:80%;
+  border:1px solid rgba(255,255,255,0.03);
+  font-size:16px;
 }
 
-.subtitle {
-  margin-top: -10px;
-  font-size: 14px;
-  color: #555;
+/* inner text */
+.card-lines{color:var(--text);padding:6px 4px;font-size:15px}
+.line{padding:6px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
+.line:last-child{border-bottom:none}
+
+/* color palette squares (角丸四角20px) */
+.palette-row{display:flex;gap:8px;margin-top:12px;align-items:center}
+.palette-swatch{
+  width:40px;height:24px;border-radius:6px;border:1px solid rgba(0,0,0,0.25);
+  box-shadow:0 2px 6px rgba(0,0,0,0.28) inset;
+}
+.palette-hex{font-size:12px;color:var(--muted);margin-left:8px}
+
+/* per-card accent (keeps frame black+gold) */
+.card-yellow .card-title{background:linear-gradient(90deg, rgba(255,248,177,.08), rgba(255,248,177,.02))}
+.card-blue   .card-title{background:linear-gradient(90deg, rgba(183,236,255,.06), rgba(183,236,255,.02))}
+.card-pink   .card-title{background:linear-gradient(90deg, rgba(255,198,235,.06), rgba(255,198,235,.02))}
+
+/* history */
+.historySection{margin-top:26px}
+.historyList{display:flex;flex-direction:column;gap:10px}
+.historyItem{
+  background:#0e1110;border:1px solid rgba(255,255,255,0.03);padding:10px;border-radius:10px;font-size:13px;color:var(--muted);
+  display:flex;flex-direction:column;gap:6px;
 }
 
-/*------------------------------
-  ボタン
-------------------------------*/
-.controls {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-button {
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 12px 18px;
-  margin: 4px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-/*------------------------------
-  カード共通
-------------------------------*/
-.cards {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.card {
-  width: 32%;
-  aspect-ratio: 3 / 4.6;
-  border-radius: 14px;
-  padding: 12px;
-  background: #F7F3E8 url("https://i.imgur.com/6Y0QwFf.png");
-  background-size: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-  transform: translateY(20px) scale(0.95);
-  opacity: 0;
-  transition: 0.35s ease;
-}
-
-/* カードアニメ（めくれる） */
-.card.show {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* 内部 */
-.card-inner {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-title {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-  margin-bottom: 6px;
-}
-
-/* 内容リスト */
-.card-lines .line {
-  font-size: 14px;
-  padding: 3px 0;
-}
-
-/* 色バリエーション */
-.card-yellow { border: 3px solid #E4B600; }
-.card-blue   { border: 3px solid #4A90E2; }
-.card-pink   { border: 3px solid #EA4C89; }
-
-/*------------------------------
-  履歴
-------------------------------*/
-.historySection {
-  margin-top: 30px;
-}
-
-.historyList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.historyItem {
-  border: 1px solid #ddd;
-  background: #fafafa;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-/*------------------------------
-  フッター
-------------------------------*/
-footer {
-  text-align: center;
-  margin-top: 40px;
-  color: #777;
+/* small responsive */
+@media(max-width:920px){
+  .cards{flex-direction:column;align-items:center}
+  .card{width:92%}
 }
