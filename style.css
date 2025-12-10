@@ -1,66 +1,138 @@
-/* Basic */
-:root{
-  --bg:#062a28; --panel:#12362d; --gold:#e7d9b4;
-  --yellow:#fff8b1; --blue:#b7ecff; --pink:#ffc6eb;
-}
-*{box-sizing:border-box}
-body{
-  margin:0; font-family: "Yu Gothic","Hiragino Kaku Gothic ProN",system-ui,sans-serif;
-  background:var(--bg); color:#f4f1df; -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:980px;margin:0 auto;padding:22px;text-align:center}
-
-/* header */
-header h1{font-size:28px;margin:6px 0}
-.subtitle{margin:0 0 16px 0;color:rgba(255,255,255,.85)}
-
-/* controls */
-.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
-.controls button{
-  background:#1f8a70;color:#fff;border:none;padding:10px 16px;border-radius:10px;font-size:15px;
-  cursor:pointer;box-shadow:0 6px 12px rgba(0,0,0,.25);
-}
-.controls button:hover{transform:translateY(-2px)}
-
-/* cards layout */
-.cards{display:flex;flex-direction:column;gap:14px;align-items:center;margin:0 auto 10px}
-.card{width:88%;max-width:980px;border-radius:14px;padding:26px 18px;min-height:120px;
-  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;transition:transform .45s cubic-bezier(.2,.9,.3,1),box-shadow .25s;
-  border:3px solid var(--gold); box-shadow:0 8px 20px rgba(0,0,0,.35), 0 0 12px rgba(231,217,180,.08);
-  background:var(--panel); color:#fff;position:relative;overflow:hidden;
+/*------------------------------
+  基本レイアウト
+------------------------------*/
+body {
+  margin: 0;
+  font-family: "Yu Gothic", "Hiragino Sans", sans-serif;
+  background: #ffffff;
+  color: #333;
 }
 
-/* individual colors */
-.card-yellow{background:var(--yellow);color:#222}
-.card-blue{background:var(--blue);color:#222}
-.card-pink{background:var(--pink);color:#222}
-
-/* simple decorative label */
-.cardLabel{display:inline-block;padding:6px 10px;border-radius:8px;background:transparent}
-
-/* flip / animate class */
-.animate-pop { transform: translateY(-14px) scale(1.02); box-shadow:0 18px 40px rgba(0,0,0,.45); }
-.animate-flip { transform: rotateY(10deg) translateY(-6px); }
-
-/* responsive: row on wide screens */
-@media(min-width:700px){
-  .cards{flex-direction:row;gap:20px}
-  .card{width:30%}
+.wrap {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* history */
-.historySection{margin-top:20px;text-align:left}
-.historySection h2{margin:8px 0 10px 0;color:var(--gold)}
-.historyList{display:flex;gap:8px;flex-wrap:wrap}
-.historyItem{
-  background:#fff;border-radius:8px;padding:8px 10px;color:#222;font-size:13px;border:1px solid #ddd;
-  display:flex;flex-direction:column;gap:6px;min-width:150px;max-width:220px;
-  box-shadow:0 6px 14px rgba(0,0,0,.12);
+header {
+  text-align: center;
+  margin-bottom: 10px;
 }
-.hRow{display:flex;gap:8px;flex-wrap:wrap}
-.hSmall{font-size:12px;color:#666}
-.hBtn{background:#1f8a70;color:#fff;border:none;border-radius:6px;padding:6px 8px;cursor:pointer}
 
-/* note/footer */
-.note{opacity:.85;margin-top:10px}
-footer{margin-top:22px;color:rgba(255,255,255,.6)}
+.subtitle {
+  margin-top: -10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/*------------------------------
+  ボタン
+------------------------------*/
+.controls {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+button {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  margin: 4px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/*------------------------------
+  カード共通
+------------------------------*/
+.cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 32%;
+  aspect-ratio: 3 / 4.6;
+  border-radius: 14px;
+  padding: 12px;
+  background: #F7F3E8 url("https://i.imgur.com/6Y0QwFf.png");
+  background-size: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  transition: 0.35s ease;
+}
+
+/* カードアニメ（めくれる） */
+.card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* 内部 */
+.card-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  margin-bottom: 6px;
+}
+
+/* 内容リスト */
+.card-lines .line {
+  font-size: 14px;
+  padding: 3px 0;
+}
+
+/* 色バリエーション */
+.card-yellow { border: 3px solid #E4B600; }
+.card-blue   { border: 3px solid #4A90E2; }
+.card-pink   { border: 3px solid #EA4C89; }
+
+/*------------------------------
+  履歴
+------------------------------*/
+.historySection {
+  margin-top: 30px;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.historyItem {
+  border: 1px solid #ddd;
+  background: #fafafa;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/*------------------------------
+  フッター
+------------------------------*/
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #777;
+}
