@@ -1,54 +1,42 @@
+// カテゴリデータ
+const cardData = {
+    human: [
+        "青年 / 青い髪 / ミステリアス",
+        "女性 / 優しい雰囲気 / 長髪",
+        "大人 / 落ち着いた表情 / シックな服",
+    ],
+    monster: [
+        "影の怪物 / 触手 / 黒い霧",
+        "骨の獣 / 赤い眼 / 静かな咆哮",
+        "深海の怪異 / 青白い光 / 無感情",
+    ],
+    animal: [
+        "白い猫 / 金の目 / 上品",
+        "黒い狼 / 美しい毛並み / 俊敏",
+        "梟 / 静寂 / 知性",
+    ],
+    costume: [
+        "魔法使いのローブ",
+        "騎士の鎧",
+        "クラシックドレス",
+    ],
+    palette: [
+        "ゴールド × エメラルド",
+        "赤 × 黒",
+        "水色 × 白",
+    ],
+};
 
-body {
-    font-family: "Yu Gothic", sans-serif;
-    background: #0b3d2e; /* 深いグリーン */
-    color: #fff;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
+// カードを引く
+function drawCard() {
+    const category = document.getElementById("categorySelect").value;
+    const area = document.getElementById("cardDisplay");
 
-header {
-    padding: 20px 0;
-}
+    const list = cardData[category];
+    const random = list[Math.floor(Math.random() * list.length)];
 
-.card-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.card {
-    width: 260px;
-    min-height: 380px;
-    background: #f7f0d9; /* タロット風の紙色 */
-    color: #333;
-    border-radius: 12px;
-    border: 3px solid #c6b88a;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-    padding: 18px;
-}
-
-#draw-btn {
-    margin-top: 40px;
-    padding: 12px 24px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    background: #1d6f54;
-    color: #fff;
-}
-
-#color-preview {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.color-box {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    border: 2px solid #333;
+    area.innerHTML = `
+        <div class="card-title">${category.toUpperCase()}</div>
+        <div class="card-text">${random}</div>
+    `;
 }
