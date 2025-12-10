@@ -1,16 +1,16 @@
 /* ==================================================
    ARTLILOT — Design Prompt Cards
-   script.js（フルコード）
+   script.js（FULL）
 ================================================== */
 
 /* ---------------------------------------------
    1. 日本語 / 英語データ
 --------------------------------------------- */
 
-// ★ 日本語
 const dataJP = {
   card1: {
     title: "キャラクター",
+    labels: ["種族", "性別", "年齢"],
     items: {
       race: ["ヒューマン", "エルフ", "鬼", "ロボット", "獣人", "ドラゴン族", "吸血鬼", "天使", "悪魔"],
       gender: ["男性", "女性", "中性", "不明"],
@@ -20,6 +20,7 @@ const dataJP = {
 
   card2: {
     title: "デザイン",
+    labels: ["髪型", "服", "モチーフ"],
     items: {
       hair: ["ロング", "ショート", "ポニーテール", "ツインテール", "ぱっつん", "ボブ", "三つ編み", "ウェーブ"],
       clothes: ["セーラー服", "和服", "メイド服", "鎧", "学生服", "フォーマル", "ドレス", "パーカー"],
@@ -29,6 +30,7 @@ const dataJP = {
 
   card3: {
     title: "雰囲気",
+    labels: ["雰囲気", "色"],
     items: {
       mood: ["ホラー", "ファンタジー", "レトロ", "未来", "かわいい", "ダーク", "ミステリー", "SF"],
       color: ["赤", "青", "黒", "白", "緑", "紫", "金", "銀"]
@@ -45,10 +47,10 @@ const dataJP = {
   }
 };
 
-// ★ 英語
 const dataEN = {
   card1: {
     title: "Character",
+    labels: ["Race", "Gender", "Age"],
     items: {
       race: ["Human", "Elf", "Oni", "Robot", "Beastfolk", "Dragonkin", "Vampire", "Angel", "Demon"],
       gender: ["Male", "Female", "Neutral", "Unknown"],
@@ -58,6 +60,7 @@ const dataEN = {
 
   card2: {
     title: "Design",
+    labels: ["Hair", "Clothes", "Motif"],
     items: {
       hair: ["Long", "Short", "Ponytail", "Twintails", "Straight bangs", "Bob", "Braids", "Wave"],
       clothes: ["Sailor outfit", "Kimono", "Maid outfit", "Armor", "Uniform", "Formal", "Dress", "Hoodie"],
@@ -67,6 +70,7 @@ const dataEN = {
 
   card3: {
     title: "Mood",
+    labels: ["Mood", "Color"],
     items: {
       mood: ["Horror", "Fantasy", "Retro", "Future", "Cute", "Dark", "Mystery", "Sci-Fi"],
       color: ["Red", "Blue", "Black", "White", "Green", "Purple", "Gold", "Silver"]
@@ -75,7 +79,7 @@ const dataEN = {
 
   ui: {
     draw: "Draw Cards",
-    autoSave: "※History keeps up to 20 results. Old data will be removed automatically.",
+    autoSave: "※History keeps up to 20 results. Old items are removed.",
     history: "History",
     delete: "Clear History",
     saveImg: "Save Image",
@@ -85,15 +89,12 @@ const dataEN = {
 
 let lang = "JP";
 
-/* ---------------------------------------------
-   2. ランダム取得
---------------------------------------------- */
 function rand(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
 /* ---------------------------------------------
-   3. カードを引く
+   2. カードを引く
 --------------------------------------------- */
 document.getElementById("drawBtn").addEventListener("click", drawCards);
 
@@ -102,20 +103,31 @@ function drawCards() {
 
   // card1
   document.getElementById("card1-title").textContent = d.card1.title;
-  document.getElementById("c1-1").textContent = d.card1.items.race[Math.floor(Math.random() * d.card1.items.race.length)];
-  document.getElementById("c1-2").textContent = d.card1.items.gender[Math.floor(Math.random() * d.card1.items.gender.length)];
-  document.getElementById("c1-3").textContent = d.card1.items.age[Math.floor(Math.random() * d.card1.items.age.length)];
+  document.getElementById("c1-label-1").textContent = d.card1.labels[0];
+  document.getElementById("c1-label-2").textContent = d.card1.labels[1];
+  document.getElementById("c1-label-3").textContent = d.card1.labels[2];
+
+  document.getElementById("c1-value-1").textContent = rand(d.card1.items.race);
+  document.getElementById("c1-value-2").textContent = rand(d.card1.items.gender);
+  document.getElementById("c1-value-3").textContent = rand(d.card1.items.age);
 
   // card2
   document.getElementById("card2-title").textContent = d.card2.title;
-  document.getElementById("c2-1").textContent = d.card2.items.hair[Math.floor(Math.random() * d.card2.items.hair.length)];
-  document.getElementById("c2-2").textContent = d.card2.items.clothes[Math.floor(Math.random() * d.card2.items.clothes.length)];
-  document.getElementById("c2-3").textContent = d.card2.items.motif[Math.floor(Math.random() * d.card2.items.motif.length)];
+  document.getElementById("c2-label-1").textContent = d.card2.labels[0];
+  document.getElementById("c2-label-2").textContent = d.card2.labels[1];
+  document.getElementById("c2-label-3").textContent = d.card2.labels[2];
+
+  document.getElementById("c2-value-1").textContent = rand(d.card2.items.hair);
+  document.getElementById("c2-value-2").textContent = rand(d.card2.items.clothes);
+  document.getElementById("c2-value-3").textContent = rand(d.card2.items.motif);
 
   // card3
   document.getElementById("card3-title").textContent = d.card3.title;
-  document.getElementById("c3-1").textContent = d.card3.items.mood[Math.floor(Math.random() * d.card3.items.mood.length)];
-  document.getElementById("c3-2").textContent = d.card3.items.color[Math.floor(Math.random() * d.card3.items.color.length)];
+  document.getElementById("c3-label-1").textContent = d.card3.labels[0];
+  document.getElementById("c3-label-2").textContent = d.card3.labels[1];
+
+  document.getElementById("c3-value-1").textContent = rand(d.card3.items.mood);
+  document.getElementById("c3-value-2").textContent = rand(d.card3.items.color);
 
   drawPalette();
 
@@ -123,17 +135,16 @@ function drawCards() {
 }
 
 /* ---------------------------------------------
-   4. カラーパレット生成
+   3. パレット生成
 --------------------------------------------- */
 function drawPalette() {
   const row = document.getElementById("paletteRow");
   row.innerHTML = "";
 
   for (let i = 0; i < 3; i++) {
-    const c = randomColor();
     const div = document.createElement("div");
     div.className = "palette-swatch";
-    div.style.background = c;
+    div.style.background = randomColor();
     row.appendChild(div);
   }
 }
@@ -144,30 +155,26 @@ function randomColor() {
 }
 
 /* ---------------------------------------------
-   5. 履歴
+   4. 履歴保存
 --------------------------------------------- */
 function saveToHistory() {
   const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
 
   const entry = {
-    time: Date.now(),
-    c11: c1_1 = document.getElementById("c1-1").textContent,
-    c12: c1_2 = document.getElementById("c1-2").textContent,
-    c13: c1_3 = document.getElementById("c1-3").textContent,
-    c21: document.getElementById("c2-1").textContent,
-    c22: document.getElementById("c2-2").textContent,
-    c23: document.getElementById("c2-3").textContent,
-    c31: document.getElementById("c3-1").textContent,
-    c32: document.getElementById("c3-2").textContent
+    c11: document.getElementById("c1-value-1").textContent,
+    c12: document.getElementById("c1-value-2").textContent,
+    c13: document.getElementById("c1-value-3").textContent,
+    c21: document.getElementById("c2-value-1").textContent,
+    c22: document.getElementById("c2-value-2").textContent,
+    c23: document.getElementById("c2-value-3").textContent,
+    c31: document.getElementById("c3-value-1").textContent,
+    c32: document.getElementById("c3-value-2").textContent
   };
 
   list.unshift(entry);
-
-  // ★ 最大20件
   if (list.length > 20) list.pop();
 
   localStorage.setItem("artilotHistory", JSON.stringify(list));
-
   loadHistory();
 }
 
@@ -179,27 +186,25 @@ function loadHistory() {
   list.forEach(h => {
     const div = document.createElement("div");
     div.className = "historyItem";
-    div.textContent =
-      `${h.c11} / ${h.c12} / ${h.c13} | ${h.c21} / ${h.c22} / ${h.c23} | ${h.c31} / ${h.c32}`;
+    div.textContent = `${h.c11} / ${h.c12} / ${h.c13} | ${h.c21} / ${h.c22} / ${h.c23} | ${h.c31} / ${h.c32}`;
     box.appendChild(div);
   });
 }
+loadHistory();
 
 document.getElementById("clearHistoryBtn").addEventListener("click", () => {
   localStorage.removeItem("artilotHistory");
   loadHistory();
 });
-loadHistory();
 
 /* ---------------------------------------------
-   6. 言語切替
+   5. 言語切替
 --------------------------------------------- */
 document.getElementById("btnJP").addEventListener("click", () => switchLang("JP"));
 document.getElementById("btnEN").addEventListener("click", () => switchLang("EN"));
 
 function switchLang(l) {
   lang = l;
-
   const d = lang === "JP" ? dataJP : dataEN;
 
   document.getElementById("drawBtn").textContent = d.ui.draw;
@@ -209,13 +214,12 @@ function switchLang(l) {
   document.getElementById("saveImgBtn").textContent = d.ui.saveImg;
   document.getElementById("shareBtn").textContent = d.ui.share;
 
-  // ボタンの選択中スタイル
   document.getElementById("btnJP").classList.toggle("active", l === "JP");
   document.getElementById("btnEN").classList.toggle("active", l === "EN");
 }
 
 /* ---------------------------------------------
-   7. シェア画像（白背景・コンパクト版）
+   6. 画像保存（1080 × 1080 正方形）
 --------------------------------------------- */
 document.getElementById("saveImgBtn").addEventListener("click", saveImage);
 
@@ -223,77 +227,80 @@ function saveImage() {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  canvas.width = 750;
-  canvas.height = 300;
+  canvas.width = 1080;
+  canvas.height = 1080;
 
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // カード情報
-  const cardData = [
+  const cardWidth = 330;
+  const cardHeight = 900;
+  const startX = [30, 375, 720];
+  const y = 60;
+
+  const cards = [
     {
       title: document.getElementById("card1-title").textContent,
-      lines: [
-        document.getElementById("c1-1").textContent,
-        document.getElementById("c1-2").textContent,
-        document.getElementById("c1-3").textContent
+      pairs: [
+        [document.getElementById("c1-label-1").textContent, document.getElementById("c1-value-1").textContent],
+        [document.getElementById("c1-label-2").textContent, document.getElementById("c1-value-2").textContent],
+        [document.getElementById("c1-label-3").textContent, document.getElementById("c1-value-3").textContent]
       ]
     },
     {
       title: document.getElementById("card2-title").textContent,
-      lines: [
-        document.getElementById("c2-1").textContent,
-        document.getElementById("c2-2").textContent,
-        document.getElementById("c2-3").textContent
+      pairs: [
+        [document.getElementById("c2-label-1").textContent, document.getElementById("c2-value-1").textContent],
+        [document.getElementById("c2-label-2").textContent, document.getElementById("c2-value-2").textContent],
+        [document.getElementById("c2-label-3").textContent, document.getElementById("c2-value-3").textContent]
       ]
     },
     {
       title: document.getElementById("card3-title").textContent,
-      lines: [
-        document.getElementById("c3-1").textContent,
-        document.getElementById("c3-2").textContent
+      pairs: [
+        [document.getElementById("c3-label-1").textContent, document.getElementById("c3-value-1").textContent],
+        [document.getElementById("c3-label-2").textContent, document.getElementById("c3-value-2").textContent]
       ],
-      palette: Array.from(
-        document.querySelectorAll("#paletteRow .palette-swatch")
-      ).map(s => s.style.background)
+      palette: Array.from(document.querySelectorAll("#paletteRow .palette-swatch"))
+        .map(el => el.style.background)
     }
   ];
 
-  const cardWidth = 220;
-  const cardHeight = 260;
-  const posX = [10, 260, 510];
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "#000";
+  ctx.fillStyle = "#000";
 
-  ctx.lineWidth = 2;
+  cards.forEach((c, i) => {
+    const x = startX[i];
 
-  cardData.forEach((c, i) => {
-    const x = posX[i];
-    const y = 20;
-
-    drawRoundedRect(ctx, x, y, cardWidth, cardHeight, 6);
-    ctx.strokeStyle = "#000";
+    drawRoundedRect(ctx, x, y, cardWidth, cardHeight, 20);
     ctx.stroke();
 
-    ctx.fillStyle = "#000";
-    ctx.font = "bold 18px sans-serif";
-    ctx.fillText(c.title, x + 12, y + 34);
+    ctx.font = "bold 28px sans-serif";
+    ctx.fillText(c.title, x + 20, y + 50);
 
-    ctx.font = "14px sans-serif";
-    c.lines.forEach((t, idx) => {
-      ctx.fillText(t, x + 12, y + 70 + idx * 24);
+    ctx.font = "20px sans-serif";
+    let offsetY = 120;
+    c.pairs.forEach(p => {
+      ctx.fillText(p[0], x + 20, y + offsetY);
+      ctx.fillText(p[1], x + 20, y + offsetY + 32);
+      offsetY += 90;
     });
 
     if (c.palette) {
-      c.palette.forEach((col, j) => {
+      let px = x + 20;
+      c.palette.forEach(col => {
         ctx.fillStyle = col;
-        ctx.fillRect(x + 12 + j * 30, y + 160, 26, 26);
-        ctx.strokeRect(x + 12 + j * 30, y + 160, 26, 26);
+        ctx.fillRect(px, y + offsetY, 50, 50);
+        ctx.strokeRect(px, y + offsetY, 50, 50);
+        px += 70;
       });
     }
   });
 
   ctx.fillStyle = "#000";
-  ctx.font = "12px sans-serif";
-  ctx.fillText("© 2025 Artilot", canvas.width - 140, canvas.height - 10);
+  ctx.font = "22px sans-serif";
+  ctx.fillText("© 2025 Artilot", 800, 1050);
 
   const link = document.createElement("a");
   link.download = "artilot_cards.png";
@@ -301,7 +308,6 @@ function saveImage() {
   link.click();
 }
 
-/* ---- 角丸 ---- */
 function drawRoundedRect(ctx, x, y, w, h, r) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -317,7 +323,7 @@ function drawRoundedRect(ctx, x, y, w, h, r) {
 }
 
 /* ---------------------------------------------
-   8. シェア機能（シンプル版）
+   7. シェア機能
 --------------------------------------------- */
 document.getElementById("shareBtn").addEventListener("click", async () => {
   if (navigator.share) {
@@ -328,7 +334,7 @@ document.getElementById("shareBtn").addEventListener("click", async () => {
         url: location.href
       });
     } catch (e) {
-      alert("シェアがキャンセルされました");
+      console.log("share canceled");
     }
   } else {
     alert("このブラウザではシェアに対応していません");
