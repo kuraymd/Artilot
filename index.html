@@ -16,45 +16,51 @@
 
       <div class="header-right">
         <div class="lang-toggle" id="langToggle">
-          <button id="btnJP" class="lang-btn">JP</button>
+          <button id="btnJP" class="lang-btn active">JP</button>
           <button id="btnEN" class="lang-btn">EN</button>
         </div>
       </div>
     </header>
 
     <main>
+      <!-- 上部：カードを引く -->
       <div class="controls-top">
         <button id="drawBtn" class="primary">カードを引く</button>
       </div>
 
+      <!-- カード3枚 -->
       <section class="cards" id="cards">
 
+        <!-- Card 1 -->
         <article class="card simple-card" id="card1">
-          <div class="card-title" id="card1-title">Character</div>
+          <div class="card-title" id="card1-title"></div>
           <div class="divider"></div>
-          <div class="line" id="c1-1">種族：—</div>
-          <div class="line" id="c1-2">性別：—</div>
-          <div class="line" id="c1-3">年齢：—</div>
+          <div class="line" id="c1-1"></div>
+          <div class="line" id="c1-2"></div>
+          <div class="line" id="c1-3"></div>
         </article>
 
+        <!-- Card 2 -->
         <article class="card simple-card" id="card2">
-          <div class="card-title" id="card2-title">Design</div>
+          <div class="card-title" id="card2-title"></div>
           <div class="divider"></div>
-          <div class="line" id="c2-1">髪型：—</div>
-          <div class="line" id="c2-2">服：—</div>
-          <div class="line" id="c2-3">モチーフ：—</div>
+          <div class="line" id="c2-1"></div>
+          <div class="line" id="c2-2"></div>
+          <div class="line" id="c2-3"></div>
         </article>
 
+        <!-- Card 3 -->
         <article class="card simple-card" id="card3">
-          <div class="card-title" id="card3-title">Mood</div>
+          <div class="card-title" id="card3-title"></div>
           <div class="divider"></div>
-          <div class="line" id="c3-1">雰囲気：—</div>
-          <div class="line" id="c3-2">色：—</div>
+          <div class="line" id="c3-1"></div>
+          <div class="line" id="c3-2"></div>
           <div class="palette-row" id="paletteRow"></div>
         </article>
 
       </section>
 
+      <!-- 結果の下のボタン（保存・シェア） -->
       <div class="result-actions" id="resultActions" aria-hidden="true">
         <button id="saveImgBtn">画像を保存</button>
         <button id="shareBtn">シェア</button>
@@ -62,6 +68,7 @@
 
       <p class="note" id="noteText">※結果は自動で履歴に保存されます</p>
 
+      <!-- 履歴 -->
       <section class="historySection">
         <h2 id="historyTitle">履歴</h2>
         <div id="historyList" class="historyList"></div>
