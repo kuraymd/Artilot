@@ -1,42 +1,41 @@
-// カテゴリデータ
-const cardData = {
-    human: [
-        "青年 / 青い髪 / ミステリアス",
-        "女性 / 優しい雰囲気 / 長髪",
-        "大人 / 落ち着いた表情 / シックな服",
-    ],
-    monster: [
-        "影の怪物 / 触手 / 黒い霧",
-        "骨の獣 / 赤い眼 / 静かな咆哮",
-        "深海の怪異 / 青白い光 / 無感情",
-    ],
-    animal: [
-        "白い猫 / 金の目 / 上品",
-        "黒い狼 / 美しい毛並み / 俊敏",
-        "梟 / 静寂 / 知性",
-    ],
-    costume: [
-        "魔法使いのローブ",
-        "騎士の鎧",
-        "クラシックドレス",
-    ],
-    palette: [
-        "ゴールド × エメラルド",
-        "赤 × 黒",
-        "水色 × 白",
-    ],
-};
+// ① 黄色カード：種族・性別・基本情報
+const basicList = [
+"ヒューマン","エルフ","ダークエルフ","ドワーフ","竜人","半獣人","ケモ耳種族",
+"ロボット","サイボーグ","霊体","エンジェル","デーモン","スライム族",
+"植物系","魚人","吸血鬼","妖精","巨人族",
+"女性","男性","中性的","性別不明",
+"少年","青年","大人","老人",
+"小柄","標準","高身長","マッチョ","痩せ型","ふわふわ体型",
+"長耳","尻尾あり"
+];
 
-// カードを引く
-function drawCard() {
-    const category = document.getElementById("categorySelect").value;
-    const area = document.getElementById("cardDisplay");
+// ② 水色カード：髪型・服装・モチーフ
+const styleList = [
+"ロングヘア","ショートヘア","ツインテール","三つ編み","外ハネ","ポニーテール","ボブ",
+"アシメ","ストレート","カール","ウルフカット","オールバック","センター分け","ぱっつん",
+"ローブ","鎧","学生服","スーツ","和服","パーカー","ドレス","セーラー服",
+"ストリート系","メイド服","ワンピース","ミリタリー","サイバー服",
+"羽モチーフ","花モチーフ","鎖モチーフ","星モチーフ","月モチーフ","獣モチーフ",
+"ハートモチーフ","アイモチーフ","水属性","火属性","雷属性","機械パーツ","魔法陣"
+];
 
-    const list = cardData[category];
-    const random = list[Math.floor(Math.random() * list.length)];
+// ③ ピンクカード：雰囲気・テーマ・色
+const moodList = [
+"ダーク","かわいい","シック","クール","ファンタジー","サイバー","パステル","レトロ",
+"ダウナー","おしゃれ","神秘的","荒廃","ナチュラル","エレガント","和風","ゴシック",
+"赤","黒","白","金","銀","黄","青","緑","ピンク","紫","ベージュ","ミント","ネイビー",
+"黒×金","赤×黒","青×白","紫×水色","ミント×ピンク","茶×ベージュ","金×緑",
+"くすみパステル3色","ハロウィン配色"
+];
 
-    area.innerHTML = `
-        <div class="card-title">${category.toUpperCase()}</div>
-        <div class="card-text">${random}</div>
-    `;
+// ランダム選択関数
+function getRandom(list) {
+    return list[Math.floor(Math.random() * list.length)];
 }
+
+// ボタン押したら3枚生成
+document.getElementById("drawBtn").addEventListener("click", () => {
+    document.getElementById("card1").textContent = getRandom(basicList);
+    document.getElementById("card2").textContent = getRandom(styleList);
+    document.getElementById("card3").textContent = getRandom(moodList);
+});
