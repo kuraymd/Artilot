@@ -3,14 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ARTILOT — デザインお題カード</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>ARTILOT — Design Prompt Cards</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1>🔮 ARTILOT</h1>
-      <p class="subtitle">デザインお題カード — 3枚引き（詳細表示）</p>
+      <div class="header-left">
+        <h1>ARTILOT</h1>
+        <p class="subtitle">デザインお題カード — 3枚引き</p>
+      </div>
+
+      <div class="lang-toggle" id="langToggle" aria-hidden="false">
+        <button id="btnJP" class="lang-btn active">JP</button>
+        <button id="btnEN" class="lang-btn">EN</button>
+      </div>
     </header>
 
     <main>
@@ -20,45 +27,48 @@
         <button id="clearHistoryBtn">履歴クリア</button>
       </div>
 
-      <!-- 3枚カード表示（各カードは複数行で情報を出します） -->
       <section class="cards" id="cards">
-        <article class="card card-yellow" id="card1">
+        <article class="card card-frame card-yellow" id="card1">
           <div class="card-inner">
-            <div class="card-title">Character</div>
+            <div class="card-title" id="card1-title">Character</div>
             <div class="card-lines" id="card1-lines">
-              <div class="line">種族：—</div>
-              <div class="line">性別：—</div>
-              <div class="line">年齢：—</div>
+              <div class="line" id="c1-1">種族：—</div>
+              <div class="line" id="c1-2">性別：—</div>
+              <div class="line" id="c1-3">年齢：—</div>
             </div>
           </div>
         </article>
 
-        <article class="card card-blue" id="card2">
+        <article class="card card-frame card-blue" id="card2">
           <div class="card-inner">
-            <div class="card-title">Design</div>
+            <div class="card-title" id="card2-title">Design</div>
             <div class="card-lines" id="card2-lines">
-              <div class="line">髪型：—</div>
-              <div class="line">服：—</div>
-              <div class="line">モチーフ：—</div>
+              <div class="line" id="c2-1">髪型：—</div>
+              <div class="line" id="c2-2">服：—</div>
+              <div class="line" id="c2-3">モチーフ：—</div>
             </div>
           </div>
         </article>
 
-        <article class="card card-pink" id="card3">
+        <article class="card card-frame card-pink" id="card3">
           <div class="card-inner">
-            <div class="card-title">Mood</div>
+            <div class="card-title" id="card3-title">Mood</div>
             <div class="card-lines" id="card3-lines">
-              <div class="line">雰囲気：—</div>
-              <div class="line">色：—</div>
+              <div class="line" id="c3-1">雰囲気：—</div>
+              <div class="line" id="c3-2">色：—</div>
+
+              <div class="palette-row" id="paletteRow" aria-hidden="true">
+                <!-- color swatches inserted here -->
+              </div>
             </div>
           </div>
         </article>
       </section>
 
-      <p class="note">※クリックで履歴保存。結果は localStorage に保存されます。</p>
+      <p class="note" id="noteText">※結果は自動で履歴に保存されます（localStorage）</p>
 
       <section class="historySection">
-        <h2>履歴</h2>
+        <h2 id="historyTitle">履歴</h2>
         <div id="historyList" class="historyList"></div>
       </section>
     </main>
