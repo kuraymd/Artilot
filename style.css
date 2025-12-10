@@ -1,49 +1,75 @@
-
-// ガチャ項目
-const categories = {
-    "人型": ["ヒューマン", "エルフ", "獣人", "ドワーフ", "吸血鬼"],
-    "モンスター": ["スライム型", "ドラゴン型", "海洋生物型", "虫型", "影の怪物"],
-    "異形系": ["多腕", "無顔", "黒いシルエット", "浮遊頭部", "関節が逆"],
-    "動物": ["猫", "犬", "フクロウ", "鹿", "ウサギ"],
-    "衣装": ["ローブ", "軍服", "民族衣装", "近未来スーツ", "作業服"],
-};
-
-// 色パレット（タロット風2色）
-const colors = [
-    ["#2b5f4c", "#d9e7d0"],
-    ["#1a4733", "#c6d6a6"],
-    ["#3a7254", "#ebf8df"],
-    ["#164a3a", "#d0e3c5"],
-    ["#2f6b57", "#e3f4d7"]
-];
-
-// ランダム選択
-function pick(array) {
-    return array[Math.floor(Math.random() * array.length)];
+/* ベース設定 */
+body {
+    background: #0d2b24;
+    color: #f4f4f4;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    padding: 20px;
 }
 
-// カード生成
-document.getElementById("draw-btn").addEventListener("click", () => {
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
 
-    const category = pick(Object.keys(categories));
-    const detail = pick(categories[category]);
-    const palette = pick(colors);
+/* ボタン */
+button {
+    background: #145c4a;
+    color: white;
+    border: 2px solid #1f7a64;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 8px;
+    cursor: pointer;
+    transition: 0.15s;
+    font-family: inherit;
+}
 
-    const title = `${category}カード`;
-    const content = `結果：${detail}`;
+button:hover {
+    background: #1b6f59;
+}
 
-    // 表示
-    document.getElementById("result-title").textContent = title;
-    document.getElementById("result-content").textContent = content;
+/* カテゴリセレクト */
+select {
+    background: #11372f;
+    color: white;
+    border: 2px solid #1f7a64;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 16px;
+}
 
-    // 色プレビュー
-    const preview = document.getElementById("color-preview");
-    preview.innerHTML = "";
+/* カード外枠（タロット風） */
+#cardDisplay {
+    width: 320px;
+    margin: 25px auto;
+    padding: 25px;
+    background: #13352d;
+    border: 3px solid #e2d9b3;
+    border-radius: 14px;
+    box-shadow: 0 0 15px rgba(210, 190, 120, 0.4);
+    min-height: 220px;
+}
 
-    palette.forEach(color => {
-        const box = document.createElement("div");
-        box.className = "color-box";
-        box.style.background = color;
-        preview.appendChild(box);
-    });
-});
+/* カードのタイトル */
+.card-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #f1e8c8;
+    letter-spacing: 1px;
+}
+
+/* カードのテキスト */
+.card-text {
+    font-size: 18px;
+    line-height: 1.6em;
+    margin-top: 15px;
+}
+
+/* Footer 説明文 */
+.note {
+    margin-top: 25px;
+    font-size: 14px;
+    opacity: 0.7;
+}
