@@ -11,8 +11,8 @@
   <div class="wrap">
 
     <!-- Header -->
-    <header>
-      <h1>ARTILOT</h1>
+    <header class="topbar">
+      <h1 class="logo">ARTILOT</h1>
       <div class="lang-toggle" id="langToggle">
         <button id="btnJP" class="lang-btn active">JP</button>
         <button id="btnEN" class="lang-btn">EN</button>
@@ -81,13 +81,18 @@
           </div>
 
           <div class="pair">
-            <div class="label" id="c3-label-2">色</div>
-            <div class="value" id="c3-value-2">—</div>
+            <div class="label" id="c3-label-2">メインカラー</div>
+            <div class="value maincolor-row">
+              <span id="c3-value-2-text">—</span>
+              <span class="main-swatch" id="mainColorSwatch"></span>
+            </div>
           </div>
 
-          <div class="pair palette-pair">
-            <div class="label">パレット</div>
-            <div class="palette-row" id="paletteRow"></div>
+          <div class="pair">
+            <div class="label" id="c3-label-3">サブカラー</div>
+            <div class="value">
+              <div class="palette-row" id="subPaletteRow"></div>
+            </div>
           </div>
         </article>
 
