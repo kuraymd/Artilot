@@ -1,35 +1,47 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artilot - Design Card Generator</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artilot - デザインお題カード</title>
+
+    <!-- Googleフォント：タロット風 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- JS -->
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
-<header>
-    <h1>Artilot</h1>
-    <p>デザインチャレンジカードを引こう</p>
-</header>
+    <h1>🔮 Artilot — デザイン お題カード</h1>
 
-<main>
-    <div class="card-container">
-        <div class="card" id="result-card">
-            <h2 id="result-title">カードを引いてください</h2>
-            <p id="result-content"></p>
-            <div id="color-preview"></div>
-        </div>
+    <!-- カテゴリ選択 -->
+    <div>
+        <label for="categorySelect">カテゴリ：</label>
+        <select id="categorySelect">
+            <option value="human">人型（Human）</option>
+            <option value="monster">モンスター / 異形</option>
+            <option value="animal">動物</option>
+            <option value="costume">服・衣装</option>
+            <option value="palette">色パレット</option>
+        </select>
     </div>
 
-    <button id="draw-btn">カードを引く</button>
-</main>
+    <!-- ボタン -->
+    <div style="margin-top: 15px;">
+        <button onclick="drawCard()">カードを引く</button>
+    </div>
 
-<footer>
-    <p>© 2025 Artilot</p>
-</footer>
+    <!-- 結果表示 -->
+    <div id="cardDisplay"></div>
 
-<script src="script.js"></script>
+    <div class="note">
+        ※これはタロット風に生成されるデザイン用お題カードです。
+    </div>
+
 </body>
 </html>
