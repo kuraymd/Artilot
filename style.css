@@ -1,75 +1,101 @@
-/* ベース設定 */
+/* ===============================
+   Base
+================================ */
 body {
-    background: #0d2b24;
+    background: #0f2e26;
     color: #f4f4f4;
     font-family: 'Cinzel', serif;
     text-align: center;
-    padding: 20px;
+    padding: 25px;
 }
 
 h1 {
-    font-size: 32px;
+    font-size: 28px;
     margin-bottom: 20px;
-}
-
-/* ボタン */
-button {
-    background: #145c4a;
-    color: white;
-    border: 2px solid #1f7a64;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 16px;
-    margin: 8px;
-    cursor: pointer;
-    transition: 0.15s;
-    font-family: inherit;
-}
-
-button:hover {
-    background: #1b6f59;
-}
-
-/* カテゴリセレクト */
-select {
-    background: #11372f;
-    color: white;
-    border: 2px solid #1f7a64;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-/* カード外枠（タロット風） */
-#cardDisplay {
-    width: 320px;
-    margin: 25px auto;
-    padding: 25px;
-    background: #13352d;
-    border: 3px solid #e2d9b3;
-    border-radius: 14px;
-    box-shadow: 0 0 15px rgba(210, 190, 120, 0.4);
-    min-height: 220px;
-}
-
-/* カードのタイトル */
-.card-title {
-    font-size: 22px;
-    margin-bottom: 10px;
-    color: #f1e8c8;
     letter-spacing: 1px;
 }
 
-/* カードのテキスト */
-.card-text {
-    font-size: 18px;
-    line-height: 1.6em;
-    margin-top: 15px;
+/* ===============================
+   Button
+================================ */
+button {
+    background: #1a6d58;
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-size: 16px;
+    margin: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: inherit;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
 }
 
-/* Footer 説明文 */
+button:hover {
+    background: #1e7f67;
+}
+
+/* ===============================
+   Select Box
+================================ */
+select {
+    background: #144238;
+    color: white;
+    border: 2px solid #1e7f67;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+/* ===============================
+   Tarot-style Card
+================================ */
+#cardDisplay {
+    width: 330px;
+    margin: 28px auto;
+    padding: 28px 20px;
+    background: #12362d;
+    border-radius: 18px;
+
+    /* 柔らかいタロット風の枠 */
+    border: 3px solid #e7d9b4;
+
+    /* 優しい影 */
+    box-shadow:
+        0 0 10px rgba(230, 215, 140, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.35);
+
+    min-height: 240px;
+    position: relative;
+}
+
+/* タイトル用プレート風デザイン */
+.card-title {
+    font-size: 20px;
+    color: #f7eac8;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+
+    padding: 6px 15px;
+    border-bottom: 2px solid #e7d9b4;
+    display: inline-block;
+}
+
+/* カード本文 */
+.card-text {
+    font-size: 18px;
+    line-height: 1.7em;
+    margin-top: 10px;
+    color: #fff;
+    padding: 10px 5px;
+}
+
+/* ===============================
+   Note
+================================ */
 .note {
     margin-top: 25px;
     font-size: 14px;
-    opacity: 0.7;
+    opacity: 0.75;
 }
