@@ -4,149 +4,122 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ARTILOT — Design Prompt Cards</title>
-
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="wrap">
+<div class="wrap">
 
-    <!-- ───────────────────────────────
-         ヘッダー
-    ─────────────────────────────── -->
-    <header>
-      <div class="header-left">
-        <h1>ARTILOT</h1>
-        <p class="subtitle">デザインお題カード — 3枚引き</p>
-      </div>
+  <header>
+    <h1>ARTILOT</h1>
+    <p class="subtitle">デザインお題カード — 3枚引き</p>
 
-      <div class="header-right">
-        <div class="lang-toggle" id="langToggle">
-          <button id="btnJP" class="lang-btn active">JP</button>
-          <button id="btnEN" class="lang-btn">EN</button>
-        </div>
-      </div>
-    </header>
+    <div class="lang-toggle">
+      <button id="btnJP" class="lang-btn active">JP</button>
+      <button id="btnEN" class="lang-btn">EN</button>
+    </div>
+  </header>
 
-    <!-- ───────────────────────────────
-         カードを引くボタン
-    ─────────────────────────────── -->
+  <main>
+
     <div class="controls-top">
       <button id="drawBtn" class="primary">カードを引く</button>
     </div>
 
-
-    <!-- ───────────────────────────────
-         カード本体（3枚）
-    ─────────────────────────────── -->
+    <!-- 3 CARDS -->
     <section class="cards" id="cards">
 
-      <!-- キャラクター -->
-      <article class="card simple-card" id="card1">
-        <div class="card-title" id="card1-title">キャラクター</div>
+      <!-- Card1 -->
+      <article class="card" id="card1">
+        <div class="card-title" id="card1-title">キャラクター<br><span>Character</span></div>
+        <div class="divider"></div>
 
-        <div class="line">
-          <span id="c1-label-1">種族</span><br />
-          <span id="c1-1">—</span>
+        <div class="block">
+          <div class="label" id="c1l-1">種族<br><span>Race</span></div>
+          <div class="value" id="c1-1">—</div>
         </div>
 
-        <div class="line">
-          <span id="c1-label-2">性別</span><br />
-          <span id="c1-2">—</span>
+        <div class="block">
+          <div class="label" id="c1l-2">性別<br><span>Gender</span></div>
+          <div class="value" id="c1-2">—</div>
         </div>
 
-        <div class="line">
-          <span id="c1-label-3">性格</span><br />
-          <span id="c1-3">—</span>
-        </div>
-      </article>
-
-
-      <!-- デザイン -->
-      <article class="card simple-card" id="card2">
-        <div class="card-title" id="card2-title">デザイン</div>
-
-        <div class="line">
-          <span id="c2-label-1">髪型</span><br />
-          <span id="c2-1">—</span>
-        </div>
-
-        <div class="line">
-          <span id="c2-label-2">服</span><br />
-          <span id="c2-2">—</span>
-        </div>
-
-        <div class="line">
-          <span id="c2-label-3">モチーフ</span><br />
-          <span id="c2-3">—</span>
+        <div class="block">
+          <div class="label" id="c1l-3">性格<br><span>Personality</span></div>
+          <div class="value" id="c1-3">—</div>
         </div>
       </article>
 
+      <!-- Card2 -->
+      <article class="card" id="card2">
+        <div class="card-title" id="card2-title">デザイン<br><span>Design</span></div>
+        <div class="divider"></div>
 
-      <!-- 雰囲気 -->
-      <article class="card simple-card" id="card3">
-        <div class="card-title" id="card3-title">雰囲気</div>
-
-        <div class="line">
-          <span id="c3-label-1">雰囲気</span><br />
-          <span id="c3-1">—</span>
+        <div class="block">
+          <div class="label" id="c2l-1">髪型<br><span>Hair</span></div>
+          <div class="value" id="c2-1">—</div>
         </div>
 
-        <div class="line">
-          <span id="c3-label-2">メインカラー</span><br />
-          <span id="c3-2">—</span>
-        </div>
-        <div class="palette-row-wrapper">
-          <div class="palette-box" id="mainColorRow"></div>
+        <div class="block">
+          <div class="label" id="c2l-2">服<br><span>Outfit</span></div>
+          <div class="value" id="c2-2">—</div>
         </div>
 
-        <div class="line">
-          <span id="c3-label-3">サブカラー</span><br />
-          <span id="c3-3">—</span>
+        <div class="block">
+          <div class="label" id="c2l-3">モチーフ<br><span>Motif</span></div>
+          <div class="value" id="c2-3">—</div>
         </div>
-        <div class="palette-row-wrapper">
-          <div class="palette-box" id="subColorRow"></div>
+      </article>
+
+      <!-- Card3 -->
+      <article class="card" id="card3">
+        <div class="card-title" id="card3-title">雰囲気<br><span>Mood</span></div>
+        <div class="divider"></div>
+
+        <div class="block">
+          <div class="label" id="c3l-1">雰囲気<br><span>Mood</span></div>
+          <div class="value" id="c3-1">—</div>
         </div>
 
+        <div class="block">
+          <div class="label" id="c3l-2">メインカラー<br><span>Main Color</span></div>
+          <div class="value" id="c3-2">—</div>
+        </div>
+
+        <div class="palette-row" id="mainPalette"></div>
+
+        <div class="block">
+          <div class="label" id="c3l-3">サブカラー<br><span>Sub Color</span></div>
+          <div class="value" id="c3-3">—</div>
+        </div>
+
+        <div class="palette-row" id="subPalette"></div>
       </article>
 
     </section>
 
-
-    <!-- ───────────────────────────────
-         保存 / シェア
-    ─────────────────────────────── -->
-    <div class="result-actions" id="resultActions" aria-hidden="true">
+    <div class="result-actions" id="resultActions">
       <button id="saveImgBtn">画像を保存</button>
       <button id="shareBtn">シェア</button>
     </div>
 
-    <!-- 注釈 -->
-    <p class="note" id="noteText">
-      ※結果は自動で履歴に保存されます（最大20件・古い順に削除）
-    </p>
+    <p class="note" id="noteText">※結果は自動で履歴に保存されます（最大20件）</p>
 
-
-    <!-- ───────────────────────────────
-         履歴
-    ─────────────────────────────── -->
     <section class="historySection">
       <h2 id="historyTitle">履歴</h2>
       <div id="historyList" class="historyList"></div>
-
       <div class="history-actions">
         <button id="clearHistoryBtn" class="danger">履歴をすべて削除</button>
       </div>
     </section>
 
+  </main>
 
-    <!-- フッター -->
-    <footer>
-      <small>© 2025 Artilot</small>
-    </footer>
+  <footer>
+    <small>© 2025 Artilot</small>
+  </footer>
 
-  </div>
+</div>
 
-  <script src="script.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>
