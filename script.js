@@ -1,6 +1,5 @@
 /* ==========================================================
-   ARTILOT — Script (Language toggle / Card draw / History /
-                     Save image / Share)
+   ARTILOT — Script  (Full Version)
 ========================================================== */
 
 /* ---------------------------------------------------------
@@ -32,7 +31,10 @@ const moodJP = ["ファンタジー", "ホラー", "サイバー", "レトロ", 
 const moodEN = ["Fantasy", "Horror", "Cyber", "Retro", "Japanese", "Dark"];
 
 // ★ カラー
-const colors = ["#ff4b4b", "#ffd93d", "#4b7bff", "#34a853", "#bb84ff", "#ff884b", "#444444", "#ffffff"];
+const colors = [
+  "#ff4b4b", "#ffd93d", "#4b7bff", "#34a853", "#bb84ff",
+  "#ff884b", "#ff77b5", "#00c2c7", "#444444", "#ffffff"
+];
 
 
 /* ---------------------------------------------------------
@@ -63,10 +65,11 @@ function setLang(lang) {
   if (lang === "JP") langBtnJP.classList.add("active");
   else langBtnEN.classList.add("active");
 
-  // UI文言切替
+  // サブタイトル
   document.querySelector(".subtitle").textContent =
-    lang === "JP" ? "デザインお題カード — 3枚引き" : "Design Prompt Cards — Draw 3";
+    lang === "JP" ? "インスピレーションカード" : "Inspiration Cards";
 
+  // UI
   document.getElementById("drawBtn").textContent =
     lang === "JP" ? "カードを引く" : "Draw Cards";
 
@@ -104,15 +107,15 @@ function drawCards() {
   /* --- Card 3 --- */
   document.getElementById("c3-1").textContent = isJP ? rnd(moodJP) : rnd(moodEN);
 
+  // 色生成
   const mainColor = rnd(colors);
-  const subColor = rnd(colors);
+  const subColors = [rnd(colors), rnd(colors), rnd(colors)];
 
   document.getElementById("c3-2").textContent = mainColor;
-  document.getElementById("c3-3").textContent = subColor;
+  document.getElementById("c3-3").textContent = subColors.join(", ");
 
-  // 色パレット描画
-  drawPalette("mainPalette", mainColor);
-  drawPalette("subPalette", subColor);
+  drawPalette("mainPalette", [mainColor]);
+  drawPalette("subPalette", subColors);
 
   saveToHistory();
 }
@@ -121,15 +124,16 @@ function drawCards() {
 /* ---------------------------------------------------------
    5. パレット描画
 ---------------------------------------------------------- */
-function drawPalette(id, color) {
+function drawPalette(id, colorList) {
   const box = document.getElementById(id);
   box.innerHTML = "";
 
-  const sw = document.createElement("div");
-  sw.className = "palette-swatch";
-  sw.style.background = color;
-
-  box.appendChild(sw);
+  colorList.forEach(col => {
+    const sw = document.createElement("div");
+    sw.className = "palette-swatch";
+    sw.style.background = col;
+    box.appendChild(sw);
+  });
 }
 
 
@@ -154,6 +158,7 @@ function saveToHistory() {
 
   renderHistory();
 }
+
 
 /* ---------------------------------------------------------
    7. 履歴表示
@@ -195,9 +200,8 @@ document.getElementById("clearHistoryBtn").addEventListener("click", () => {
 
 
 /* ---------------------------------------------------------
-   9. 画像保存（画面そのままキャプチャ）
+   9. 画像保存（画面まるごとキャプチャ）
 ---------------------------------------------------------- */
-
 document.getElementById("saveImgBtn").addEventListener("click", saveAsImage);
 
 function saveAsImage() {
@@ -213,11 +217,10 @@ function saveAsImage() {
 /* ---------------------------------------------------------
    10. シェア
 ---------------------------------------------------------- */
-
 document.getElementById("shareBtn").addEventListener("click", async () => {
   if (navigator.share) {
     navigator.share({
-      title: "ARTILOT — 今日のデザインお題",
+      title: "ARTILOT — 今日のインスピレーションカード",
       url: location.href
     });
   } else {
