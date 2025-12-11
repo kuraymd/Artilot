@@ -1,15 +1,15 @@
 /* --------------------------------------------------
-   ARTI LOT — style (2段: 220+220 / 460)
+   ARTI LOT — style (2段: 220 + 220 / 460)
 -------------------------------------------------- */
 
-* { box-sizing: border-box; font-family: "Helvetica", Arial, sans-serif; }
+* { box-sizing: border-box; font-family: "Helvetica Neue", Arial, sans-serif; }
 
 body { margin:0; background:#fff; color:#000; }
 .wrap { max-width:980px; margin:0 auto; padding:18px; }
 
 /* Header */
 .page-header { text-align:center; margin-bottom:12px; }
-.main-title { font-size:32px; margin:0 0 6px 0; }
+.main-title { font-size:32px; margin:0 0 6px 0; font-weight:800; }
 .subtitle { font-size:14px; color:#333; margin:0 0 12px 0; }
 .top-controls { display:flex; justify-content:center; gap:12px; align-items:center; }
 
@@ -19,6 +19,7 @@ body { margin:0; background:#fff; color:#000; }
 #saveImgBtn,#shareBtn { padding:8px 14px; border:1px solid #000; background:#fff; cursor:pointer; }
 
 /* Cards container 2段 */
+.cards-wrapper { display:flex; justify-content:center; }
 .cards { display:flex; flex-direction:column; align-items:center; gap:16px; margin-bottom:12px; }
 
 /* top cards row */
@@ -35,19 +36,23 @@ body { margin:0; background:#fff; color:#000; }
 .card-title { font-weight:800; text-align:center; font-size:16px; margin-bottom:8px; }
 .divider { height:1px; background:#000; margin-bottom:10px; }
 
-.block { display:flex; gap:8px; margin-bottom:10px; }
+.block { display:flex; gap:8px; margin-bottom:10px; align-items:center; }
 .label { width:38%; font-weight:700; font-size:13px; color:#111; }
 .value { width:62%; font-weight:700; font-size:13px; }
 
 /* palette chips */
 .palette-row { display:flex; gap:10px; margin:6px 0 12px; }
-.palette-swatch { width:28px; height:28px; border-radius:6px; border:1px solid #000; }
+.palette-chip { width:28px; height:28px; border-radius:6px; border:1px solid #000; }
 
 /* history */
 .historySection { margin-top:8px; }
 .historyList { min-height:40px; border:1px solid #000; background:#fafafa; padding:8px; margin-bottom:8px; }
 .history-item { border:1px solid #ddd; padding:8px; margin-bottom:8px; background:#fff; }
-.history-actions { text-align:center; }
+.history-set { display:flex; flex-direction:column; gap:10px; }
+
+/* clear */
+.history-actions { text-align:center; margin-top:6px; }
+.danger { padding:6px 12px; border:1px solid #d00; background:#fff; color:#d00; cursor:pointer; }
 
 /* small screens: shrink if necessary */
 @media (max-width:540px){
