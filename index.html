@@ -14,7 +14,7 @@
 
 <div class="wrap">
 
-  <!-- Header: title center -->
+  <!-- Header -->
   <header class="page-header">
     <h1 class="main-title">ARTILOT</h1>
     <p class="subtitle">インスピレーションカード / Inspiration Cards</p>
@@ -26,78 +26,85 @@
 
   <main>
 
-    <!-- 2段レイアウト -->
-    <section id="cards" class="cards">
+    <!-- WRAPPER for capture -->
+    <div class="cards-wrapper">
 
-      <!-- 上段：2枚横並び -->
-      <div class="top-cards">
-        <article class="card" id="card1">
-          <div class="card-title">キャラクター / Character</div>
-          <div class="divider"></div>
+      <!-- 2段レイアウト -->
+      <section id="cards" class="cards">
 
-          <div class="block">
-            <div class="label">種族 / Race</div>
-            <div class="value" id="c1-1">—</div>
-          </div>
+        <!-- 上段：2枚横並び -->
+        <div class="top-cards">
+          <article class="card" id="card1">
+            <div class="card-title">キャラクター / Character</div>
+            <div class="divider"></div>
 
-          <div class="block">
-            <div class="label">性別 / Gender</div>
-            <div class="value" id="c1-2">—</div>
-          </div>
+            <div class="block">
+              <div class="label">種族 / Race</div>
+              <div class="value" id="c1-1">—</div>
+            </div>
 
-          <div class="block">
-            <div class="label">性格 / Personality</div>
-            <div class="value" id="c1-3">—</div>
-          </div>
-        </article>
+            <div class="block">
+              <div class="label">性別 / Gender</div>
+              <div class="value" id="c1-2">—</div>
+            </div>
 
-        <article class="card" id="card2">
-          <div class="card-title">デザイン / Design</div>
-          <div class="divider"></div>
+            <div class="block">
+              <div class="label">性格 / Personality</div>
+              <div class="value" id="c1-3">—</div>
+            </div>
+          </article>
 
-          <div class="block">
-            <div class="label">髪型 / Hair</div>
-            <div class="value" id="c2-1">—</div>
-          </div>
+          <article class="card" id="card2">
+            <div class="card-title">デザイン / Design</div>
+            <div class="divider"></div>
 
-          <div class="block">
-            <div class="label">服 / Outfit</div>
-            <div class="value" id="c2-2">—</div>
-          </div>
+            <div class="block">
+              <div class="label">髪型 / Hair</div>
+              <div class="value" id="c2-1">—</div>
+            </div>
 
-          <div class="block">
-            <div class="label">モチーフ / Motif</div>
-            <div class="value" id="c2-3">—</div>
-          </div>
-        </article>
-      </div>
+            <div class="block">
+              <div class="label">服 / Outfit</div>
+              <div class="value" id="c2-2">—</div>
+            </div>
 
-      <!-- 下段：横広カード -->
-      <div class="bottom-card">
-        <article class="card wide" id="card3">
-          <div class="card-title">雰囲気 / Mood</div>
-          <div class="divider"></div>
+            <div class="block">
+              <div class="label">モチーフ / Motif</div>
+              <div class="value" id="c2-3">—</div>
+            </div>
+          </article>
+        </div>
 
-          <div class="block">
-            <div class="label">雰囲気 / Mood</div>
-            <div class="value" id="c3-1">—</div>
-          </div>
+        <!-- 下段：横広カード -->
+        <div class="bottom-card">
+          <article class="card wide" id="card3">
+            <div class="card-title">雰囲気 / Mood</div>
+            <div class="divider"></div>
 
-          <div class="block">
-            <div class="label">メインカラー / Main Color</div>
-            <div class="value" id="c3-2">—</div>
-          </div>
-          <div class="palette-row" id="mainPalette" aria-hidden="false"></div>
+            <div class="block">
+              <div class="label">雰囲気 / Mood</div>
+              <div class="value" id="c3-1">—</div>
+            </div>
 
-          <div class="block">
-            <div class="label">サブカラー / Sub Colors</div>
-            <div class="value" id="c3-3">—</div>
-          </div>
-          <div class="palette-row" id="subPalette" aria-hidden="false"></div>
-        </article>
-      </div>
+            <div class="block">
+              <div class="label">メインカラー / Main Color</div>
+              <div class="value" id="c3-2">—</div>
+            </div>
 
-    </section>
+            <div class="palette-row" id="mainPalette" aria-hidden="false"></div>
+
+            <div class="block">
+              <div class="label">サブカラー / Sub Colors</div>
+              <div class="value" id="c3-3">—</div>
+            </div>
+
+            <div class="palette-row" id="subPalette" aria-hidden="false"></div>
+          </article>
+        </div>
+
+      </section>
+
+    </div><!-- /.cards-wrapper -->
 
     <!-- actions -->
     <div class="result-actions">
