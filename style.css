@@ -93,7 +93,7 @@ header h1 {
    Card Design
 -------------------------------------------------- */
 .card {
-  width: 220px;
+  width: 200px;
   border: 2px solid #000;
   border-radius: 10px;
   background: #fff;
