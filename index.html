@@ -4,122 +4,132 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ARTILOT — Inspiration Cards</title>
+
+  <!-- your CSS -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- html2canvas (必要) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
+
 <div class="wrap">
 
-  <header>
-    <h1>ARTILOT</h1>
-    <p class="subtitle">インスピレーションカード</p>
+  <!-- Header: title (center) + subtitle (small) -->
+  <header class="page-header" style="text-align:center;margin-bottom:14px;">
+    <h1 class="main-title" style="margin:0;font-size:32px;">ARTILOT</h1>
+    <p class="subtitle" style="margin:6px 0 12px;color:#333;font-size:14px;">インスピレーションカード</p>
 
-    <div class="lang-toggle">
-      <button id="btnJP" class="lang-btn active">JP</button>
-      <button id="btnEN" class="lang-btn">EN</button>
+    <!-- Draw button + language toggle (on same row) -->
+    <div class="top-controls" style="display:flex;justify-content:center;gap:12px;align-items:center;">
+      <button id="drawBtn" class="primary" style="padding:10px 18px;border-radius:8px;border:0;background:#000;color:#fff;cursor:pointer;">カードを引く</button>
+
+      <div class="lang-toggle" style="display:flex;gap:6px;">
+        <button id="btnJP" class="lang-btn active" style="padding:6px 10px;border:1px solid #000;background:#000;color:#fff;border-radius:6px;cursor:pointer;">JP</button>
+        <button id="btnEN" class="lang-btn" style="padding:6px 10px;border:1px solid #000;background:#fff;color:#000;border-radius:6px;cursor:pointer;">EN</button>
+      </div>
     </div>
   </header>
 
   <main>
 
-    <div class="controls-top">
-      <button id="drawBtn" class="primary">カードを引く</button>
-    </div>
-
-    <!-- 3 CARDS -->
-    <section class="cards" id="cards">
-
+    <!-- Cards: horizontal 3-up (id and class both present) -->
+    <section id="cards" class="cards" style="display:flex;gap:12px;justify-content:center;align-items:flex-start;">
       <!-- Card1 -->
-      <article class="card" id="card1">
-        <div class="card-title" id="card1-title">キャラクター<br><span>Character</span></div>
-        <div class="divider"></div>
+      <article class="card" id="card1" style="width:220px;border:2px solid #000;border-radius:10px;padding:12px;background:#fff;">
+        <div class="card-title" id="card1-title" style="text-align:center;font-weight:700;font-size:16px;">キャラクター<br><span style="font-weight:400;font-size:12px;">Character</span></div>
+        <div class="divider" style="height:1px;background:#000;margin:8px 0;"></div>
 
-        <div class="block">
-          <div class="label" id="c1l-1">種族<br><span>Race</span></div>
-          <div class="value" id="c1-1">—</div>
+        <div class="block" style="display:flex;margin-bottom:10px;">
+          <div class="label" id="c1l-1" style="width:40%;font-weight:700;font-size:13px;">種族<br><span style="font-weight:400;font-size:11px;">Race</span></div>
+          <div class="value" id="c1-1" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
 
-        <div class="block">
-          <div class="label" id="c1l-2">性別<br><span>Gender</span></div>
-          <div class="value" id="c1-2">—</div>
+        <div class="block" style="display:flex;margin-bottom:10px;">
+          <div class="label" id="c1l-2" style="width:40%;font-weight:700;font-size:13px;">性別<br><span style="font-weight:400;font-size:11px;">Gender</span></div>
+          <div class="value" id="c1-2" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
 
-        <div class="block">
-          <div class="label" id="c1l-3">性格<br><span>Personality</span></div>
-          <div class="value" id="c1-3">—</div>
+        <div class="block" style="display:flex;margin-bottom:10px;">
+          <div class="label" id="c1l-3" style="width:40%;font-weight:700;font-size:13px;">性格<br><span style="font-weight:400;font-size:11px;">Personality</span></div>
+          <div class="value" id="c1-3" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
       </article>
 
       <!-- Card2 -->
-      <article class="card" id="card2">
-        <div class="card-title" id="card2-title">デザイン<br><span>Design</span></div>
-        <div class="divider"></div>
+      <article class="card" id="card2" style="width:220px;border:2px solid #000;border-radius:10px;padding:12px;background:#fff;">
+        <div class="card-title" id="card2-title" style="text-align:center;font-weight:700;font-size:16px;">デザイン<br><span style="font-weight:400;font-size:12px;">Design</span></div>
+        <div class="divider" style="height:1px;background:#000;margin:8px 0;"></div>
 
-        <div class="block">
-          <div class="label" id="c2l-1">髪型<br><span>Hair</span></div>
-          <div class="value" id="c2-1">—</div>
+        <div class="block" style="display:flex;margin-bottom:10px;">
+          <div class="label" id="c2l-1" style="width:40%;font-weight:700;font-size:13px;">髪型<br><span style="font-weight:400;font-size:11px;">Hair</span></div>
+          <div class="value" id="c2-1" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
 
-        <div class="block">
-          <div class="label" id="c2l-2">服<br><span>Outfit</span></div>
-          <div class="value" id="c2-2">—</div>
+        <div class="block" style="display:flex;margin-bottom:10px;">
+          <div class="label" id="c2l-2" style="width:40%;font-weight:700;font-size:13px;">服<br><span style="font-weight:400;font-size:11px;">Outfit</span></div>
+          <div class="value" id="c2-2" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
 
-        <div class="block">
-          <div class="label" id="c2l-3">モチーフ<br><span>Motif</span></div>
-          <div class="value" id="c2-3">—</div>
+        <div class="block" style="display:flex;margin-bottom:10px;">
+          <div class="label" id="c2l-3" style="width:40%;font-weight:700;font-size:13px;">モチーフ<br><span style="font-weight:400;font-size:11px;">Motif</span></div>
+          <div class="value" id="c2-3" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
       </article>
 
       <!-- Card3 -->
-      <article class="card" id="card3">
-        <div class="card-title" id="card3-title">雰囲気<br><span>Mood</span></div>
-        <div class="divider"></div>
+      <article class="card" id="card3" style="width:220px;border:2px solid #000;border-radius:10px;padding:12px;background:#fff;">
+        <div class="card-title" id="card3-title" style="text-align:center;font-weight:700;font-size:16px;">雰囲気<br><span style="font-weight:400;font-size:12px;">Mood</span></div>
+        <div class="divider" style="height:1px;background:#000;margin:8px 0;"></div>
 
-        <div class="block">
-          <div class="label" id="c3l-1">雰囲気<br><span>Mood</span></div>
-          <div class="value" id="c3-1">—</div>
+        <div class="block" style="display:flex;margin-bottom:10px;">
+          <div class="label" id="c3l-1" style="width:40%;font-weight:700;font-size:13px;">雰囲気<br><span style="font-weight:400;font-size:11px;">Mood</span></div>
+          <div class="value" id="c3-1" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
 
-        <div class="block">
-          <div class="label" id="c3l-2">メインカラー<br><span>Main Color</span></div>
-          <div class="value" id="c3-2">—</div>
+        <div class="block" style="display:flex;margin-bottom:6px;">
+          <div class="label" id="c3l-2" style="width:40%;font-weight:700;font-size:13px;">メインカラー<br><span style="font-weight:400;font-size:11px;">Main Color</span></div>
+          <div class="value" id="c3-2" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
 
-        <div class="palette-row" id="mainPalette" aria-hidden="false"></div>
+        <div class="palette-row" id="mainPalette" style="display:flex;gap:8px;margin-bottom:8px;"></div>
 
-        <div class="block">
-          <div class="label" id="c3l-3">サブカラー<br><span>Sub Colors</span></div>
-          <div class="value" id="c3-3">—</div>
+        <div class="block" style="display:flex;margin-bottom:6px;">
+          <div class="label" id="c3l-3" style="width:40%;font-weight:700;font-size:13px;">サブカラー<br><span style="font-weight:400;font-size:11px;">Sub Colors</span></div>
+          <div class="value" id="c3-3" style="width:60%;font-weight:700;font-size:13px;">—</div>
         </div>
 
-        <div class="palette-row" id="subPalette" aria-hidden="false"></div>
+        <div class="palette-row" id="subPalette" style="display:flex;gap:8px;margin-bottom:6px;"></div>
       </article>
-
     </section>
 
-    <div class="result-actions" id="resultActions">
-      <button id="saveImgBtn">画像を保存</button>
-      <button id="shareBtn">シェア</button>
+    <!-- Save & Share -->
+    <div class="result-actions" style="display:flex;gap:12px;justify-content:center;margin-top:12px;margin-bottom:14px;">
+      <button id="saveImgBtn" style="padding:8px 14px;border:1px solid #000;background:#fff;cursor:pointer;">画像を保存</button>
+      <button id="shareBtn" style="padding:8px 14px;border:1px solid #000;background:#fff;cursor:pointer;">シェア</button>
     </div>
 
-    <p class="note" id="noteText">※結果は自動で履歴に保存されます（最大20件）</p>
+    <!-- Note -->
+    <p id="noteText" style="text-align:center;color:#444;margin-bottom:12px;">※結果は自動で履歴に保存されます（最大20件）</p>
 
-    <section class="historySection">
-      <h2 id="historyTitle">履歴</h2>
-      <div id="historyList" class="historyList"></div>
-      <div class="history-actions">
-        <button id="clearHistoryBtn" class="danger">履歴をすべて削除</button>
+    <!-- History -->
+    <section class="historySection" style="margin-top:8px;">
+      <h2 id="historyTitle" style="font-size:18px;margin-bottom:8px;text-align:left;">履歴</h2>
+      <div id="historyList" class="historyList" style="min-height:40px;border:1px solid #000;padding:10px;background:#fafafa;"></div>
+
+      <div class="history-actions" style="text-align:center;margin-top:10px;">
+        <button id="clearHistoryBtn" class="danger" style="padding:6px 12px;border:1px solid #d00;background:#fff;color:#d00;cursor:pointer;">履歴をすべて削除</button>
       </div>
     </section>
 
   </main>
 
-  <footer>
+  <footer style="text-align:center;margin-top:18px;color:#666;">
     <small>© 2025 Artilot</small>
   </footer>
-
 </div>
 
+<!-- your script (place script.js in repo) -->
 <script src="script.js" defer></script>
 </body>
 </html>
