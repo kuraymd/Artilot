@@ -1,218 +1,76 @@
-/* --------------------------------------------------
-   ARTILOT — 3 Card Inspiration Generator
--------------------------------------------------- */
+/* ---------- Share (Text Only, Fully Stable) ---------- */
+shareBtn.addEventListener("click", () => {
 
-/* ---------- DOM ---------- */
-const drawBtn = document.getElementById("drawBtn");
-const saveImgBtn = document.getElementById("saveImgBtn");
-const shareBtn = document.getElementById("shareBtn");
+  // カードのテキストを取得
+  const race = document.getElementById("c1-1").textContent;
+  const gender = document.getElementById("c1-2").textContent;
+  const personality = document.getElementById("c1-3").textContent;
 
-const mainPalette = document.getElementById("mainPalette");
-const subPalette = document.getElementById("subPalette");
+  const hair = document.getElementById("c2-1").textContent;
+  const outfit = document.getElementById("c2-2").textContent;
+  const motif = document.getElementById("c2-3").textContent;
 
-const historyList = document.getElementById("historyList");
-const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+  const mood = document.getElementById("c3-1").textContent;
 
-const STORAGE_KEY = "artilot_history";
+  // カラーコード（色チップの背景色を取得）
+  const mainColorChip = document.querySelector("#mainPalette .palette-chip");
+  const mainColor = rgbToHex(mainColorChip.style.background);
 
-/* ---------- Data ---------- */
-const raceList = [
-  "ヒューマン / Human",
-  "エルフ / Elf",
-  "ドワーフ / Dwarf",
-  "竜族 / Dragonborn",
-  "獣人 / Beastfolk",
-  "鬼 / Oni",
-  "天使 / Angel",
-  "悪魔 / Demon"
-];
+  const subChips = document.querySelectorAll("#subPalette .palette-chip");
+  const subColors = Array.from(subChips).map(c => rgbToHex(c.style.background));
 
-const genderList = [
-  "男性 / Male",
-  "女性 / Female",
-  "中性 / Androgynous",
-  "不明 / Unknown"
-];
+  const subColorText = `${subColors[0]} / ${subColors[1]} / ${subColors[2]}`;
 
-const personalityList = [
-  "優しい / Kind",
-  "クール / Cool",
-  "元気 / Energetic",
-  "無表情 / Expressionless",
-  "陽気 / Cheerful",
-  "内向的 / Introverted",
-  "大胆 / Bold"
-];
+  const shareText = 
+`インスピレーションカードの結果
+——————————————
+種族: ${race}
+性別: ${gender}
+性格: ${personality}
 
-const hairList = [
-  "ショート / Short",
-  "ロング / Long",
-  "ポニーテール / Ponytail",
-  "ツインテール / Twin Tail",
-  "三つ編み / Braid",
-  "ボブ / Bob",
-  "ストレート / Straight",
-  "カール / Curl"
-];
+髪型: ${hair}
+服: ${outfit}
+モチーフ: ${motif}
 
-const outfitList = [
-  "制服 / Uniform",
-  "鎧 / Armor",
-  "私服 / Casual",
-  "和服 / Kimono",
-  "メイド服 / Maid",
-  "スーツ / Suit"
-];
+雰囲気: ${mood}
 
-const motifList = [
-  "星 / Star",
-  "月 / Moon",
-  "太陽 / Sun",
-  "魚 / Fish",
-  "花 / Flower",
-  "心臓 / Heart",
-  "炎 / Flame",
-  "氷 / Ice"
-];
+メインカラー:
+${mainColor}
 
-const moodList = [
-  "幻想的 / Fantasy",
-  "ホラー / Horror",
-  "レトロ / Retro",
-  "ダーク / Dark",
-  "ポップ / Pop",
-  "神秘的 / Mystic"
-];
+サブカラー:
+${subColorText}
 
-/* カラーパレットセット */
-const paletteSets = [
-  ["#c76f6f", "#fff3e0", "#2d2d2d"],
-  ["#6fa8dc", "#f4cccc", "#1c4587"],
-  ["#93c47d", "#d9ead3", "#274e13"],
-  ["#f6b26b", "#ffe599", "#783f04"],
-  ["#b4a7d6", "#d9d2e9", "#351c75"]
-];
+——————————————
+#ARTILOT
+#今日のお題
+#InspirationCards
 
-/* ---------- Utilities ---------- */
-function choice(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
+あなたもやってみてね！
+ARTILOT → https://kuraymd.github.io/Artilot/
+`;
 
-function randomPalette() {
-  return choice(paletteSets);
-}
-
-/* ---------- Update Cards ---------- */
-function drawCards() {
-  // Card1
-  document.getElementById("c1-1").textContent = choice(raceList);
-  document.getElementById("c1-2").textContent = choice(genderList);
-  document.getElementById("c1-3").textContent = choice(personalityList);
-
-  // Card2
-  document.getElementById("c2-1").textContent = choice(hairList);
-  document.getElementById("c2-2").textContent = choice(outfitList);
-  document.getElementById("c2-3").textContent = choice(motifList);
-
-  // Card3
-  document.getElementById("c3-1").textContent = choice(moodList);
-
-  const pal = randomPalette();
-
-  // メインカラー1色
-  mainPalette.innerHTML = "";
-  const mainChip = document.createElement("div");
-  mainChip.className = "palette-chip";
-  mainChip.style.background = pal[0];
-  mainPalette.appendChild(mainChip);
-
-  // サブカラー3色
-  subPalette.innerHTML = "";
-  for (let i = 1; i < 4; i++) {
-    const chip = document.createElement("div");
-    chip.className = "palette-chip";
-    chip.style.background = pal[i] || "#ccc";
-    subPalette.appendChild(chip);
-  }
-
-  pushHistory();
-}
-
-/* ---------- History (save 3 cards as 1 set) ---------- */
-function pushHistory() {
-  try {
-    const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-
-    const snapshot = `
-      <div class="history-set">
-        ${document.getElementById("card1").outerHTML}
-        ${document.getElementById("card2").outerHTML}
-        ${document.getElementById("card3").outerHTML}
-      </div>
-    `;
-
-    arr.unshift(snapshot);
-    if (arr.length > 20) arr.length = 20;
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-    renderHistory();
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-function renderHistory() {
-  const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  historyList.innerHTML = "";
-
-  if (arr.length === 0) {
-    historyList.innerHTML = `<div class="history-item">まだ履歴はありません</div>`;
-    return;
-  }
-
-  arr.forEach(html => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "history-item";
-    wrapper.innerHTML = html;
-    historyList.appendChild(wrapper);
-  });
-}
-
-/* ---------- Clear History ---------- */
-clearHistoryBtn.addEventListener("click", () => {
-  if (confirm("履歴をすべて削除しますか？")) {
-    localStorage.removeItem(STORAGE_KEY);
-    renderHistory();
-  }
-});
-
-/* ---------- Save (Canvas) ---------- */
-saveImgBtn.addEventListener("click", () => {
-  html2canvas(document.querySelector(".cards-wrapper")).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "artilot_cards.png";
-    link.href = canvas.toDataURL();
-    link.click();
-  });
-});
-
-/* ---------- Share ---------- */
-shareBtn.addEventListener("click", async () => {
-  try {
-    const canvas = await html2canvas(document.querySelector(".cards-wrapper"));
-    canvas.toBlob(async blob => {
-      const file = new File([blob], "artilot.png", { type: "image/png" });
-      await navigator.share({
-        files: [file],
-        title: "ARTILOT",
-        text: "Inspiration Cards"
-      });
+  if (navigator.share) {
+    navigator.share({
+      title: "ARTILOT Inspiration Cards",
+      text: shareText
+    }).catch(() => {
+      alert("共有に失敗しました");
     });
-  } catch (e) {
-    alert("シェアがサポートされていません");
+  } else {
+    // シェアできない環境用
+    navigator.clipboard.writeText(shareText);
+    alert("共有機能が使えないため、テキストをコピーしました！");
   }
 });
 
-/* ---------- Init ---------- */
-drawBtn.addEventListener("click", drawCards);
-renderHistory();
+
+/* ---------- RGB → HEX 変換（色チップ用） ---------- */
+function rgbToHex(rgb) {
+  if (!rgb) return "#000000";
+  const result = rgb.match(/\d+/g);
+  if (!result) return "#000000";
+  return "#" + result
+    .slice(0, 3)
+    .map(x => ("0" + parseInt(x).toString(16)).slice(-2))
+    .join("");
+}
