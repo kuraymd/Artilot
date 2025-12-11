@@ -1,236 +1,57 @@
 /* --------------------------------------------------
-   Global
+   ARTI LOT — style (2段: 220+220 / 460)
 -------------------------------------------------- */
-* {
-  box-sizing: border-box;
-  font-family: "Helvetica", "Arial", sans-serif;
-}
 
-body {
-  margin: 0;
-  background: #fff;
-  color: #000;
-}
+* { box-sizing: border-box; font-family: "Helvetica", Arial, sans-serif; }
 
-.wrap {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 20px;
-}
+body { margin:0; background:#fff; color:#000; }
+.wrap { max-width:980px; margin:0 auto; padding:18px; }
 
-/* --------------------------------------------------
-   Header
--------------------------------------------------- */
-header {
-  text-align: center;
-}
+/* Header */
+.page-header { text-align:center; margin-bottom:12px; }
+.main-title { font-size:32px; margin:0 0 6px 0; }
+.subtitle { font-size:14px; color:#333; margin:0 0 12px 0; }
+.top-controls { display:flex; justify-content:center; gap:12px; align-items:center; }
 
-header h1 {
-  font-size: 32px;
-  letter-spacing: 2px;
-  margin-bottom: 6px;
-}
+/* Buttons */
+.primary { padding:10px 18px; background:#000; color:#fff; border:0; border-radius:8px; cursor:pointer; font-weight:700; }
+.result-actions { display:flex; justify-content:center; gap:12px; margin:14px 0; }
+#saveImgBtn,#shareBtn { padding:8px 14px; border:1px solid #000; background:#fff; cursor:pointer; }
 
-.subtitle {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 14px;
-}
+/* Cards container 2段 */
+.cards { display:flex; flex-direction:column; align-items:center; gap:16px; margin-bottom:12px; }
 
-/* --------------------------------------------------
-   Buttons
--------------------------------------------------- */
-.primary {
-  padding: 10px 20px;
-  background: #000;
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-  border-radius: 8px;
-}
+/* top cards row */
+.top-cards { display:flex; gap:16px; justify-content:center; }
 
-.lang-toggle {
-  display: flex;
-  gap: 6px;
-}
+/* bottom card row: centered */
+.bottom-card { width:100%; display:flex; justify-content:center; }
 
-.lang-btn {
-  padding: 6px 14px;
-  border: 1px solid #000;
-  background: #fff;
-  cursor: pointer;
-  border-radius: 6px;
-}
+/* card base */
+.card { width:220px; background:#fff; border:2px solid #000; border-radius:10px; padding:12px; box-sizing:border-box; }
+.card.wide { width:460px; }
 
-.lang-btn.active {
-  background: #000;
-  color: #fff;
-}
+/* content */
+.card-title { font-weight:800; text-align:center; font-size:16px; margin-bottom:8px; }
+.divider { height:1px; background:#000; margin-bottom:10px; }
 
-/* --------------------------------------------------
-   Cards Layout (2段)
--------------------------------------------------- */
-.cards {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin: 20px 0;
-}
+.block { display:flex; gap:8px; margin-bottom:10px; }
+.label { width:38%; font-weight:700; font-size:13px; color:#111; }
+.value { width:62%; font-weight:700; font-size:13px; }
 
-.top-cards {
-  display: flex;
-  gap: 16px;
-}
+/* palette chips */
+.palette-row { display:flex; gap:10px; margin:6px 0 12px; }
+.palette-swatch { width:28px; height:28px; border-radius:6px; border:1px solid #000; }
 
-.bottom-card {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+/* history */
+.historySection { margin-top:8px; }
+.historyList { min-height:40px; border:1px solid #000; background:#fafafa; padding:8px; margin-bottom:8px; }
+.history-item { border:1px solid #ddd; padding:8px; margin-bottom:8px; background:#fff; }
+.history-actions { text-align:center; }
 
-/* --------------------------------------------------
-   Card Design
--------------------------------------------------- */
-.card {
-  width: 200px;
-  border: 2px solid #000;
-  border-radius: 10px;
-  background: #fff;
-  padding: 14px;
-}
-
-.card.wide {
-  width: 460px; /* ★ 横広カード */
-}
-
-.card-title {
-  font-weight: bold;
-  text-align: center;
-  font-size: 18px;
-  margin-bottom: 6px;
-}
-
-.card-title span {
-  font-weight: normal;
-  font-size: 12px;
-  color: #555;
-}
-
-.divider {
-  height: 1px;
-  background: #000;
-  margin: 8px 0 12px;
-}
-
-.block {
-  display: flex;
-  margin-bottom: 12px;
-}
-
-.label {
-  width: 40%;
-  font-size: 12px;
-  line-height: 1.2;
-}
-
-.label span {
-  font-size: 10px;
-  color: #777;
-}
-
-.value {
-  width: 60%;
-  font-weight: bold;
-  font-size: 13px;
-}
-
-/* 
-   カラーパレット
--------------------------------------------------- */
-.palette-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.palette-swatch {
-  width: 24px;
-  height: 24px;
-  border: 1px solid #000;
-  border-radius: 6px;
-}
-
-/* --------------------------------------------------
-   Save & Share
--------------------------------------------------- */
-.result-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-#saveImgBtn,
-#shareBtn {
-  padding: 8px 16px;
-  background: #fff;
-  border: 1px solid #000;
-  cursor: pointer;
-}
-
-/* --------------------------------------------------
-   History
--------------------------------------------------- */
-.historySection h2 {
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-
-.historyList {
-  background: #fafafa;
-  border: 1px solid #000;
-  min-height: 40px;
-  padding: 10px;
-}
-
-.history-actions {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.danger {
-  padding: 6px 12px;
-  border: 1px solid #d00;
-  background: #fff;
-  color: #d00;
-  cursor: pointer;
-}
-
-/* --------------------------------------------------
-   Footer
--------------------------------------------------- */
-footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 12px;
-}
-
-/* --------------------------------------------------
-   Responsive (スマホ対応)
--------------------------------------------------- */
-@media (max-width: 640px) {
-  .top-cards {
-    transform: scale(0.9);
-    transform-origin: top center;
-  }
-
-  .bottom-card {
-    transform: scale(0.9);
-    transform-origin: top center;
-  }
-
-  .card.wide {
-    width: 360px; /* スマホでは少し縮める */
-  }
+/* small screens: shrink if necessary */
+@media (max-width:540px){
+  .card.wide { width:360px; } /* keep visually balanced */
+  .card { width:160px; }
+  .value, .label { font-size:12px; }
 }
