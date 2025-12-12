@@ -17,7 +17,7 @@ body {
 }
 
 .card.wide {
-  width: calc(96% - 4px);
+  width: calc(94% - 4px);
 }
 
 .divider {
