@@ -84,7 +84,7 @@ button {
 }
 
 .card.wide {
-  width: calc(90% - 4px);
+  width: calc(96% - 4px);
 }
 
 .card-title {
