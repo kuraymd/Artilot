@@ -3,118 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ARTILOT — Inspiration Cards</title>
+  <title>ARTILOT — Crystal Inspiration</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- html2canvas for save image -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
-
 <body>
 <div class="wrap">
 
-  <!-- HEADER -->
-  <header>
+  <header class="page-header">
     <h1>ARTILOT</h1>
-    <p class="subtitle">インスピレーションカード<br><span>Inspiration Cards</span></p>
-
+    <p class="subtitle">インスピレーションカード / Inspiration Cards</p>
     <div class="controls-top">
       <button id="drawBtn" class="primary">カードを引く<br><span>Draw Cards</span></button>
     </div>
   </header>
 
-  <!-- CARDS 2 + 1 layout -->
   <main>
+    <!-- crystals grid (3 columns x 4 rows = 12) -->
+    <section class="crystal-grid" id="crystalGrid">
+      <!-- crystals are injected in HTML to make labels accessible; keep IDs 1..12 -->
+      <div class="crystal" id="crystal-1"><div class="orb"></div><div class="pedestal"><div class="p-label">種族 / Race</div></div></div>
+      <div class="crystal" id="crystal-2"><div class="orb"></div><div class="pedestal"><div class="p-label">性別 / Gender</div></div></div>
+      <div class="crystal" id="crystal-3"><div class="orb"></div><div class="pedestal"><div class="p-label">性格 / Personality</div></div></div>
 
-    <section class="cards">
-      <div class="top-cards">
+      <div class="crystal" id="crystal-4"><div class="orb"></div><div class="pedestal"><div class="p-label">髪型 / Hair</div></div></div>
+      <div class="crystal" id="crystal-5"><div class="orb"></div><div class="pedestal"><div class="p-label">服 / Outfit</div></div></div>
+      <div class="crystal" id="crystal-6"><div class="orb"></div><div class="pedestal"><div class="p-label">モチーフ / Motif</div></div></div>
 
-        <!-- CARD 1 -->
-        <article class="card" id="card1">
-          <div class="card-title">キャラクター<br><span>Character</span></div>
-          <div class="divider"></div>
+      <div class="crystal" id="crystal-7"><div class="orb"></div><div class="pedestal"><div class="p-label">雰囲気 / Mood</div></div></div>
+      <div class="crystal" id="crystal-8"><div class="orb"></div><div class="pedestal"><div class="p-label">テーマ / Theme</div></div></div>
+      <div class="crystal" id="crystal-9"><div class="orb"></div><div class="pedestal"><div class="p-label">構図 / Composition</div></div></div>
 
-          <div class="block">
-            <div class="label">種族<br><span>Race</span></div>
-            <div class="value" id="c1-1">—</div>
-          </div>
-
-          <div class="block">
-            <div class="label">性別<br><span>Gender</span></div>
-            <div class="value" id="c1-2">—</div>
-          </div>
-
-          <div class="block">
-            <div class="label">性格<br><span>Personality</span></div>
-            <div class="value" id="c1-3">—</div>
-          </div>
-        </article>
-
-        <!-- CARD 2 -->
-        <article class="card" id="card2">
-          <div class="card-title">デザイン<br><span>Design</span></div>
-          <div class="divider"></div>
-
-          <div class="block">
-            <div class="label">髪型<br><span>Hair</span></div>
-            <div class="value" id="c2-1">—</div>
-          </div>
-
-          <div class="block">
-            <div class="label">服<br><span>Outfit</span></div>
-            <div class="value" id="c2-2">—</div>
-          </div>
-
-          <div class="block">
-            <div class="label">モチーフ<br><span>Motif</span></div>
-            <div class="value" id="c2-3">—</div>
-          </div>
-        </article>
-      </div>
-
-      <!-- CARD 3 (bottom wide) -->
-      <article class="card wide" id="card3">
-        <div class="card-title">雰囲気<br><span>Mood</span></div>
-        <div class="divider"></div>
-
-        <div class="block">
-          <div class="label">雰囲気<br><span>Mood</span></div>
-          <div class="value" id="c3-1">—</div>
-        </div>
-
-        <div class="block">
-          <div class="label">メインカラー<br><span>Main Color</span></div>
-        </div>
-        <div class="palette-row" id="mainPalette"></div>
-
-        <div class="block">
-          <div class="label">サブカラー<br><span>Sub Colors</span></div>
-        </div>
-        <div class="palette-row" id="subPalette"></div>
-      </article>
+      <div class="crystal" id="crystal-10"><div class="orb"></div><div class="pedestal"><div class="p-label">メインカラー / Main</div></div></div>
+      <div class="crystal" id="crystal-11"><div class="orb"></div><div class="pedestal"><div class="p-label">サブカラー1 / Sub1</div></div></div>
+      <div class="crystal" id="crystal-12"><div class="orb"></div><div class="pedestal"><div class="p-label">サブカラー2 / Sub2</div></div></div>
     </section>
 
-    <!-- ACTIONS -->
-    <div class="result-actions">
-      <button id="saveImgBtn">画像を保存</button>
-      <button id="shareBtn">シェア</button>
+    <!-- below: actions, result text, palettes -->
+    <div class="result-row">
+      <div class="actions">
+        <button id="saveImgBtn">画像を保存 / Save Image</button>
+        <button id="shareBtn">シェア / Share</button>
+      </div>
+      <div class="palettes">
+        <div class="palette-block"><div class="pal-title">Main</div><div id="mainPalette" class="palette-row"></div></div>
+        <div class="palette-block"><div class="pal-title">Subs</div><div id="subPalette" class="palette-row"></div></div>
+      </div>
     </div>
 
     <p class="note">※結果は自動で履歴に保存されます（最大20件）</p>
 
-    <!-- HISTORY -->
     <section class="historySection">
-      <h2>履歴</h2>
+      <h2>履歴 / History</h2>
       <div id="historyList" class="historyList"></div>
-      <button id="clearHistoryBtn" class="danger">履歴をすべて削除</button>
+      <div class="history-actions">
+        <button id="clearHistoryBtn" class="danger">履歴をすべて削除 / Clear History</button>
+      </div>
     </section>
-
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <small>© 2025 Artilot</small>
-  </footer>
-
+  <footer><small>© 2025 Artilot</small></footer>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>
