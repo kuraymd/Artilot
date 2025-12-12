@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ARTILOT — Crystal Inspiration</title>
   <link rel="stylesheet" href="style.css">
-  <!-- html2canvas for save image -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
@@ -14,46 +13,60 @@
   <header class="page-header">
     <h1>ARTILOT</h1>
     <p class="subtitle">インスピレーションカード / Inspiration Cards</p>
+
     <div class="controls-top">
       <button id="drawBtn" class="primary">カードを引く<br><span>Draw Cards</span></button>
+
+      <div class="lang-toggle" id="langToggle" aria-hidden="false">
+        <button id="btnJP" class="lang-btn active">JP</button>
+        <button id="btnEN" class="lang-btn">EN</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- crystals grid (3 columns x 4 rows = 12) -->
-    <section class="crystal-grid" id="crystalGrid">
-      <!-- crystals are injected in HTML to make labels accessible; keep IDs 1..12 -->
-      <div class="crystal" id="crystal-1"><div class="orb"></div><div class="pedestal"><div class="p-label">種族 / Race</div></div></div>
-      <div class="crystal" id="crystal-2"><div class="orb"></div><div class="pedestal"><div class="p-label">性別 / Gender</div></div></div>
-      <div class="crystal" id="crystal-3"><div class="orb"></div><div class="pedestal"><div class="p-label">性格 / Personality</div></div></div>
+    <!-- capture area: saved image will include this block -->
+    <div class="capture-area" id="captureArea">
 
-      <div class="crystal" id="crystal-4"><div class="orb"></div><div class="pedestal"><div class="p-label">髪型 / Hair</div></div></div>
-      <div class="crystal" id="crystal-5"><div class="orb"></div><div class="pedestal"><div class="p-label">服 / Outfit</div></div></div>
-      <div class="crystal" id="crystal-6"><div class="orb"></div><div class="pedestal"><div class="p-label">モチーフ / Motif</div></div></div>
+      <!-- crystals grid (3 columns x 4 rows = 12) -->
+      <section class="crystal-grid" id="crystalGrid">
+        <!-- keep IDs 1..12 -->
+        <div class="crystal" id="crystal-1"><div class="orb"></div><div class="pedestal"><div class="p-label">種族 / Race</div></div></div>
+        <div class="crystal" id="crystal-2"><div class="orb"></div><div class="pedestal"><div class="p-label">性別 / Gender</div></div></div>
+        <div class="crystal" id="crystal-3"><div class="orb"></div><div class="pedestal"><div class="p-label">性格 / Personality</div></div></div>
 
-      <div class="crystal" id="crystal-7"><div class="orb"></div><div class="pedestal"><div class="p-label">雰囲気 / Mood</div></div></div>
-      <div class="crystal" id="crystal-8"><div class="orb"></div><div class="pedestal"><div class="p-label">テーマ / Theme</div></div></div>
-      <div class="crystal" id="crystal-9"><div class="orb"></div><div class="pedestal"><div class="p-label">構図 / Composition</div></div></div>
+        <div class="crystal" id="crystal-4"><div class="orb"></div><div class="pedestal"><div class="p-label">髪型 / Hair</div></div></div>
+        <div class="crystal" id="crystal-5"><div class="orb"></div><div class="pedestal"><div class="p-label">服 / Outfit</div></div></div>
+        <div class="crystal" id="crystal-6"><div class="orb"></div><div class="pedestal"><div class="p-label">モチーフ / Motif</div></div></div>
 
-      <div class="crystal" id="crystal-10"><div class="orb"></div><div class="pedestal"><div class="p-label">メインカラー / Main</div></div></div>
-      <div class="crystal" id="crystal-11"><div class="orb"></div><div class="pedestal"><div class="p-label">サブカラー1 / Sub1</div></div></div>
-      <div class="crystal" id="crystal-12"><div class="orb"></div><div class="pedestal"><div class="p-label">サブカラー2 / Sub2</div></div></div>
-    </section>
+        <div class="crystal" id="crystal-7"><div class="orb"></div><div class="pedestal"><div class="p-label">雰囲気 / Mood</div></div></div>
+        <div class="crystal" id="crystal-8"><div class="orb"></div><div class="pedestal"><div class="p-label">テーマ / Theme</div></div></div>
+        <div class="crystal" id="crystal-9"><div class="orb"></div><div class="pedestal"><div class="p-label">構図 / Composition</div></div></div>
 
-    <!-- below: actions, result text, palettes -->
+        <div class="crystal" id="crystal-10"><div class="orb"></div><div class="pedestal"><div class="p-label">メインカラー / Main</div></div></div>
+        <div class="crystal" id="crystal-11"><div class="orb"></div><div class="pedestal"><div class="p-label">サブカラー1 / Sub1</div></div></div>
+        <div class="crystal" id="crystal-12"><div class="orb"></div><div class="pedestal"><div class="p-label">サブカラー2 / Sub2</div></div></div>
+      </section>
+
+      <!-- palette blocks (kept inside capture area as requested B) -->
+      <div class="palettes">
+        <div class="palette-block"><div class="pal-title">Main</div><div id="mainPalette" class="palette-row"></div></div>
+        <div class="palette-block"><div class="pal-title">Subs</div><div id="subPalette" class="palette-row"></div></div>
+      </div>
+
+    </div><!-- /.capture-area -->
+
+    <!-- actions -->
     <div class="result-row">
       <div class="actions">
         <button id="saveImgBtn">画像を保存 / Save Image</button>
         <button id="shareBtn">シェア / Share</button>
       </div>
-      <div class="palettes">
-        <div class="palette-block"><div class="pal-title">Main</div><div id="mainPalette" class="palette-row"></div></div>
-        <div class="palette-block"><div class="pal-title">Subs</div><div id="subPalette" class="palette-row"></div></div>
-      </div>
     </div>
 
     <p class="note">※結果は自動で履歴に保存されます（最大20件）</p>
 
+    <!-- history -->
     <section class="historySection">
       <h2>履歴 / History</h2>
       <div id="historyList" class="historyList"></div>
@@ -61,6 +74,7 @@
         <button id="clearHistoryBtn" class="danger">履歴をすべて削除 / Clear History</button>
       </div>
     </section>
+
   </main>
 
   <footer><small>© 2025 Artilot</small></footer>
