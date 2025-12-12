@@ -1,62 +1,172 @@
-/* --------------------------------------------------
-   ARTI LOT — style (2段: 220 + 220 / 460)
--------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-* { box-sizing: border-box; font-family: "Helvetica Neue", Arial, sans-serif; }
+body {
+  background: #fafafa;
+  font-family: "Helvetica", "Arial", sans-serif;
+  color: #222;
+  padding: 20px;
+}
 
-body { margin:0; background:#fff; color:#000; }
-.wrap { max-width:980px; margin:0 auto; padding:18px; }
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
 
-/* Header */
-.page-header { text-align:center; margin-bottom:12px; }
-.main-title { font-size:32px; margin:0 0 6px 0; font-weight:800; }
-.subtitle { font-size:14px; color:#333; margin:0 0 12px 0; }
-.top-controls { display:flex; justify-content:center; gap:12px; align-items:center; }
+/* -------------------- Header -------------------- */
+header {
+  text-align: center;
+  margin-bottom: 25px;
+}
 
-/* Buttons */
-.primary { padding:10px 18px; background:#000; color:#fff; border:0; border-radius:8px; cursor:pointer; font-weight:700; }
-.result-actions { display:flex; justify-content:center; gap:12px; margin:14px 0; }
-#saveImgBtn,#shareBtn { padding:8px 14px; border:1px solid #000; background:#fff; cursor:pointer; }
+h1 {
+  font-size: 32px;
+  font-weight: 900;
+}
 
-/* Cards container 2段 */
-.cards-wrapper { display:flex; justify-content:center; }
-.cards { display:flex; flex-direction:column; align-items:center; gap:16px; margin-bottom:12px; }
+.subtitle {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #444;
+}
 
-/* top cards row */
-.top-cards { display:flex; gap:16px; justify-content:center; }
+/* -------------------- Buttons -------------------- */
+.primary {
+  background: #000;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 26px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.primary:hover {
+  opacity: 0.85;
+}
 
-/* bottom card row: centered */
-.bottom-card { width:100%; display:flex; justify-content:center; }
+.controls-top {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-/* card base */
-.card { width:220px; background:#fff; border:2px solid #000; border-radius:10px; padding:12px; box-sizing:border-box; }
-.card.wide { width:460px; }
+.result-actions {
+  text-align: center;
+  margin: 20px 0;
+}
+.result-actions button {
+  margin: 0 8px;
+  padding: 8px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#saveImgBtn { background:#222; color:#fff; }
+#shareBtn { background:#444; color:#fff; }
 
-/* content */
-.card-title { font-weight:800; text-align:center; font-size:16px; margin-bottom:8px; }
-.divider { height:1px; background:#000; margin-bottom:10px; }
+/* -------------------- Cards Layout -------------------- */
+.cards-layout {
+  width: 100%;
+}
 
-.block { display:flex; gap:8px; margin-bottom:10px; align-items:center; }
-.label { width:38%; font-weight:700; font-size:13px; color:#111; }
-.value { width:62%; font-weight:700; font-size:13px; }
+.top-cards {
+  display: flex;
+  gap: 16px;
+}
 
-/* palette chips */
-.palette-row { display:flex; gap:10px; margin:6px 0 12px; }
-.palette-chip { width:28px; height:28px; border-radius:6px; border:1px solid #000; }
+.bottom-card {
+  margin-top: 16px;
+}
 
-/* history */
-.historySection { margin-top:8px; }
-.historyList { min-height:40px; border:1px solid #000; background:#fafafa; padding:8px; margin-bottom:8px; }
-.history-item { border:1px solid #ddd; padding:8px; margin-bottom:8px; background:#fff; }
-.history-set { display:flex; flex-direction:column; gap:10px; }
+/* -------------------- Card -------------------- */
+.card {
+  background: #fff;
+  border: 1px solid #000;
+  padding: 14px;
+  border-radius: 6px;
+  width: 100%;
+}
 
-/* clear */
-.history-actions { text-align:center; margin-top:6px; }
-.danger { padding:6px 12px; border:1px solid #d00; background:#fff; color:#d00; cursor:pointer; }
+.card-title {
+  font-size: 20px;
+  margin-bottom: 6px;
+  font-weight: 800;
+}
 
-/* small screens: shrink if necessary */
-@media (max-width:540px){
-  .card.wide { width:360px; } /* keep visually balanced */
-  .card { width:160px; }
-  .value, .label { font-size:12px; }
+.divider {
+  border-bottom: 1px solid #000;
+  margin: 10px 0;
+}
+
+/* -------------------- Block -------------------- */
+.block {
+  margin-bottom: 12px;
+}
+
+.label {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+
+.value {
+  font-weight: 600;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+/* -------------------- Palettes -------------------- */
+.palette-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.swatch {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+/* -------------------- History -------------------- */
+.historySection {
+  margin-top: 30px;
+}
+
+#historyList {
+  margin-top: 10px;
+}
+
+.history-item {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.danger {
+  background: #c00;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.note {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* -------------------- Responsive -------------------- */
+@media (max-width: 720px) {
+  .top-cards {
+    flex-direction: column;
+  }
 }
