@@ -1,172 +1,172 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* 全体 */
 body {
-  background: #fafafa;
-  font-family: "Helvetica", "Arial", sans-serif;
+  margin: 0;
+  background: #ffffff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   color: #222;
-  padding: 20px;
 }
 
 .wrap {
-  max-width: 860px;
+  max-width: 900px;
   margin: 0 auto;
+  padding: 20px;
 }
 
-/* -------------------- Header -------------------- */
+/* HEADER */
 header {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-h1 {
-  font-size: 32px;
-  font-weight: 900;
-}
-
-.subtitle {
-  margin-top: 4px;
-  font-size: 15px;
-  color: #444;
-}
-
-/* -------------------- Buttons -------------------- */
-.primary {
-  background: #000;
-  color: #fff;
-  font-size: 18px;
-  padding: 10px 26px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.primary:hover {
-  opacity: 0.85;
-}
-
-.controls-top {
   text-align: center;
   margin-bottom: 20px;
 }
 
+h1 {
+  font-size: 32px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.subtitle span {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* ボタン */
+button {
+  border: none;
+  padding: 10px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.primary {
+  background: #000;
+  color: #fff;
+}
+
 .result-actions {
+  margin-top: 25px;
   text-align: center;
-  margin: 20px 0;
 }
 .result-actions button {
-  margin: 0 8px;
-  padding: 8px 20px;
-  font-size: 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  margin: 6px;
+  background: #000;
+  color: #fff;
 }
-#saveImgBtn { background:#222; color:#fff; }
-#shareBtn { background:#444; color:#fff; }
 
-/* -------------------- Cards Layout -------------------- */
-.cards-layout {
+.danger {
+  background: #bb0000;
+  color: white;
+  margin-top: 10px;
+}
+
+/* カードレイアウト */
+.cards {
   width: 100%;
 }
 
 .top-cards {
   display: flex;
-  gap: 16px;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
-.bottom-card {
-  margin-top: 16px;
-}
-
-/* -------------------- Card -------------------- */
 .card {
-  background: #fff;
-  border: 1px solid #000;
-  padding: 14px;
-  border-radius: 6px;
+  border: 2px solid #000;
+  padding: 12px;
+  border-radius: 10px;
   width: 100%;
+  background: #fff;
+}
+
+.card.wide {
+  width: calc(100% - 4px);
 }
 
 .card-title {
-  font-size: 20px;
-  margin-bottom: 6px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+.card-title span {
+  font-size: 13px;
+  opacity: 0.8;
 }
 
 .divider {
-  border-bottom: 1px solid #000;
+  width: 100%;
+  height: 2px;
+  background: #000;
   margin: 10px 0;
 }
 
-/* -------------------- Block -------------------- */
 .block {
-  margin-bottom: 12px;
+  margin: 10px 0;
 }
 
 .label {
-  font-weight: 700;
-  margin-bottom: 2px;
+  font-weight: bold;
   font-size: 14px;
+}
+.label span {
+  font-size: 12px;
+  opacity: 0.7;
 }
 
 .value {
-  font-weight: 600;
+  margin-top: 3px;
   font-size: 14px;
-  word-break: break-word;
 }
 
-/* -------------------- Palettes -------------------- */
+/* パレット */
 .palette-row {
   display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
+  gap: 8px;
+  margin: 6px 0 10px;
 }
 
 .swatch {
   width: 26px;
   height: 26px;
-  border: 1px solid #000;
-  border-radius: 4px;
+  border-radius: 6px;
+  border: 1px solid #222;
 }
 
-/* -------------------- History -------------------- */
-.historySection {
-  margin-top: 30px;
+/* HISTORY */
+.historySection h2 {
+  margin-top: 40px;
+  font-size: 20px;
 }
 
-#historyList {
+.historyList {
   margin-top: 10px;
 }
 
 .history-item {
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1px solid #aaa;
   padding: 10px;
-  margin-bottom: 8px;
-  word-break: break-word;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: #f9f9f9;
 }
 
-.danger {
-  background: #c00;
-  color: #fff;
-  padding: 8px 20px;
+.restoreBtn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
   border-radius: 6px;
   border: none;
+  background: #000;
+  color: #fff;
   cursor: pointer;
 }
 
-.note {
+footer {
   text-align: center;
-  font-size: 13px;
-  margin-top: 8px;
-}
-
-/* -------------------- Responsive -------------------- */
-@media (max-width: 720px) {
-  .top-cards {
-    flex-direction: column;
-  }
+  margin-top: 40px;
+  opacity: 0.7;
 }
