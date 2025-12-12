@@ -1,172 +1,49 @@
-/* 全体 */
+/* 背景をネイビー→黒の縦グラデーション */
 body {
   margin: 0;
-  background: #ffffff;
+  background: linear-gradient(to bottom, #0b1e4a, #000000);
   font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #222;
+  color: #d4af37; /* ゴールドっぽい文字色 */
 }
 
-.wrap {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* HEADER */
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-h1 {
-  font-size: 32px;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.subtitle {
-  font-size: 16px;
-  opacity: 0.9;
-}
-
-.subtitle span {
-  font-size: 14px;
-  opacity: 0.7;
-}
-
-/* ボタン */
-button {
-  border: none;
-  padding: 10px 16px;
-  font-size: 15px;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-.primary {
-  background: #000;
-  color: #fff;
-}
-
-.result-actions {
-  margin-top: 25px;
-  text-align: center;
-}
-.result-actions button {
-  margin: 6px;
-  background: #000;
-  color: #fff;
-}
-
-.danger {
-  background: #bb0000;
-  color: white;
-  margin-top: 10px;
-}
-
-/* カードレイアウト */
-.cards {
-  width: 100%;
-}
-
-.top-cards {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
+/* カードの線もゴールドに */
 .card {
-  border: 2px solid #000;
+  border: 2px solid #d4af37;
   padding: 12px;
   border-radius: 10px;
   width: 100%;
-  background: #fff;
+  background: rgba(0,0,0,0.5); /* 半透明で背景を透かす */
+  color: #d4af37;
 }
 
 .card.wide {
   width: calc(96% - 4px);
 }
 
-.card-title {
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-}
-.card-title span {
-  font-size: 13px;
-  opacity: 0.8;
-}
-
 .divider {
   width: 100%;
   height: 2px;
-  background: #000;
+  background: #d4af37;
   margin: 10px 0;
 }
 
-.block {
-  margin: 10px 0;
-}
-
-.label {
-  font-weight: bold;
-  font-size: 14px;
-}
-.label span {
-  font-size: 12px;
-  opacity: 0.7;
-}
-
-.value {
-  margin-top: 3px;
-  font-size: 14px;
-}
-
-/* パレット */
-.palette-row {
-  display: flex;
-  gap: 8px;
-  margin: 6px 0 10px;
-}
-
-.swatch {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  border: 1px solid #222;
-}
-
-/* HISTORY */
-.historySection h2 {
-  margin-top: 40px;
-  font-size: 20px;
-}
-
-.historyList {
-  margin-top: 10px;
-}
-
-.history-item {
-  border: 1px solid #aaa;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 12px;
-  background: #f9f9f9;
-}
-
-.restoreBtn {
-  margin-top: 8px;
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 6px;
+/* ボタンもゴールド系 */
+button {
   border: none;
-  background: #000;
-  color: #fff;
+  padding: 10px 16px;
+  font-size: 15px;
   cursor: pointer;
+  border-radius: 6px;
+  background: #d4af37;
+  color: #000;
 }
 
-footer {
-  text-align: center;
-  margin-top: 40px;
-  opacity: 0.7;
+.primary, .result-actions button {
+  background: #d4af37;
+  color: #000;
+}
+
+.danger {
+  background: #bb0000;
+  color: white;
 }
