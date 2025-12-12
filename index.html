@@ -5,98 +5,94 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ARTILOT — Inspiration Cards</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
-<body>
 
+<body>
 <div class="wrap">
 
+  <!-- HEADER -->
   <header>
     <h1>ARTILOT</h1>
-    <p class="subtitle">インスピレーションカード / Inspiration Cards</p>
+    <p class="subtitle">インスピレーションカード<br><span>Inspiration Cards</span></p>
+
+    <div class="controls-top">
+      <button id="drawBtn" class="primary">カードを引く<br><span>Draw Cards</span></button>
+    </div>
   </header>
 
+  <!-- CARDS 2 + 1 layout -->
   <main>
 
-    <!-- ボタン -->
-    <div class="controls-top">
-      <button id="drawBtn" class="primary">カードを引く / Draw Card</button>
-    </div>
-
-    <!-- 3カード配置（上2枚＋下1枚） -->
-    <section class="cards-layout">
-
+    <section class="cards">
       <div class="top-cards">
-        <!-- Character -->
+
+        <!-- CARD 1 -->
         <article class="card" id="card1">
-          <h2 class="card-title">キャラクター / Character</h2>
+          <div class="card-title">キャラクター<br><span>Character</span></div>
           <div class="divider"></div>
 
           <div class="block">
-            <div class="label">種族 / Race</div>
+            <div class="label">種族<br><span>Race</span></div>
             <div class="value" id="c1-1">—</div>
           </div>
 
           <div class="block">
-            <div class="label">性別 / Gender</div>
+            <div class="label">性別<br><span>Gender</span></div>
             <div class="value" id="c1-2">—</div>
           </div>
 
           <div class="block">
-            <div class="label">性格 / Personality</div>
+            <div class="label">性格<br><span>Personality</span></div>
             <div class="value" id="c1-3">—</div>
           </div>
         </article>
 
-        <!-- Design -->
+        <!-- CARD 2 -->
         <article class="card" id="card2">
-          <h2 class="card-title">デザイン / Design</h2>
+          <div class="card-title">デザイン<br><span>Design</span></div>
           <div class="divider"></div>
 
           <div class="block">
-            <div class="label">髪型 / Hair</div>
+            <div class="label">髪型<br><span>Hair</span></div>
             <div class="value" id="c2-1">—</div>
           </div>
 
           <div class="block">
-            <div class="label">服 / Outfit</div>
+            <div class="label">服<br><span>Outfit</span></div>
             <div class="value" id="c2-2">—</div>
           </div>
 
           <div class="block">
-            <div class="label">モチーフ / Motif</div>
+            <div class="label">モチーフ<br><span>Motif</span></div>
             <div class="value" id="c2-3">—</div>
           </div>
         </article>
       </div>
 
-      <!-- Mood card (full width) -->
-      <div class="bottom-card">
-        <article class="card" id="card3">
-          <h2 class="card-title">雰囲気 / Mood</h2>
-          <div class="divider"></div>
+      <!-- CARD 3 (bottom wide) -->
+      <article class="card wide" id="card3">
+        <div class="card-title">雰囲気<br><span>Mood</span></div>
+        <div class="divider"></div>
 
-          <div class="block">
-            <div class="label">雰囲気 / Mood</div>
-            <div class="value" id="c3-1">—</div>
-          </div>
+        <div class="block">
+          <div class="label">雰囲気<br><span>Mood</span></div>
+          <div class="value" id="c3-1">—</div>
+        </div>
 
-          <div class="block">
-            <div class="label">メインカラー / Main Color</div>
-            <div class="value" id="c3-2">—</div>
-          </div>
-          <div class="palette-row" id="mainPalette"></div>
+        <div class="block">
+          <div class="label">メインカラー<br><span>Main Color</span></div>
+        </div>
+        <div class="palette-row" id="mainPalette"></div>
 
-          <div class="block">
-            <div class="label">サブカラー / Sub Colors</div>
-            <div class="value" id="c3-3">—</div>
-          </div>
-          <div class="palette-row" id="subPalette"></div>
-        </article>
-      </div>
-
+        <div class="block">
+          <div class="label">サブカラー<br><span>Sub Colors</span></div>
+        </div>
+        <div class="palette-row" id="subPalette"></div>
+      </article>
     </section>
 
-    <!-- 保存 & シェア -->
+    <!-- ACTIONS -->
     <div class="result-actions">
       <button id="saveImgBtn">画像を保存</button>
       <button id="shareBtn">シェア</button>
@@ -104,23 +100,21 @@
 
     <p class="note">※結果は自動で履歴に保存されます（最大20件）</p>
 
-    <!-- 履歴 -->
+    <!-- HISTORY -->
     <section class="historySection">
-      <h2>履歴 / History</h2>
-      <div id="historyList"></div>
-      <div class="history-actions">
-        <button id="clearHistoryBtn" class="danger">履歴をすべて削除</button>
-      </div>
+      <h2>履歴</h2>
+      <div id="historyList" class="historyList"></div>
+      <button id="clearHistoryBtn" class="danger">履歴をすべて削除</button>
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <small>© 2025 Artilot</small>
   </footer>
 
 </div>
-
 <script src="script.js"></script>
 </body>
 </html>
