@@ -1,6 +1,5 @@
 /* ============================================================
-   ARTILOT — Inspiration Card Generator
-   最新版 script.js
+   ARTILOT — Inspiration Card Generator （完全版）
 ============================================================ */
 
 /* ---------- データ ---------- */
@@ -73,7 +72,7 @@ const moodList = [
   ["可愛い", "Cute"]
 ];
 
-// 色（ランダムカラー）
+// ランダムカラー
 function randomColor() {
   const r = Math.floor(Math.random() * 200);
   const g = Math.floor(Math.random() * 200);
@@ -89,7 +88,7 @@ function randomColor() {
 document.getElementById("drawBtn").addEventListener("click", drawCards);
 
 function drawCards() {
-  // ★ ランダム取得
+
   const race = pick(raceList);
   const gender = pick(genderList);
   const personality = pick(personalityList);
@@ -103,7 +102,7 @@ function drawCards() {
   const mainColor = randomColor();
   const subColors = [randomColor(), randomColor(), randomColor()];
 
-  // ★ 画面へ反映
+  // カード表示
   set("c1-1", race);
   set("c1-2", gender);
   set("c1-3", personality);
@@ -113,18 +112,16 @@ function drawCards() {
   set("c2-3", motif);
 
   set("c3-1", mood);
-  set("c3-2", ["", ""]); // 色名は空欄でOK（チップで表示）
-  set("c3-3", ["", ""]); // サブカラー名も空欄
 
-  // パレット表示
+  // パレット（テキストは出さない）
   setPalette("mainPalette", [mainColor]);
   setPalette("subPalette", subColors);
 
-  // 履歴に保存
+  // 履歴保存
   saveHistory({ race, gender, personality, hair, outfit, motif, mood, mainColor, subColors });
 }
 
-/* ---------- 便利関数 ---------- */
+/* ---------- 助手関数 ---------- */
 function pick(list) {
   return list[Math.floor(Math.random() * list.length)];
 }
@@ -134,19 +131,19 @@ function set(id, pair) {
 }
 
 function setPalette(id, colors) {
-  const box = document.getElementById(id);
-  box.innerHTML = "";
+  const row = document.getElementById(id);
+  row.innerHTML = "";
   colors.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "swatch";
-    div.style.background = c;
-    box.appendChild(div);
+    const sw = document.createElement("div");
+    sw.className = "swatch";
+    sw.style.background = c;
+    row.appendChild(sw);
   });
 }
 
 
 /* ============================================================
-   履歴 — まとめて 1 枠として保存
+   履歴管理（最大20件）
 ============================================================ */
 
 let history = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
@@ -154,7 +151,6 @@ let history = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
 function saveHistory(data) {
   history.unshift(data);
   if (history.length > 20) history.pop();
-
   localStorage.setItem("artilotHistory", JSON.stringify(history));
   renderHistory();
 }
@@ -178,15 +174,49 @@ function renderHistory() {
       雰囲気: ${h.mood[0]} / ${h.mood[1]}<br>
       メインカラー: ${h.mainColor}<br>
       サブカラー: ${h.subColors.join(", ")}<br>
+      <button class="restoreBtn" data-id="${i}">この結果を復元</button>
     `;
 
     box.appendChild(div);
+  });
+
+  document.querySelectorAll(".restoreBtn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const id = e.target.getAttribute("data-id");
+      restoreHistory(id);
+    });
   });
 }
 
 renderHistory();
 
-/* 履歴削除 */
+
+/* ---------- 復元機能 ---------- */
+function restoreHistory(i) {
+  const h = history[i];
+
+  // カードに反映
+  set("c1-1", h.race);
+  set("c1-2", h.gender);
+  set("c1-3", h.personality);
+
+  set("c2-1", h.hair);
+  set("c2-2", h.outfit);
+  set("c2-3", h.motif);
+
+  set("c3-1", h.mood);
+
+  setPalette("mainPalette", [h.mainColor]);
+  setPalette("subPalette", h.subColors);
+
+  // 最新として先頭に保存
+  saveHistory(h);
+
+  alert("カードに復元しました！");
+}
+
+
+/* ---------- 履歴削除 ---------- */
 document.getElementById("clearHistoryBtn").addEventListener("click", () => {
   if (!confirm("履歴をすべて削除しますか？")) return;
   history = [];
@@ -196,7 +226,7 @@ document.getElementById("clearHistoryBtn").addEventListener("click", () => {
 
 
 /* ============================================================
-   保存（画面をそのまま保存）
+   画像保存（画面をそのままキャプチャ）
 ============================================================ */
 
 document.getElementById("saveImgBtn").addEventListener("click", () => {
@@ -210,14 +240,14 @@ document.getElementById("saveImgBtn").addEventListener("click", () => {
 
 
 /* ============================================================
-   シェア（テキストのみ / カラーコードあり）
+   シェア（テキストのみ）
 ============================================================ */
 
 document.getElementById("shareBtn").addEventListener("click", shareText);
 
 function shareText() {
-  if (!history.length) return;
 
+  if (!history.length) return;
   const h = history[0];
 
   const msg = `
@@ -233,7 +263,7 @@ Inspiration Card Result
 雰囲気: ${h.mood[0]} / ${h.mood[1]}
 
 メインカラー: ${h.mainColor}
-サブカラー: ${h.subColors.join(", ")}
+サブカラー: ${h.subColors.join(" / ")}
 
 #ARTILOT
 #今日のお題
@@ -248,6 +278,6 @@ ARTILOT → https://kuraymd.github.io/Artilot/
       text: msg
     }).catch(() => {});
   } else {
-    alert("シェア非対応の端末です\n\n下の内容をコピーして使ってください：\n\n" + msg);
+    alert("シェア非対応の端末です。\nコピーしてご利用ください：\n\n" + msg);
   }
 }
