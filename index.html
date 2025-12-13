@@ -1,97 +1,49 @@
-<!-- ===== Result Area（画像保存はここだけ）===== -->
-<section id="resultArea" class="crystal-area">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ARTILOT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  <div class="crystal-grid">
+<body>
+  <header class="header">
+    <h1>ARTILOT</h1>
+    <p class="subtitle">インスピレーションカード / Inspiration Cards</p>
 
-    <!-- 1: 種族 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="raceValue">
-        Human<br><span>人</span>
+    <div class="controls">
+      <button id="drawBtn">カードを引く<br><span>Draw Cards</span></button>
+      <div class="lang">
+        <button id="btnJP" class="active">JP</button>
+        <button id="btnEN">EN</button>
       </div>
-      <div class="crystal-base">種族 / Race</div>
+    </div>
+  </header>
+
+  <!-- RESULT -->
+  <main>
+    <section id="resultArea" class="crystal-grid"></section>
+
+    <div class="actions">
+      <button id="saveImgBtn">画像を保存 / Save Image</button>
+      <button id="shareBtn">シェア / Share</button>
     </div>
 
-    <!-- 2: 性別 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="genderValue">
-        ?<br><span>不明</span>
-      </div>
-      <div class="crystal-base">性別 / Gender</div>
-    </div>
+    <p class="note">※結果は自動で履歴に保存されます（最大20件）</p>
 
-    <!-- 3: 性格 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="personalityValue">
-        Energetic<br><span>元気</span>
-      </div>
-      <div class="crystal-base">性格 / Personality</div>
-    </div>
+    <!-- HISTORY -->
+    <section class="history">
+      <h2>履歴 / History</h2>
+      <div id="historyList"></div>
+      <button id="clearHistory">履歴を削除 / Clear</button>
+    </section>
+  </main>
 
-    <!-- 4: 髪型 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="hairValue">
-        Short<br><span>ショート</span>
-      </div>
-      <div class="crystal-base">髪型 / Hair</div>
-    </div>
+  <footer>
+    © 2025 Artilot
+  </footer>
 
-    <!-- 5: 服 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="outfitValue">
-        Maid<br><span>メイド</span>
-      </div>
-      <div class="crystal-base">服 / Outfit</div>
-    </div>
-
-    <!-- 6: モチーフ -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="motifValue">
-        Moon<br><span>月</span>
-      </div>
-      <div class="crystal-base">モチーフ / Motif</div>
-    </div>
-
-    <!-- 7: 雰囲気 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="moodValue">
-        Retro<br><span>レトロ</span>
-      </div>
-      <div class="crystal-base">雰囲気 / Mood</div>
-    </div>
-
-    <!-- 8: テーマ -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="themeValue">
-        Nature<br><span>自然</span>
-      </div>
-      <div class="crystal-base">テーマ / Theme</div>
-    </div>
-
-    <!-- 9: 構図 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-normal" id="compositionValue">
-        Full Body<br><span>全身</span>
-      </div>
-      <div class="crystal-base">構図 / Composition</div>
-    </div>
-
-    <!-- 10: メインカラー -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-color" id="mainColor"></div>
-      <div class="crystal-base">メインカラー / Main</div>
-    </div>
-
-    <!-- 11: サブカラー1 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-color" id="subColor1"></div>
-      <div class="crystal-base">サブカラー1 / Sub1</div>
-    </div>
-
-    <!-- 12: サブカラー2 -->
-    <div class="crystal-item">
-      <div class="crystal-ball crystal-color" id="subColor2"></div>
-      <div class="crystal-base">サブカラー2 / Sub2</div>
-    </div>
-
-  </div>
-</section>
+  <script src="script.js"></script>
+</body>
+</html>
