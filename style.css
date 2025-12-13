@@ -1,148 +1,83 @@
-* {
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
 body {
-  margin: 0;
-  background: #0e2a33;
+  background: #1e3440;
   color: #fff;
+  font-family:_protocol:
+  -apple-system, BlinkMacSystemFont, sans-serif;
   text-align: center;
 }
 
-/* HEADER */
-.header {
-  padding: 24px 12px;
+.title {
+  font-size: 36px;
+  margin: 24px 0 10px;
 }
 
-h1 {
-  letter-spacing: 0.2em;
-  margin-bottom: 8px;
-}
-
-.subtitle {
-  opacity: 0.8;
-  font-size: 14px;
-}
-
-/* CONTROLS */
 .controls {
-  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
-.controls button {
-  margin: 6px;
-  padding: 10px 14px;
-  border-radius: 12px;
+button {
   border: none;
-  font-weight: bold;
+  border-radius: 14px;
+  padding: 12px 18px;
+  margin: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.toggle button {
+  background: #ffffff;
 }
 
 #drawBtn {
-  background: #fff;
-  color: #000;
+  background: #ffffff;
+  font-size: 16px;
 }
 
-.lang button {
-  background: transparent;
-  border: 1px solid #aaa;
-  color: #fff;
-}
-
-.lang .active {
-  background: #fff;
-  color: #000;
-}
-
-/* GRID */
-.crystal-grid {
+.card-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
   padding: 20px;
   max-width: 420px;
   margin: auto;
 }
 
-/* CRYSTAL */
-.crystal {
+.card {
+  background: #ffffff;
+  color: #222;
+  border-radius: 14px;
+  min-height: 64px;
+  padding: 14px 10px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.crystal-ball {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #dcdcdc);
-  display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 13px;
-  font-weight: bold;
-  color: #000;
-  padding: 6px;
-  animation: glow 4s ease-in-out infinite;
+
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.crystal-ball span {
-  font-size: 11px;
-  display: block;
-  opacity: 0.7;
-}
-
-/* GOLD BASE */
-.crystal-base {
-  margin-top: -6px;
-  padding: 6px 8px;
-  background: linear-gradient(#d6b15a, #9f7a2a);
-  border-radius: 10px;
-  font-size: 11px;
-}
-
-/* COLOR CRYSTALS */
-.color .crystal-ball {
-  font-size: 12px;
-  color: #fff;
-}
-
-/* ACTIONS */
-.actions {
-  margin: 20px 0;
-}
-
-.actions button {
-  margin: 6px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: none;
-}
-
-/* HISTORY */
-.history {
-  padding: 20px;
-}
-
-.history div {
-  background: #fff;
-  color: #000;
-  padding: 10px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  text-align: left;
-  font-size: 13px;
-}
-
-/* FOOTER */
-footer {
-  padding: 12px;
+.card span {
   font-size: 12px;
   opacity: 0.6;
+  margin-top: 4px;
 }
 
-/* ANIMATION */
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 12px rgba(255,255,255,0.3); }
-  50% { box-shadow: 0 0 22px rgba(255,255,255,0.7); }
+/* シャッフル演出 */
+.shuffle {
+  animation: shuffle 0.15s linear infinite;
+}
+
+@keyframes shuffle {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+.actions {
+  margin: 10px 0;
+}
+
+.history-btn {
+  margin-bottom: 40px;
 }
