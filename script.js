@@ -1,89 +1,101 @@
-const data = {
-  race: [["Human","人"],["Elf","エルフ"],["Robot","ロボット"]],
-  gender: [["Male","男性"],["Female","女性"],["?","不明"]],
-  personality: [["Quiet","静か"],["Energetic","元気"],["Expressionless","無表情"]],
-  hair: [["Short","ショート"],["Long","ロング"],["Bob","ボブ"]],
-  outfit: [["Maid","メイド"],["Armor","鎧"],["Sailor","セーラー"]],
-  motif: [["Moon","月"],["Sun","太陽"],["Fish","魚"]],
-  mood: [["Retro","レトロ"],["Fantasy","ファンタジー"],["Horror","ホラー"]],
-  theme: [["Nature","自然"],["Urban","都会"],["Dream","夢"]],
-  composition: [["Full Body","全身"],["Bust","バストアップ"],["Top-down","上から"]]
-};
+const resultArea = document.getElementById("resultArea");
+const drawBtn = document.getElementById("drawBtn");
+const langBtn = document.getElementById("langBtn");
+const animBtn = document.getElementById("animBtn");
 
 let lang = "JP";
-let history = JSON.parse(localStorage.getItem("artilot_history") || "[]");
+let animOn = true;
 
-const resultArea = document.getElementById("resultArea");
-
-document.getElementById("btnJP").onclick = () => setLang("JP");
-document.getElementById("btnEN").onclick = () => setLang("EN");
-document.getElementById("drawBtn").onclick = draw;
-document.getElementById("clearHistory").onclick = () => {
-  history = [];
-  saveHistory();
+/* データ */
+const data = {
+  Race: [["Human", "人"], ["Elf", "エルフ"]],
+  Gender: [["?", "不明"], ["Neutral", "中性"]],
+  Personality: [["Energetic", "元気"], ["Quiet", "静か"]],
+  Hair: [["Short", "ショート"], ["Long", "ロング"]],
+  Outfit: [["Maid", "メイド"], ["Armor", "鎧"]],
+  Motif: [["Moon", "月"], ["Sun", "太陽"]],
+  Mood: [["Retro", "レトロ"], ["Fantasy", "ファンタジー"]],
+  Theme: [["Nature", "自然"], ["Tech", "テック"]],
+  Composition: [["Full Body", "全身"], ["Bust Up", "バストアップ"]],
+  Main: [["Main Color", "メインカラー"]],
+  Sub1: [["Sub Color 1", "サブカラー1"]],
+  Sub2: [["Sub Color 2", "サブカラー2"]],
 };
-
-function setLang(l) {
-  lang = l;
-  document.getElementById("btnJP").classList.toggle("active", l==="JP");
-  document.getElementById("btnEN").classList.toggle("active", l==="EN");
-}
 
 function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function draw() {
+/* カード生成 */
+function createCard(textPair) {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    ${lang === "JP" ? textPair[1] : textPair[0]}
+    <span>${lang === "JP" ? textPair[0] : textPair[1]}</span>
+  `;
+  return card;
+}
+
+/* シャッフル演出 */
+function shuffleAnimation(cards, finalData) {
+  cards.forEach(card => card.classList.add("shuffle"));
+
+  let count = 0;
+  const interval = setInterval(() => {
+    cards.forEach(card => {
+      const r = pick([["???", "???"], ["???", "???"]]);
+      card.innerHTML = `${r[0]}<span>${r[1]}</span>`;
+    });
+    count++;
+    if (count > 8) {
+      clearInterval(interval);
+      cards.forEach((card, i) => {
+        card.classList.remove("shuffle");
+        card.innerHTML = `
+          ${lang === "JP" ? finalData[i][1] : finalData[i][0]}
+          <span>${lang === "JP" ? finalData[i][0] : finalData[i][1]}</span>
+        `;
+      });
+    }
+  }, 120);
+}
+
+/* DRAW */
+drawBtn.onclick = () => {
   resultArea.innerHTML = "";
-  const result = {};
+  const finalData = [];
+  const cards = [];
 
   Object.keys(data).forEach(key => {
     const v = pick(data[key]);
-    result[key] = v;
-    addCrystal(v, key);
+    finalData.push(v);
+
+    const card = createCard(["...", "..."]);
+    cards.push(card);
+    resultArea.appendChild(card);
   });
 
-  const colors = ["#"+Math.floor(Math.random()*16777215).toString(16),
-                  "#"+Math.floor(Math.random()*16777215).toString(16),
-                  "#"+Math.floor(Math.random()*16777215).toString(16)];
+  if (animOn) {
+    shuffleAnimation(cards, finalData);
+  } else {
+    cards.forEach((card, i) => {
+      card.innerHTML = `
+        ${lang === "JP" ? finalData[i][1] : finalData[i][0]}
+        <span>${lang === "JP" ? finalData[i][0] : finalData[i][1]}</span>
+      `;
+    });
+  }
+};
 
-  ["Main","Sub1","Sub2"].forEach((t,i)=>{
-    addColorCrystal(t, colors[i]);
-    result[t] = colors[i];
-  });
+/* LANGUAGE TOGGLE */
+langBtn.onclick = () => {
+  lang = lang === "JP" ? "EN" : "JP";
+  langBtn.textContent = lang;
+};
 
-  history.unshift(result);
-  history = history.slice(0,20);
-  saveHistory();
-}
-
-function addCrystal(value, label) {
-  const div = document.createElement("div");
-  div.className = "crystal";
-  div.innerHTML = `
-    <div class="crystal-ball">
-      ${lang==="EN"?value[0]:value[1]}
-      <span>${lang==="EN"?value[1]:value[0]}</span>
-    </div>
-    <div class="crystal-base">${label}</div>
-  `;
-  resultArea.appendChild(div);
-}
-
-function addColorCrystal(name, color) {
-  const div = document.createElement("div");
-  div.className = "crystal color";
-  div.innerHTML = `
-    <div class="crystal-ball" style="background:${color}">
-      ${name}
-    </div>
-    <div class="crystal-base">${color}</div>
-  `;
-  resultArea.appendChild(div);
-}
-
-function saveHistory() {
-  localStorage.setItem("artilot_history", JSON.stringify(history));
-  const list = document.getElementById("historyList");
-  list.innerHTML = history.map((h,i)=>`<div>#${i+1}<br>${JSON.stringify(h)}</div>`).join("");
-}
+/* ANIMATION TOGGLE */
+animBtn.onclick = () => {
+  animOn = !animOn;
+  animBtn.textContent = animOn ? "ANIM ON" : "ANIM OFF";
+};
