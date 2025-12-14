@@ -1,101 +1,125 @@
-const resultArea = document.getElementById("resultArea");
-const drawBtn = document.getElementById("drawBtn");
-const langBtn = document.getElementById("langBtn");
-const animBtn = document.getElementById("animBtn");
-
-let lang = "JP";
-let animOn = true;
-
-/* データ */
 const data = {
-  Race: [["Human", "人"], ["Elf", "エルフ"]],
-  Gender: [["?", "不明"], ["Neutral", "中性"]],
-  Personality: [["Energetic", "元気"], ["Quiet", "静か"]],
-  Hair: [["Short", "ショート"], ["Long", "ロング"]],
-  Outfit: [["Maid", "メイド"], ["Armor", "鎧"]],
-  Motif: [["Moon", "月"], ["Sun", "太陽"]],
-  Mood: [["Retro", "レトロ"], ["Fantasy", "ファンタジー"]],
-  Theme: [["Nature", "自然"], ["Tech", "テック"]],
-  Composition: [["Full Body", "全身"], ["Bust Up", "バストアップ"]],
-  Main: [["Main Color", "メインカラー"]],
-  Sub1: [["Sub Color 1", "サブカラー1"]],
-  Sub2: [["Sub Color 2", "サブカラー2"]],
+  race: [{jp:'人', en:'Human'}, {jp:'エルフ', en:'Elf'}],
+  gender: [{jp:'不明', en:'Unknown'}, {jp:'中性', en:'Neutral'}],
+  personality: [{jp:'静か', en:'Quiet'}, {jp:'元気', en:'Energetic'}],
+  hair: [{jp:'ショート', en:'Short'}],
+  outfit: [{jp:'メイド', en:'Maid'}],
+  motif: [{jp:'月', en:'Moon'}],
+  mood: [{jp:'レトロ', en:'Retro'}],
+  theme: [{jp:'自然', en:'Nature'}],
+  composition: [{jp:'全身', en:'Full Body'}],
+  colors: ['#1c3ea2','#c1db59','#155b5d']
 };
 
-function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+const resultEl = document.getElementById('result');
+const paletteEl = document.getElementById('palette');
+
+document.getElementById('drawBtn').onclick = draw;
+document.getElementById('shareBtn').onclick = share;
+document.getElementById('clearHistory').onclick = () => {
+  localStorage.removeItem('artilotHistory');
+  loadHistory();
+};
+
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function draw(){
+  const r = {
+    race: pick(data.race),
+    gender: pick(data.gender),
+    personality: pick(data.personality),
+    hair: pick(data.hair),
+    outfit: pick(data.outfit),
+    motif: pick(data.motif),
+    mood: pick(data.mood),
+    theme: pick(data.theme),
+    composition: pick(data.composition),
+    main: data.colors[0],
+    subs: data.colors.slice(1)
+  };
+
+  renderResult(r);
+  saveHistory(r);
+  loadHistory();
 }
 
-/* カード生成 */
-function createCard(textPair) {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    ${lang === "JP" ? textPair[1] : textPair[0]}
-    <span>${lang === "JP" ? textPair[0] : textPair[1]}</span>
-  `;
-  return card;
-}
-
-/* シャッフル演出 */
-function shuffleAnimation(cards, finalData) {
-  cards.forEach(card => card.classList.add("shuffle"));
-
-  let count = 0;
-  const interval = setInterval(() => {
-    cards.forEach(card => {
-      const r = pick([["???", "???"], ["???", "???"]]);
-      card.innerHTML = `${r[0]}<span>${r[1]}</span>`;
-    });
-    count++;
-    if (count > 8) {
-      clearInterval(interval);
-      cards.forEach((card, i) => {
-        card.classList.remove("shuffle");
-        card.innerHTML = `
-          ${lang === "JP" ? finalData[i][1] : finalData[i][0]}
-          <span>${lang === "JP" ? finalData[i][0] : finalData[i][1]}</span>
-        `;
-      });
+function renderResult(r){
+  resultEl.innerHTML = '';
+  Object.entries(r).forEach(([k,v])=>{
+    if(typeof v === 'object' && v.jp){
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="label">${k}</div>
+        <div class="value">${v.jp}<br>${v.en}</div>
+      `;
+      resultEl.appendChild(card);
     }
-  }, 120);
-}
-
-/* DRAW */
-drawBtn.onclick = () => {
-  resultArea.innerHTML = "";
-  const finalData = [];
-  const cards = [];
-
-  Object.keys(data).forEach(key => {
-    const v = pick(data[key]);
-    finalData.push(v);
-
-    const card = createCard(["...", "..."]);
-    cards.push(card);
-    resultArea.appendChild(card);
   });
 
-  if (animOn) {
-    shuffleAnimation(cards, finalData);
-  } else {
-    cards.forEach((card, i) => {
-      card.innerHTML = `
-        ${lang === "JP" ? finalData[i][1] : finalData[i][0]}
-        <span>${lang === "JP" ? finalData[i][0] : finalData[i][1]}</span>
-      `;
-    });
-  }
-};
+  paletteEl.innerHTML = '';
+  [r.main, ...r.subs].forEach(c=>{
+    const chip = document.createElement('div');
+    chip.className = 'color-chip';
+    chip.style.background = c;
+    paletteEl.appendChild(chip);
+  });
+}
 
-/* LANGUAGE TOGGLE */
-langBtn.onclick = () => {
-  lang = lang === "JP" ? "EN" : "JP";
-  langBtn.textContent = lang;
-};
+function saveHistory(r){
+  const h = JSON.parse(localStorage.getItem('artilotHistory')||'[]');
+  h.unshift(r);
+  if(h.length>20) h.pop();
+  localStorage.setItem('artilotHistory', JSON.stringify(h));
+}
 
-/* ANIMATION TOGGLE */
-animBtn.onclick = () => {
-  animOn = !animOn;
-  animBtn.textContent = animOn ? "ANIM ON" : "ANIM OFF";
-};
+function loadHistory(){
+  const list = document.getElementById('historyList');
+  list.innerHTML='';
+  const h = JSON.parse(localStorage.getItem('artilotHistory')||'[]');
+  h.forEach((r,i)=>{
+    const d = document.createElement('div');
+    d.className='history-card';
+    d.innerHTML=`
+      <strong>#${i+1}</strong>
+      種族: ${r.race.jp} / ${r.race.en}<br>
+      性別: ${r.gender.jp} / ${r.gender.en}<br>
+      性格: ${r.personality.jp} / ${r.personality.en}<br>
+      髪型: ${r.hair.jp} / ${r.hair.en}<br>
+      服: ${r.outfit.jp} / ${r.outfit.en}<br>
+      モチーフ: ${r.motif.jp} / ${r.motif.en}<br>
+      雰囲気: ${r.mood.jp} / ${r.mood.en}<br>
+      テーマ: ${r.theme.jp} / ${r.theme.en}<br>
+      構図: ${r.composition.jp} / ${r.composition.en}
+    `;
+    d.onclick = ()=> shareFromHistory(r);
+    list.appendChild(d);
+  });
+}
+
+function shareFromHistory(r){
+  const text = `
+インスピレーションカードの結果
+種族: ${r.race.jp}
+性別: ${r.gender.jp}
+性格: ${r.personality.jp}
+髪型: ${r.hair.jp}
+服: ${r.outfit.jp}
+モチーフ: ${r.motif.jp}
+雰囲気: ${r.mood.jp}
+テーマ: ${r.theme.jp}
+構図: ${r.composition.jp}
+
+#ARTILOT
+#今日のお題
+https://kuraymd.github.io/Artilot/
+`;
+  navigator.share ? navigator.share({text}) : alert(text);
+}
+
+function share(){
+  const h = JSON.parse(localStorage.getItem('artilotHistory')||'[]');
+  if(h[0]) shareFromHistory(h[0]);
+}
+
+loadHistory();
