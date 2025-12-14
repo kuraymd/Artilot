@@ -1,119 +1,36 @@
-/* =========================
-   ARTILOT script.js FINAL+
-========================= */
+const $ = id => document.getElementById(id);
 
-// ---------- データ ----------
 const data = {
-  race: [
-    { jp: '人', en: 'Human' },
-    { jp: 'エルフ', en: 'Elf' },
-    { jp: 'ダークエルフ', en: 'Dark Elf' },
-    { jp: '獣人', en: 'Beastfolk' },
-    { jp: '天使', en: 'Angel' },
-    { jp: '悪魔', en: 'Demon' },
-    { jp: '精霊', en: 'Spirit' },
-    { jp: '機械人形', en: 'Automaton' }
-  ],
-  gender: [
-    { jp: '不明', en: 'Unknown' },
-    { jp: '中性', en: 'Neutral' },
-    { jp: '女性', en: 'Female' },
-    { jp: '男性', en: 'Male' },
-    { jp: '両性', en: 'Androgynous' }
-  ],
+  race: ["ヒューマン / Human", "エルフ / Elf", "獣人 / Beastfolk", "アンドロイド / Android"],
+  gender: ["男性 / Male", "女性 / Female", "中性 / Androgynous"],
   personality: [
-    { jp: '静か', en: 'Quiet' },
-    { jp: '元気', en: 'Energetic' },
-    { jp: '冷静', en: 'Calm' },
-    { jp: '無表情', en: 'Stoic' },
-    { jp: '皮肉屋', en: 'Sarcastic' },
-    { jp: '優しい', en: 'Kind' },
-    { jp: '不思議', en: 'Mysterious' },
-    { jp: '自信家', en: 'Confident' }
+    "無表情 / Expressionless",
+    "静か / Quiet",
+    "冷静 / Calm",
+    "情熱的 / Passionate"
   ],
-  hair: [
-    { jp: 'ショート', en: 'Short' },
-    { jp: 'ロング', en: 'Long' },
-    { jp: 'ボブ', en: 'Bob' },
-    { jp: 'ポニーテール', en: 'Ponytail' },
-    { jp: 'ツインテール', en: 'Twintails' },
-    { jp: 'ウェーブ', en: 'Wavy' },
-    { jp: '三つ編み', en: 'Braided' }
-  ],
-  outfit: [
-    { jp: 'メイド', en: 'Maid' },
-    { jp: '制服', en: 'Uniform' },
-    { jp: '私服', en: 'Casual' },
-    { jp: 'ドレス', en: 'Dress' },
-    { jp: '鎧', en: 'Armor' },
-    { jp: 'ローブ', en: 'Robe' },
-    { jp: 'ストリート', en: 'Street' }
-  ],
-  motif: [
-    { jp: '月', en: 'Moon' },
-    { jp: '太陽', en: 'Sun' },
-    { jp: '星', en: 'Star' },
-    { jp: '花', en: 'Flower' },
-    { jp: '骨', en: 'Bone' },
-    { jp: '機械', en: 'Machine' },
-    { jp: '水', en: 'Water' },
-    { jp: '炎', en: 'Fire' }
-  ],
-  mood: [
-    { jp: 'レトロ', en: 'Retro' },
-    { jp: 'ダーク', en: 'Dark' },
-    { jp: 'ポップ', en: 'Pop' },
-    { jp: 'ゴシック', en: 'Gothic' },
-    { jp: 'ナチュラル', en: 'Natural' },
-    { jp: 'サイバー', en: 'Cyber' },
-    { jp: 'ゆるい', en: 'Soft' }
-  ],
-  theme: [
-    { jp: '自然', en: 'Nature' },
-    { jp: 'テック', en: 'Tech' },
-    { jp: 'ファンタジー', en: 'Fantasy' },
-    { jp: '近未来', en: 'Near Future' },
-    { jp: '中世', en: 'Medieval' },
-    { jp: '和風', en: 'Japanese' },
-    { jp: '宇宙', en: 'Space' }
-  ],
-  composition: [
-    { jp: '全身', en: 'Full Body' },
-    { jp: 'バストアップ', en: 'Bust Up' },
-    { jp: '腰上', en: 'Waist Up' },
-    { jp: '横顔', en: 'Profile' },
-    { jp: '俯瞰', en: 'Top View' },
-    { jp: '煽り', en: 'Low Angle' }
-  ],
-  colors: [
-    '#1c3ea2', '#c1db59', '#155b5d',
-    '#7c4dff', '#ff8a65', '#2e2e2e',
-    '#ffd166', '#118ab2', '#ef476f'
-  ]
+  hair: ["ウルフカット / Wolf Cut", "ロング / Long", "ショート / Short"],
+  outfit: ["メイド服 / Maid", "スーツ / Suit", "カジュアル / Casual"],
+  motif: ["ハート / Heart", "月 / Moon", "鎖 / Chain"],
+  mood: ["ホラー / Horror", "ファンタジー / Fantasy", "ダーク / Dark"],
+  theme: ["記憶 / Memory", "夢 / Dream", "孤独 / Solitude"],
+  composition: ["バストアップ / Bust", "全身 / Full Body", "俯瞰 / Bird’s-eye"]
 };
 
-// ---------- ユーティリティ ----------
-const rand = arr => arr[Math.floor(Math.random() * arr.length)];
-const drawColors = () => [...data.colors].sort(() => 0.5 - Math.random()).slice(0, 3);
+let currentResult = null;
 
-// ---------- DOM ----------
-const cards = {
-  race: document.getElementById('race'),
-  gender: document.getElementById('gender'),
-  personality: document.getElementById('personality'),
-  hair: document.getElementById('hair'),
-  outfit: document.getElementById('outfit'),
-  motif: document.getElementById('motif'),
-  mood: document.getElementById('mood'),
-  theme: document.getElementById('theme'),
-  composition: document.getElementById('composition')
-};
-const colorBox = document.getElementById('colorBox');
-const historyArea = document.getElementById('history');
+function rand(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-// ---------- メイン ----------
+function randomColors() {
+  return Array.from({ length: 3 }, () =>
+    "#" + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0")
+  );
+}
+
 function drawCards() {
-  const result = {
+  currentResult = {
     race: rand(data.race),
     gender: rand(data.gender),
     personality: rand(data.personality),
@@ -123,92 +40,75 @@ function drawCards() {
     mood: rand(data.mood),
     theme: rand(data.theme),
     composition: rand(data.composition),
-    colors: drawColors()
+    colors: randomColors()
   };
 
-  Object.keys(cards).forEach(key => {
-    cards[key].innerHTML = `
-      <div class="jp">${result[key].jp}</div>
-      <div class="en">${result[key].en}</div>
-    `;
+  for (const key in currentResult) {
+    if ($(key)) $(key).textContent = currentResult[key];
+  }
+
+  const box = $("colorBox");
+  box.innerHTML = "";
+  currentResult.colors.forEach(c => {
+    const d = document.createElement("div");
+    d.className = "color-chip";
+    d.style.background = c;
+    box.appendChild(d);
   });
 
-  colorBox.innerHTML = '';
-  result.colors.forEach(c => {
-    const chip = document.createElement('span');
-    chip.style.background = c;
-    colorBox.appendChild(chip);
-  });
-
-  saveHistory(result);
+  saveHistory(currentResult);
 }
 
-// ---------- 履歴 ----------
+function shareResult(result = currentResult) {
+  if (!result) return;
+
+  const text = `#今日のARTILOT
+
+インスピレーションカードの結果
+${Object.entries(result)
+  .filter(([k]) => k !== "colors")
+  .map(([_, v]) => v)
+  .join("\n")}
+Colors: ${result.colors.join(", ")}
+
+#ARTILOT
+#今日のお題
+
+あなたもやってみてね！
+ARTILOT : https://kuraymd.github.io/Artilot/`;
+
+  navigator.share
+    ? navigator.share({ text })
+    : navigator.clipboard.writeText(text).then(() => alert("コピーしました"));
+}
+
 function saveHistory(result) {
-  const history = JSON.parse(localStorage.getItem('artilotHistory') || '[]');
-  history.unshift(result);
-  if (history.length > 20) history.pop();
-  localStorage.setItem('artilotHistory', JSON.stringify(history));
+  const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
+  list.unshift(result);
+  localStorage.setItem("artilotHistory", JSON.stringify(list.slice(0, 20)));
   renderHistory();
 }
 
 function renderHistory() {
-  const history = JSON.parse(localStorage.getItem('artilotHistory') || '[]');
-  historyArea.innerHTML = '';
+  const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
+  const wrap = $("historyList");
+  wrap.innerHTML = "";
 
-  history.forEach((h, i) => {
-    const card = document.createElement('div');
-    card.className = 'history-card';
+  list.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "history-card";
+    card.textContent = r.race + " / " + r.mood;
 
-    const shareBtn = document.createElement('button');
-    shareBtn.className = 'history-share';
-    shareBtn.textContent = '↗︎';
-    shareBtn.onclick = e => {
-      e.stopPropagation();
-      shareResult(h);
-    };
+    const btn = document.createElement("button");
+    btn.textContent = "↗︎ シェア";
+    btn.onclick = () => shareResult(r);
 
-    card.innerHTML = `
-      <strong>#${i + 1}</strong><br>
-      種族: ${h.race.jp} / ${h.race.en}<br>
-      性別: ${h.gender.jp} / ${h.gender.en}<br>
-      性格: ${h.personality.jp} / ${h.personality.en}
-    `;
-
-    card.appendChild(shareBtn);
-    historyArea.appendChild(card);
+    card.appendChild(btn);
+    wrap.appendChild(card);
   });
 }
 
-// ---------- シェア ----------
-function shareResult(h) {
-  const colorText = h.colors.join(', ');
+$("drawBtn").onclick = drawCards;
+$("shareBtn").onclick = () => shareResult();
 
-  const text = `
-#今日のARTILOT
-
-インスピレーションカードの結果
-種族: ${h.race.jp}
-性別: ${h.gender.jp}
-性格: ${h.personality.jp}
-髪型: ${h.hair.jp}
-服: ${h.outfit.jp}
-モチーフ: ${h.motif.jp}
-雰囲気: ${h.mood.jp}
-テーマ: ${h.theme.jp}
-構図: ${h.composition.jp}
-
-カラー:
-${colorText}
-
-#ARTILOT
-https://kuraymd.github.io/Artilot/
-`.trim();
-
-  navigator.share
-    ? navigator.share({ text })
-    : alert(text);
-}
-
-// ---------- 初期 ----------
 renderHistory();
