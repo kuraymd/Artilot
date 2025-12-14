@@ -1,83 +1,139 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background: #1e3440;
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #122a35;
   color: #fff;
-  font-family:_protocol:
-  -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.header {
   text-align: center;
+  padding: 24px 12px;
 }
 
-.title {
-  font-size: 36px;
-  margin: 24px 0 10px;
+.subtitle {
+  opacity: 0.8;
+  font-size: 14px;
 }
 
-.controls {
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 12px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
   margin-bottom: 16px;
 }
 
-button {
-  border: none;
-  border-radius: 14px;
-  padding: 12px 18px;
-  margin: 6px;
-  font-size: 14px;
-  cursor: pointer;
+.primary-btn span {
+  font-size: 12px;
+  opacity: 0.7;
 }
 
-.toggle button {
-  background: #ffffff;
-}
-
-#drawBtn {
-  background: #ffffff;
-  font-size: 16px;
-}
-
-.card-grid {
+.result-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  padding: 20px;
-  max-width: 420px;
-  margin: auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .card {
-  background: #ffffff;
+  background: #fff;
   color: #222;
-  border-radius: 14px;
-  min-height: 64px;
-  padding: 14px 10px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
 }
 
-.card span {
+.card .label {
   font-size: 12px;
   opacity: 0.6;
-  margin-top: 4px;
 }
 
-/* シャッフル演出 */
-.shuffle {
-  animation: shuffle 0.15s linear infinite;
+.card .value {
+  font-size: 14px;
+  font-weight: bold;
 }
 
-@keyframes shuffle {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-  100% { transform: translateY(0); }
+.palette-wrap {
+  margin: 12px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.color-palette {
+  display: flex;
+  gap: 8px;
+}
+
+.color-chip {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.2);
 }
 
 .actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.note {
+  font-size: 12px;
+  opacity: 0.7;
   margin: 10px 0;
 }
 
-.history-btn {
-  margin-bottom: 40px;
+.history {
+  margin-top: 24px;
+}
+
+.history-list {
+  display: grid;
+  gap: 10px;
+}
+
+.history-card {
+  background: #ffffff;
+  color: #222;
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.history-card strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.danger {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  background: #8b2e2e;
+  color: #fff;
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.6;
+  padding: 20px;
 }
