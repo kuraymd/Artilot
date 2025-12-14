@@ -2,32 +2,53 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ARTILOT</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1 class="title">ARTILOT</h1>
+<header class="header">
+  <h1>ARTILOT</h1>
+  <p class="subtitle">インスピレーションカード / Inspiration Cards</p>
+</header>
 
-  <div class="controls">
-    <button id="drawBtn">カードを引く</button>
+<main class="container">
 
-    <div class="toggle">
-      <button id="langBtn">JP</button>
-      <button id="animBtn">ANIM ON</button>
-    </div>
+  <button id="drawBtn" class="primary-btn">
+    カードを引く<br><span>Draw Cards</span>
+  </button>
+
+  <!-- RESULT -->
+  <section id="result" class="result-grid">
+
+    <!-- JSで生成 -->
+  </section>
+
+  <div class="palette-wrap">
+    <div id="palette" class="color-palette"></div>
   </div>
-
-  <section id="resultArea" class="card-grid"></section>
 
   <div class="actions">
     <button id="saveBtn">保存</button>
     <button id="shareBtn">シェア</button>
   </div>
 
-  <button id="historyBtn" class="history-btn">りれき</button>
+  <p class="note">※結果は自動で履歴に保存されます（最大20件）</p>
 
-  <script src="script.js"></script>
+  <!-- HISTORY -->
+  <section class="history">
+    <h2>履歴 / History</h2>
+    <div id="historyList" class="history-list"></div>
+    <button id="clearHistory" class="danger">履歴をすべて削除</button>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 Artilot
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
