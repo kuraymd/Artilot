@@ -1,43 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ARTILOT</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
 
 <header class="header">
   <h1>ARTILOT</h1>
-  <p class="subtitle">Inspiration Cards</p>
+  <p class="subtitle">Inspiration Card</p>
 </header>
 
 <main class="container">
 
-  <button id="drawBtn" class="primary-btn">
-    カードを引く<br><span>Draw Cards</span>
-  </button>
+  <button id="drawBtn" class="draw-btn">カードを引く / Draw Card</button>
 
-  <section id="result" class="result-grid"></section>
+  <!-- RESULT CARD -->
+  <section class="result-card" id="resultCard">
+    <div class="item"><span>種族 / Race</span><div id="race">—</div></div>
+    <div class="item"><span>性別 / Gender</span><div id="gender">—</div></div>
+    <div class="item"><span>性格 / Personality</span><div id="personality">—</div></div>
+    <div class="item"><span>髪型 / Hair</span><div id="hair">—</div></div>
+    <div class="item"><span>服装 / Outfit</span><div id="outfit">—</div></div>
+    <div class="item"><span>モチーフ / Motif</span><div id="motif">—</div></div>
+    <div class="item"><span>雰囲気 / Mood</span><div id="mood">—</div></div>
+    <div class="item"><span>テーマ / Theme</span><div id="theme">—</div></div>
+    <div class="item"><span>構図 / Composition</span><div id="composition">—</div></div>
 
-  <div class="actions">
-    <button id="saveBtn">保存</button>
-    <button id="shareBtn">シェア</button>
-  </div>
+    <div class="item color">
+      <span>Color</span>
+      <div id="colorBox" class="colors"></div>
+    </div>
+  </section>
 
-  <p class="note">※結果は自動で履歴に保存されます（最大20件）</p>
+  <button id="shareBtn" class="share-btn">シェア</button>
 
+  <!-- HISTORY -->
   <section class="history">
-    <h2>履歴 / History</h2>
-    <div id="historyList" class="history-list"></div>
-    <button id="clearHistory" class="danger">履歴をすべて削除</button>
+    <h2>履歴</h2>
+    <div id="historyList"></div>
   </section>
 
 </main>
 
-<footer>© 2025 Artilot</footer>
+<footer class="footer">
+  © 2025 ARTILOT
+</footer>
 
-<script src="script.js"></script>
 </body>
 </html>
