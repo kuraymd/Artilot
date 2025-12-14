@@ -1,8 +1,8 @@
 /* =========================
-   ARTILOT script.js FINAL
+   ARTILOT script.js FINAL+
 ========================= */
 
-// ---------- データ定義 ----------
+// ---------- データ ----------
 const data = {
   race: [
     { jp: '人', en: 'Human' },
@@ -92,13 +92,9 @@ const data = {
   ]
 };
 
-// ---------- 共通関数 ----------
+// ---------- ユーティリティ ----------
 const rand = arr => arr[Math.floor(Math.random() * arr.length)];
-
-const drawThreeColors = () => {
-  const shuffled = [...data.colors].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, 3);
-};
+const drawColors = () => [...data.colors].sort(() => 0.5 - Math.random()).slice(0, 3);
 
 // ---------- DOM ----------
 const cards = {
@@ -112,11 +108,10 @@ const cards = {
   theme: document.getElementById('theme'),
   composition: document.getElementById('composition')
 };
-
 const colorBox = document.getElementById('colorBox');
 const historyArea = document.getElementById('history');
 
-// ---------- メイン処理 ----------
+// ---------- メイン ----------
 function drawCards() {
   const result = {
     race: rand(data.race),
@@ -128,10 +123,9 @@ function drawCards() {
     mood: rand(data.mood),
     theme: rand(data.theme),
     composition: rand(data.composition),
-    colors: drawThreeColors()
+    colors: drawColors()
   };
 
-  // 表示
   Object.keys(cards).forEach(key => {
     cards[key].innerHTML = `
       <div class="jp">${result[key].jp}</div>
@@ -139,12 +133,11 @@ function drawCards() {
     `;
   });
 
-  // カラー表示（右下枠）
   colorBox.innerHTML = '';
   result.colors.forEach(c => {
-    const span = document.createElement('span');
-    span.style.background = c;
-    colorBox.appendChild(span);
+    const chip = document.createElement('span');
+    chip.style.background = c;
+    colorBox.appendChild(chip);
   });
 
   saveHistory(result);
@@ -166,26 +159,34 @@ function renderHistory() {
   history.forEach((h, i) => {
     const card = document.createElement('div');
     card.className = 'history-card';
+
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'history-share';
+    shareBtn.textContent = '↗︎';
+    shareBtn.onclick = e => {
+      e.stopPropagation();
+      shareResult(h);
+    };
+
     card.innerHTML = `
       <strong>#${i + 1}</strong><br>
       種族: ${h.race.jp} / ${h.race.en}<br>
       性別: ${h.gender.jp} / ${h.gender.en}<br>
-      性格: ${h.personality.jp} / ${h.personality.en}<br>
-      髪型: ${h.hair.jp} / ${h.hair.en}<br>
-      服: ${h.outfit.jp} / ${h.outfit.en}<br>
-      モチーフ: ${h.motif.jp} / ${h.motif.en}<br>
-      雰囲気: ${h.mood.jp} / ${h.mood.en}<br>
-      テーマ: ${h.theme.jp} / ${h.theme.en}<br>
-      構図: ${h.composition.jp} / ${h.composition.en}
+      性格: ${h.personality.jp} / ${h.personality.en}
     `;
-    card.onclick = () => shareFromHistory(h);
+
+    card.appendChild(shareBtn);
     historyArea.appendChild(card);
   });
 }
 
 // ---------- シェア ----------
-function shareFromHistory(h) {
+function shareResult(h) {
+  const colorText = h.colors.join(', ');
+
   const text = `
+#今日のARTILOT
+
 インスピレーションカードの結果
 種族: ${h.race.jp}
 性別: ${h.gender.jp}
@@ -197,14 +198,17 @@ function shareFromHistory(h) {
 テーマ: ${h.theme.jp}
 構図: ${h.composition.jp}
 
+カラー:
+${colorText}
+
 #ARTILOT
 https://kuraymd.github.io/Artilot/
-  `.trim();
+`.trim();
 
   navigator.share
     ? navigator.share({ text })
     : alert(text);
 }
 
-// ---------- 初期化 ----------
+// ---------- 初期 ----------
 renderHistory();
