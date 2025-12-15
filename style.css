@@ -1,207 +1,106 @@
-/* =========================================
-   ARTILOT – Paper & Ink Theme (B)
-========================================= */
-
-:root {
-  --bg: #EFEDE8;          /* 生成り背景 */
-  --card: #FFFFFF;       /* カード白 */
-  --text: #1A1A1A;       /* メイン文字 */
-  --subtext: #5A5A5A;    /* サブ文字 */
-  --border: #CFCAC2;     /* 枠線 */
-  --accent: #000000;     /* ボタン・リンク */
-}
-
-/* ---------- Base ---------- */
 * {
   box-sizing: border-box;
+  font-family: system-ui, sans-serif;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont,
-               "Hiragino Kaku Gothic ProN",
-               "Yu Gothic", sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  background: #EFEDE8;
+  color: #eee;
 }
 
-.wrap {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 24px 16px 40px;
-}
-
-/* ---------- Header ---------- */
-header {
+.header {
   text-align: center;
-  margin-bottom: 16px;
-}
-
-h1 {
-  margin: 0;
-  font-size: 28px;
-  letter-spacing: 0.04em;
+  padding: 24px 12px;
 }
 
 .subtitle {
-  margin: 6px 0 0;
-  font-size: 13px;
-  color: var(--subtext);
-}
-
-/* ---------- How to use ---------- */
-.howto {
-  font-size: 13px;
-  color: var(--subtext);
-  line-height: 1.6;
-  text-align: center;
-  margin: 14px 0 20px;
-}
-
-/* ---------- Controls ---------- */
-.controls-top {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-button {
+  opacity: 0.7;
   font-size: 14px;
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+}
+
+.draw-btn,
+.share-btn {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #1e88e5;
+  color: #fff;
   cursor: pointer;
 }
 
-button.primary {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
+.result-card,
+.history-card {
+  background: #1a1d23;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
 }
 
-button:hover {
-  opacity: 0.85;
-}
-
-/* ---------- Cards Layout ---------- */
-.cards {
+.result-card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 18px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
-.card.wide {
-  grid-column: span 2;
+.item {
+  font-size: 14px;
 }
 
-/* ---------- Card ---------- */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 14px 16px;
-}
-
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.card-title span {
+.item span {
   display: block;
   font-size: 11px;
-  color: var(--subtext);
-  font-weight: normal;
+  opacity: 0.6;
 }
 
-.divider {
-  height: 1px;
-  background: var(--border);
-  margin: 8px 0 10px;
+.item.color {
+  grid-column: 1 / -1;
 }
 
-/* ---------- Item Block ---------- */
-.block {
-  margin-bottom: 10px;
-}
-
-.label {
-  font-size: 12px;
-  color: var(--subtext);
-  margin-bottom: 2px;
-}
-
-.value {
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-/* ---------- Color Palette ---------- */
-.palette {
+.colors {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   margin-top: 6px;
 }
 
-.palette span {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
+.color-chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
-/* ---------- Actions ---------- */
-.result-actions {
-  text-align: center;
-  margin: 20px 0;
-}
-
-/* ---------- History ---------- */
-.historySection {
-  margin-top: 28px;
-}
-
-.historySection h2 {
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-
-.history-help {
-  font-size: 12px;
-  color: var(--subtext);
-  margin-bottom: 10px;
-}
-
-.historyList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.history {
+  margin-top: 32px;
 }
 
 .history-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 13px;
-  line-height: 1.5;
+  margin-bottom: 12px;
+  position: relative;
 }
 
-.history-card .share {
-  display: inline-block;
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--accent);
+.history-card button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #4fc3f7;
   cursor: pointer;
 }
 
-/* ---------- Footer ---------- */
-footer {
+.footer {
   text-align: center;
-  margin-top: 40px;
+  padding: 24px;
+  opacity: 0.4;
   font-size: 12px;
-  color: var(--subtext);
 }
