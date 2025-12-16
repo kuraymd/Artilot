@@ -188,9 +188,3 @@ document.querySelectorAll(".modal").forEach(modal => {
   };
 });
 
-const howtoBtn = document.getElementById("howtoBtn");
-const howtoContent = document.getElementById("howtoContent");
-
-howtoBtn.onclick = () => {
-  howtoContent.classList.toggle("show");
-};
