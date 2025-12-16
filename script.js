@@ -154,3 +154,36 @@ $("drawBtn").onclick = drawCards;
 $("shareBtn").onclick = () => shareResult();
 
 renderHistory();
+
+$("drawBtn").onclick = drawCards;
+$("shareBtn").onclick = () => shareResult();
+
+renderHistory();
+
+/* ===== How to / History modal ===== */
+const howtoBtn = document.getElementById("howtoBtn");
+const historyHelpBtn = document.getElementById("historyHelpBtn");
+
+const howtoModal = document.getElementById("howtoModal");
+const historyModal = document.getElementById("historyModal");
+
+if (howtoBtn && howtoModal) {
+  howtoBtn.onclick = () => howtoModal.classList.add("show");
+}
+
+if (historyHelpBtn && historyModal) {
+  historyHelpBtn.onclick = () => historyModal.classList.add("show");
+}
+
+document.querySelectorAll("[data-close]").forEach(btn => {
+  btn.onclick = () => {
+    btn.closest(".modal")?.classList.remove("show");
+  };
+});
+
+// 背景クリックで閉じる
+document.querySelectorAll(".modal").forEach(modal => {
+  modal.onclick = e => {
+    if (e.target === modal) modal.classList.remove("show");
+  };
+});
