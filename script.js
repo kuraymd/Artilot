@@ -94,11 +94,54 @@ function renderHistory() {
   const wrap = $("historyList");
   wrap.innerHTML = "";
 
-  list.forEach(r => {
+  list.forEach((r, index) => {
     const card = document.createElement("div");
     card.className = "history-card";
-    card.textContent = r.race + " / " + r.mood;
 
+    // 結果グリッド
+    const grid = document.createElement("div");
+    grid.className = "result-card";
+
+    const fields = [
+      ["種族 / Race", r.race],
+      ["性別 / Gender", r.gender],
+      ["性格 / Personality", r.personality],
+      ["髪型 / Hair", r.hair],
+      ["服装 / Outfit", r.outfit],
+      ["モチーフ / Motif", r.motif],
+      ["雰囲気 / Mood", r.mood],
+      ["テーマ / Theme", r.theme],
+      ["構図 / Composition", r.composition]
+    ];
+
+    fields.forEach(([label, value]) => {
+      const item = document.createElement("div");
+      item.className = "item";
+      item.innerHTML = `${value}<span>${label}</span>`;
+      grid.appendChild(item);
+    });
+
+    // カラーパレット
+    const colorItem = document.createElement("div");
+    colorItem.className = "item color";
+    colorItem.innerHTML = `<span>Color Palette</span>`;
+
+    const colors = document.createElement("div");
+    colors.className = "colors";
+
+    r.colors.forEach(c => {
+      const chip = document.createElement("div");
+      chip.className = "color-chip";
+      chip.style.background = c;
+      colors.appendChild(chip);
+    });
+
+    colorItem.appendChild(colors);
+    grid.appendChild(colorItem);
+
+    card.appendChild(grid);
+
+    // シェアボタン
     const btn = document.createElement("button");
     btn.textContent = "↗︎ シェア";
     btn.onclick = () => shareResult(r);
@@ -107,7 +150,6 @@ function renderHistory() {
     wrap.appendChild(card);
   });
 }
-
 $("drawBtn").onclick = drawCards;
 $("shareBtn").onclick = () => shareResult();
 
