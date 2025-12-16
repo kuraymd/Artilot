@@ -187,3 +187,10 @@ document.querySelectorAll(".modal").forEach(modal => {
     if (e.target === modal) modal.classList.remove("show");
   };
 });
+
+const howtoBtn = document.getElementById("howtoBtn");
+const howtoContent = document.getElementById("howtoContent");
+
+howtoBtn.onclick = () => {
+  howtoContent.classList.toggle("show");
+};
