@@ -85,7 +85,7 @@ ARTILOT : https://kuraymd.github.io/Artilot/`;
 function saveHistory(result) {
   const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
   list.unshift(result);
-  localStorage.setItem("artilotHistory", JSON.stringify(list.slice(0, 20)));
+  localStorage.setItem("artilotHistory", JSON.stringify(list.slice(0, 10)));
   renderHistory();
 }
 
