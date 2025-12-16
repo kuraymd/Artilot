@@ -104,3 +104,29 @@ body {
   opacity: 0.4;
   font-size: 12px;
 }
+
+/* 広告エリア */
+.ad-area {
+  margin: 24px 0 16px;
+  padding: 8px;
+  min-height: 70px;
+  background: #f7f6f3;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ダミー表示 */
+.ad-dummy {
+  text-align: center;
+  color: #e2725b;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.ad-dummy span {
+  display: block;
+  font-size: 11px;
+  margin-top: 4px;
+}
