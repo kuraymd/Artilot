@@ -146,3 +146,59 @@ body {
   align-items: center;
   gap: 8px;
 }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff;
+  max-width: 420px;
+  width: 90%;
+  padding: 20px;
+  border-radius: 12px;
+  position: relative;
+  color: #333;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #e2725b;
+}
+
+.modal-content .en {
+  opacity: 0.6;
+  font-size: 13px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ? アイコン共通 */
+.help-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #e2725b;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
