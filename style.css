@@ -240,3 +240,28 @@ body {
   color: inherit;
   text-decoration: none;
 }
+
+
+/* ARTILOTとは？ ヘッダー */
+.about-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 中央寄せ */
+  gap: 8px;
+  margin: 24px 0 8px;
+}
+
+/* タイトルを少し小さく */
+.about-header h2 {
+  font-size: 18px;      /* ← ここがポイント */
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ? ボタン微調整 */
+.about-header .help-btn {
+  width: 24px;
+  height: 24px;
+  font-size: 13px;
+  line-height: 1;
+}
