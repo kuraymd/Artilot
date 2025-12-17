@@ -1,5 +1,6 @@
 const $ = id => document.getElementById(id);
 
+/* ===== データ ===== */
 const data = {
   race: ["ヒューマン / Human", "エルフ / Elf", "獣人 / Beastfolk", "アンドロイド / Android"],
   gender: ["男性 / Male", "女性 / Female", "中性 / Androgynous"],
@@ -19,16 +20,15 @@ const data = {
 
 let currentResult = null;
 
-function rand(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
+/* ===== ユーティリティ ===== */
+const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
-function randomColors() {
-  return Array.from({ length: 3 }, () =>
+const randomColors = () =>
+  Array.from({ length: 3 }, () =>
     "#" + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0")
   );
-}
 
+/* ===== カード生成 ===== */
 function drawCards() {
   currentResult = {
     race: rand(data.race),
@@ -59,6 +59,7 @@ function drawCards() {
   saveHistory(currentResult);
 }
 
+/* ===== シェア ===== */
 function shareResult(result = currentResult) {
   if (!result) return;
 
@@ -66,9 +67,9 @@ function shareResult(result = currentResult) {
 
 インスピレーションカードの結果
 ${Object.entries(result)
-  .filter(([k]) => k !== "colors")
-  .map(([_, v]) => v)
-  .join("\n")}
+    .filter(([k]) => k !== "colors")
+    .map(([_, v]) => v)
+    .join("\n")}
 Colors: ${result.colors.join(", ")}
 
 #ARTILOT
@@ -82,6 +83,7 @@ ARTILOT : https://kuraymd.github.io/Artilot/`;
     : navigator.clipboard.writeText(text).then(() => alert("コピーしました"));
 }
 
+/* ===== 履歴 ===== */
 function saveHistory(result) {
   const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
   list.unshift(result);
@@ -94,11 +96,10 @@ function renderHistory() {
   const wrap = $("historyList");
   wrap.innerHTML = "";
 
-  list.forEach((r, index) => {
+  list.forEach(r => {
     const card = document.createElement("div");
     card.className = "history-card";
 
-    // 結果グリッド
     const grid = document.createElement("div");
     grid.className = "result-card";
 
@@ -121,7 +122,6 @@ function renderHistory() {
       grid.appendChild(item);
     });
 
-    // カラーパレット
     const colorItem = document.createElement("div");
     colorItem.className = "item color";
     colorItem.innerHTML = `<span>Color Palette</span>`;
@@ -141,7 +141,6 @@ function renderHistory() {
 
     card.appendChild(grid);
 
-    // シェアボタン
     const btn = document.createElement("button");
     btn.textContent = "↗︎ シェア";
     btn.onclick = () => shareResult(r);
@@ -150,41 +149,29 @@ function renderHistory() {
     wrap.appendChild(card);
   });
 }
-$("drawBtn").onclick = drawCards;
-$("shareBtn").onclick = () => shareResult();
 
-renderHistory();
+/* ===== モーダル ===== */
+const howtoBtn = $("howtoBtn");
+const historyHelpBtn = $("historyHelpBtn");
+const howtoModal = $("howtoModal");
+const historyModal = $("historyModal");
 
-$("drawBtn").onclick = drawCards;
-$("shareBtn").onclick = () => shareResult();
-
-renderHistory();
-
-/* ===== How to / History modal ===== */
-const howtoBtn = document.getElementById("howtoBtn");
-const historyHelpBtn = document.getElementById("historyHelpBtn");
-
-const howtoModal = document.getElementById("howtoModal");
-const historyModal = document.getElementById("historyModal");
-
-if (howtoBtn && howtoModal) {
-  howtoBtn.onclick = () => howtoModal.classList.add("show");
-}
-
-if (historyHelpBtn && historyModal) {
-  historyHelpBtn.onclick = () => historyModal.classList.add("show");
-}
+howtoBtn?.addEventListener("click", () => howtoModal.classList.add("show"));
+historyHelpBtn?.addEventListener("click", () => historyModal.classList.add("show"));
 
 document.querySelectorAll("[data-close]").forEach(btn => {
-  btn.onclick = () => {
+  btn.addEventListener("click", () => {
     btn.closest(".modal")?.classList.remove("show");
-  };
+  });
 });
 
-// 背景クリックで閉じる
 document.querySelectorAll(".modal").forEach(modal => {
-  modal.onclick = e => {
+  modal.addEventListener("click", e => {
     if (e.target === modal) modal.classList.remove("show");
-  };
+  });
 });
 
+/* ===== 初期化 ===== */
+$("drawBtn").onclick = drawCards;
+$("shareBtn").onclick = () => shareResult();
+renderHistory();
