@@ -12,35 +12,24 @@
 <header class="header">
   <h1>ARTILOT</h1>
   <p class="subtitle">Inspiration Card</p>
-
 </header>
-
 
 <main class="container">
 
-<p class="howto">
-  カードを引いて、今日のお題を受け取ろう。<br>
-  結果はそのままSNSでシェアできます。<br><br>
-  <span class="en">Draw a card and get today’s prompt. <br>Share it on SNS.</span>
-</p>
-
-<section class="howto-section">
-  <div class="history-header">
-    <h2>使い方 / How to</h2>
-    <button class="help-btn" id="howtoBtn" aria-label="How to">?</button>
-  </div>
-
-  <p class="howto" id="howtoContent">
-    カードを引いて、今日のお題を受け取ろう。<br>
-    結果はそのままSNSでシェアできます。<br><br>
-    <span class="en">
-      Draw a card and get today’s prompt.<br>
-      Share it on SNS.
-    </span>
+  <!-- 一言説明（表面） -->
+  <p class="howto">
+    カードをめくって、創作アイデアを受け取ろう。<br>
+    <span class="en">Draw a card and get creative inspiration.</span>
   </p>
-</section>
 
-  
+  <!-- 使い方 見出し（履歴と同じ見た目） -->
+  <section class="howto-section">
+    <div class="history-header">
+      <h2>使い方 / How to</h2>
+      <button class="help-btn" id="howtoBtn" aria-label="How to">？</button>
+    </div>
+  </section>
+
   <button id="drawBtn" class="draw-btn">カードを引く / Draw Card</button>
 
   <!-- RESULT CARD -->
@@ -63,70 +52,38 @@
 
   <button id="shareBtn" class="share-btn">シェア / Share</button>
 
-
-
-  
   <!-- HISTORY -->
   <section class="history">
-  <div class="history-header">
-    <h2>履歴 / History</h2>
-    <button class="help-btn" id="historyHelpBtn" aria-label="History help">?</button>
-  </div>
-
-    
+    <div class="history-header">
+      <h2>履歴 / History</h2>
+      <button class="help-btn" id="historyHelpBtn" aria-label="History help">？</button>
+    </div>
     <div id="historyList"></div>
   </section>
 
-<div class="ad-area">
-  <!-- DEV用 -->
-  <div class="ad-dummy">
-    <small>Advertisement</small>
-    <span>ここに広告が表示されます</span>
+  <!-- 広告 -->
+  <div class="ad-area">
+    <div class="ad-dummy">
+      <small>Advertisement</small>
+      <span>ここに広告が表示されます</span>
+    </div>
   </div>
 
-  <!-- 本番用（コメントアウト） -->
-  <!--
-  <ins class="adsbygoogle" ...></ins>
-  -->
-</div>
+</main>
 
-<!-- HOW TO MODAL -->
+<footer class="footer">
+  © 2025 ARTILOT<br>
+  <a href="https://t.co/hWn3jW8FT9" target="_blank" rel="noopener">
+    Created by kurayamad
+  </a>
+</footer>
+
+<!-- ========================= -->
+<!-- HOW TO MODAL（箇条書き） -->
+<!-- ========================= -->
 <div class="modal" id="howtoModal">
   <div class="modal-content">
     <button class="close-btn" data-close>×</button>
-    <h3>How to</h3>
-    <p>
-      カードを引いて、今日のインスピレーションを受け取ろう。<br>
-      表示された結果は、そのままSNSでシェアできます。<br><br>
-      <span class="en">
-        Draw a card to get today’s inspiration.<br>
-        You can share the result directly on SNS.
-      </span>
-    </p>
-  </div>
-</div>
-
-<!-- HISTORY HELP MODAL -->
-<div class="modal" id="historyModal">
-  <div class="modal-content">
-    <button class="close-btn" data-close>×</button>
-    <h3>History</h3>
-    <p>
-      履歴から過去の結果を確認できます。<br>
-      ↗︎ シェア を押すと、その結果をもう一度シェアできます。<br>
-      履歴は10個まで保存されます。<br><br>
-      <span class="en">
-        You can review past results here.<br>
-        Tap ↗︎ Share to share the same result again.<br>
-        Up to 10 results are stored.
-      </span>
-    </p>
-  </div>
-</div>
-
-<div class="modal" id="howtoModal">
-  <div class="modal-content">
-    <button class="modal-close" data-close>×</button>
 
     <h3>使い方 / How to</h3>
 
@@ -148,15 +105,28 @@
   </div>
 </div>
 
-  
-</main>
+<!-- ========================= -->
+<!-- HISTORY MODAL -->
+<!-- ========================= -->
+<div class="modal" id="historyModal">
+  <div class="modal-content">
+    <button class="close-btn" data-close>×</button>
 
-<footer class="footer">
-  © 2025 ARTILOT<br>
-  <a href="https://t.co/hWn3jW8FT9" target="_blank" rel="noopener">
-    Created by kurayamad
-  </a>
-</footer>
+    <h3>履歴 / History</h3>
+
+    <ul>
+      <li>過去に生成したカード結果を確認できます</li>
+      <li>↗︎ シェアを押すと、その結果を再度共有できます</li>
+      <li>履歴は最大10件まで保存されます</li>
+    </ul>
+
+    <ul class="en">
+      <li>You can review past results</li>
+      <li>Tap ↗︎ Share to share the same result again</li>
+      <li>Up to 10 history items are saved</li>
+    </ul>
+  </div>
+</div>
 
 </body>
 </html>
