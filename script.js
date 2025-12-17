@@ -171,6 +171,14 @@ document.querySelectorAll(".modal").forEach(modal => {
   });
 });
 
+/* ===== About ARTILOT modal ===== */
+const aboutBtn = document.getElementById("aboutBtn");
+const aboutModal = document.getElementById("aboutModal");
+
+if (aboutBtn && aboutModal) {
+  aboutBtn.onclick = () => aboutModal.classList.add("show");
+}
+
 /* ===== 初期化 ===== */
 $("drawBtn").onclick = drawCards;
 $("shareBtn").onclick = () => shareResult();
