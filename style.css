@@ -126,7 +126,10 @@ body {
 .history-header {
   display: flex;
   align-items: center;
+  justify-content: center; /* ← 追加 */
   gap: 8px;
+  margin: 24px 0 12px;     /* 上下余白も少し整える */
+  text-align: center;
 }
 
 .history-card {
