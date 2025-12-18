@@ -268,3 +268,13 @@ body {
   font-size: 13px;
   line-height: 1;
 }
+
+/* ===============================
+   head text
+=============================== */
+
+.howto {
+  text-align: center;
+  line-height: 1.7;
+  margin: 16px 0 24px;
+}
