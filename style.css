@@ -259,6 +259,13 @@ body {
   opacity: 0.6;
 }
 
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 
 /* ARTILOTとは？ ヘッダー */
 .about-header {
