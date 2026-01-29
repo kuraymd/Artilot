@@ -232,16 +232,16 @@ body {
 /* ===============================
    Footer
 =============================== */
-.footer {
-  text-align: center;
-  padding: 24px;
-  opacity: 0.4;
-  font-size: 12px;
+.footer a {
+  display: inline-block;
+  padding: 10px 16px;
+  margin: 6px 4px;
+  border-radius: 10px;
+  line-height: 1.2;
 }
 
-.footer a {
-  color: inherit;
-  text-decoration: none;
+.footer a:active {
+  opacity: 0.6;
 }
 
 
