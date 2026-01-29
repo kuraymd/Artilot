@@ -331,3 +331,8 @@ body {
 .contact-mail a {
   font-weight: bold;
 }
+
+#privacy,
+#contact {
+  scroll-margin-top: 80px;
+}
