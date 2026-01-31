@@ -1,2 +1,2 @@
 # Artilot
-A simple web app that lets you draw random tarot-style design prompt cards. Includes categories such as Human, Monster, Animal, Costume, and Color Palette.
+A simple web app that lets you randomly draw design prompt cards. There are various categories, such as people, monsters, animals, costumes, and color palettes.
