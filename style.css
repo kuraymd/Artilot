@@ -390,3 +390,40 @@ body {
   line-height: 1.6;
   opacity: 0.8;
 }
+
+/* ===============================
+   request text
+=============================== */
+
+.request-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 32px 0;
+  text-align: center;
+}
+
+.request-card textarea {
+  width: 100%;
+  min-height: 80px;
+  margin: 12px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.request-card button {
+  background: #e2725b;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.request-note {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 8px;
+}
