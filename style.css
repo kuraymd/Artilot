@@ -370,3 +370,23 @@ body {
 #contact {
   scroll-margin-top: 80px;
 }
+
+/* ===============================
+   info text
+=============================== */
+
+.info-section {
+  margin-top: 48px;
+  font-size: 13px;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.info-list li {
+  margin-bottom: 16px;
+  line-height: 1.6;
+  opacity: 0.8;
+}
