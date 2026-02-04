@@ -432,33 +432,61 @@ body {
    request-update text
 =============================== */
 
-.update-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  margin: 24px 0;
+.update-section {
+  margin: 32px 0;
 }
 
-.update-card h3 {
+.update-title {
   text-align: center;
   color: #e2725b;
   margin-bottom: 12px;
 }
 
-.update-card ul {
-  padding-left: 18px;
-  margin: 0;
+/* 横スクロール */
+.update-cards {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 4px 12px;
+  scroll-snap-type: x mandatory;
 }
 
-.update-card li {
+/* スクロールバー控えめ */
+.update-cards::-webkit-scrollbar {
+  height: 6px;
+}
+.update-cards::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+/* 1枚のカード */
+.update-card {
+  min-width: 220px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  scroll-snap-align: start;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+/* 日付 */
+.update-date {
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+/* 本文 */
+.update-text {
+  margin-top: 8px;
   font-size: 14px;
   line-height: 1.6;
-  margin-bottom: 6px;
 }
 
+/* 補足 */
 .update-note {
+  text-align: center;
   font-size: 12px;
   opacity: 0.6;
-  text-align: center;
   margin-top: 10px;
 }
