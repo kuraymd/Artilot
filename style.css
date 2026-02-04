@@ -427,3 +427,38 @@ body {
   opacity: 0.6;
   margin-top: 8px;
 }
+
+/* ===============================
+   request-update text
+=============================== */
+
+.update-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 24px 0;
+}
+
+.update-card h3 {
+  text-align: center;
+  color: #e2725b;
+  margin-bottom: 12px;
+}
+
+.update-card ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.update-card li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+.update-note {
+  font-size: 12px;
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 10px;
+}
