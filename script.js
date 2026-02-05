@@ -206,4 +206,23 @@ document.getElementById("requestInput").value = "";
   };
 }
 
+/* ===== お知らせ ===== */
+fetch("https://script.google.com/macros/s/XXXX/exec?type=announcements")
+  .then(res => res.json())
+  .then(list => {
+    const area = document.getElementById("announcements");
+    area.innerHTML = "";
 
+    list
+      .filter(a => a.visible === true)
+      .forEach(a => {
+        const div = document.createElement("div");
+        div.className = "announcement";
+        div.innerHTML = `
+          <h4>${a.title}</h4>
+          <p>${a.body}</p>
+          <small>${a.date}</small>
+        `;
+        area.appendChild(div);
+      });
+  });
