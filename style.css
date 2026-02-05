@@ -152,6 +152,12 @@ body {
   margin-top: 40px;
 }
 
+/* History 内の結果カードも result-card と同じ構造にする */
+.history-card .result-card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
 /* ===============================
    Request
 =============================== */
@@ -172,3 +178,6 @@ body {
   justify-content: center;
   gap: 12px;
 }
+
+
+
