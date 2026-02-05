@@ -192,18 +192,16 @@ if (requestBtn) {
     const text = document.getElementById("requestInput").value.trim();
     if (!text) return alert("内容を入力してください");
 
-    const url = new URL(
-      "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec"
-    );
+    const url =
+      "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec" +
+      "?type=requests" +
+      "&request=" + encodeURIComponent(text) +
+      "&ua=" + encodeURIComponent(navigator.userAgent);
 
-    url.searchParams.set("type", "requests");
-    url.searchParams.set("request", text);
-    url.searchParams.set("ua", navigator.userAgent);
-
-    fetch(url.toString())
+    fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log("Apps Script response:", data);
+        console.log(data);
         alert("リクエストを送信しました！");
         document.getElementById("requestInput").value = "";
       })
@@ -213,4 +211,5 @@ if (requestBtn) {
       });
   };
 }
+
 
