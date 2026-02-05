@@ -28,41 +28,35 @@ let gachaPool = {};
    ガチャデータ取得
 ================================ */
 
-fetch(`${GAS_URL}?type=gacha_data`)
+let gachaPool = {};
+
+fetch("https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec=gacha_data")
   .then(res => res.json())
-  .then(list => {
-    list.forEach(row => {
-      if (!gachaPool[row.category]) {
-        gachaPool[row.category] = [];
-      }
-      gachaPool[row.category].push(row.value);
-    });
-    console.log("gacha loaded", gachaPool);
-  })
-  .catch(err => {
-    console.error("gacha load failed", err);
+  .then(data => {
+    gachaPool = data;
   });
+
 
 /* ===============================
    カード生成
 ================================ */
 
 function drawCards() {
-  if (!gachaPool.race) {
-    alert("データを読み込み中です。少し待ってください。");
+  if (!gachaPool["種族"]) {
+    alert("ガチャデータを読み込み中です");
     return;
   }
 
   currentResult = {
-    race: rand(gachaPool.race),
-    gender: rand(gachaPool.gender),
-    personality: rand(gachaPool.personality),
-    hair: rand(gachaPool.hair),
-    outfit: rand(gachaPool.outfit),
-    motif: rand(gachaPool.motif),
-    mood: rand(gachaPool.mood),
-    theme: rand(gachaPool.theme),
-    composition: rand(gachaPool.composition),
+    race: rand(gachaPool["種族"]),
+    gender: rand(gachaPool["性別"]),
+    personality: rand(gachaPool["性格"]),
+    hair: rand(gachaPool["髪型"]),
+    outfit: rand(gachaPool["服装"]),
+    motif: rand(gachaPool["モチーフ"]),
+    mood: rand(gachaPool["雰囲気"]),
+    theme: rand(gachaPool["テーマ"]),
+    composition: rand(gachaPool["構図"]),
     colors: randomColors()
   };
 
@@ -81,6 +75,7 @@ function drawCards() {
 
   saveHistory(currentResult);
 }
+
 
 /* ===============================
    シェア
@@ -232,24 +227,24 @@ $("requestSend")?.addEventListener("click", () => {
    お知らせ取得
 ================================ */
 
-fetch(`${GAS_URL}?type=announcements`)
+fetch("https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec=announcements")
   .then(res => res.json())
   .then(list => {
-    const area = $("announcements");
-    if (!area) return;
-
+    const area = document.getElementById("announcements");
     area.innerHTML = "";
 
     list
       .filter(a => a.visible === true)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
       .forEach(a => {
         const div = document.createElement("div");
         div.className = "announcement";
         div.innerHTML = `
+          <time>${a.date}</time>
           <h4>${a.title}</h4>
           <p>${a.body}</p>
-          <small>${a.date}</small>
         `;
         area.appendChild(div);
       });
   });
+
