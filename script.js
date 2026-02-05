@@ -1,26 +1,8 @@
+/* ===============================
+   基本ユーティリティ
+================================ */
+
 const $ = id => document.getElementById(id);
-
-/* ===== データ ===== */
-const data = {
-  race: ["ヒューマン / Human", "エルフ / Elf", "獣人 / Beastfolk", "アンドロイド / Android"],
-  gender: ["男性 / Male", "女性 / Female", "中性 / Androgynous"],
-  personality: [
-    "無表情 / Expressionless",
-    "静か / Quiet",
-    "冷静 / Calm",
-    "情熱的 / Passionate"
-  ],
-  hair: ["ウルフカット / Wolf Cut", "ロング / Long", "ショート / Short"],
-  outfit: ["メイド服 / Maid", "スーツ / Suit", "カジュアル / Casual"],
-  motif: ["ハート / Heart", "月 / Moon", "鎖 / Chain"],
-  mood: ["ホラー / Horror", "ファンタジー / Fantasy", "ダーク / Dark"],
-  theme: ["記憶 / Memory", "夢 / Dream", "孤独 / Solitude"],
-  composition: ["バストアップ / Bust", "全身 / Full Body", "俯瞰 / Bird’s-eye"]
-};
-
-let currentResult = null;
-
-/* ===== ユーティリティ ===== */
 const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
 const randomColors = () =>
@@ -28,8 +10,49 @@ const randomColors = () =>
     "#" + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0")
   );
 
-/* ===== カード生成 ===== */
+/* ===============================
+   GAS 設定
+================================ */
+
+const GAS_URL =
+  "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec";
+
+/* ===============================
+   グローバル状態
+================================ */
+
+let currentResult = null;
+let gachaPool = {};
+
+/* ===============================
+   ガチャデータ取得
+================================ */
+
+fetch(`${GAS_URL}?type=gacha_data`)
+  .then(res => res.json())
+  .then(list => {
+    list.forEach(row => {
+      if (!gachaPool[row.category]) {
+        gachaPool[row.category] = [];
+      }
+      gachaPool[row.category].push(row.value);
+    });
+    console.log("gacha loaded", gachaPool);
+  })
+  .catch(err => {
+    console.error("gacha load failed", err);
+  });
+
+/* ===============================
+   カード生成
+================================ */
+
 function drawCards() {
+  if (!gachaPool.race) {
+    alert("データを読み込み中です。少し待ってください。");
+    return;
+  }
+
   currentResult = {
     race: rand(gachaPool.race),
     gender: rand(gachaPool.gender),
@@ -59,8 +82,10 @@ function drawCards() {
   saveHistory(currentResult);
 }
 
+/* ===============================
+   シェア
+================================ */
 
-/* ===== シェア ===== */
 function shareResult(result = currentResult) {
   if (!result) return;
 
@@ -84,7 +109,10 @@ ARTILOT : https://kuraymd.github.io/Artilot/`;
     : navigator.clipboard.writeText(text).then(() => alert("コピーしました"));
 }
 
-/* ===== 履歴 ===== */
+/* ===============================
+   履歴
+================================ */
+
 function saveHistory(result) {
   const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
   list.unshift(result);
@@ -151,14 +179,12 @@ function renderHistory() {
   });
 }
 
-/* ===== モーダル ===== */
-const howtoBtn = $("howtoBtn");
-const historyHelpBtn = $("historyHelpBtn");
-const howtoModal = $("howtoModal");
-const historyModal = $("historyModal");
+/* ===============================
+   モーダル
+================================ */
 
-howtoBtn?.addEventListener("click", () => howtoModal.classList.add("show"));
-historyHelpBtn?.addEventListener("click", () => historyModal.classList.add("show"));
+$("howtoBtn")?.addEventListener("click", () => $("howtoModal")?.classList.add("show"));
+$("historyHelpBtn")?.addEventListener("click", () => $("historyModal")?.classList.add("show"));
 
 document.querySelectorAll("[data-close]").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -172,46 +198,46 @@ document.querySelectorAll(".modal").forEach(modal => {
   });
 });
 
-/* ===== About ARTILOT modal ===== */
-const aboutBtn = document.getElementById("aboutBtn");
-const aboutModal = document.getElementById("aboutModal");
+$("aboutBtn")?.addEventListener("click", () => $("aboutModal")?.classList.add("show"));
 
-if (aboutBtn && aboutModal) {
-  aboutBtn.onclick = () => aboutModal.classList.add("show");
-}
+/* ===============================
+   初期化
+================================ */
 
-/* ===== 初期化 ===== */
-$("drawBtn").onclick = drawCards;
-$("shareBtn").onclick = () => shareResult();
+$("drawBtn")?.addEventListener("click", drawCards);
+$("shareBtn")?.addEventListener("click", () => shareResult());
 renderHistory();
 
-/* ===== リクエスト ===== */
-const requestBtn = document.getElementById("requestSend");
+/* ===============================
+   リクエスト送信
+================================ */
 
-if (requestBtn) {
-  requestBtn.onclick = () => {
-    const text = document.getElementById("requestInput").value.trim();
-    if (!text) return alert("内容を入力してください");
+$("requestSend")?.addEventListener("click", () => {
+  const input = $("requestInput");
+  const text = input.value.trim();
+  if (!text) return alert("内容を入力してください");
 
-    const url =
-  "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec" +
-  "?type=requests" +
-  "&request=" + encodeURIComponent(text) +
-  "&ua=" + encodeURIComponent(navigator.userAgent);
+  const url =
+    `${GAS_URL}?type=requests` +
+    `&request=${encodeURIComponent(text)}` +
+    `&ua=${encodeURIComponent(navigator.userAgent)}`;
 
-fetch(url, { mode: "no-cors" });
+  fetch(url, { mode: "no-cors" });
 
-alert("リクエストを送信しました！");
-document.getElementById("requestInput").value = "";
+  alert("リクエストを送信しました！");
+  input.value = "";
+});
 
-  };
-}
+/* ===============================
+   お知らせ取得
+================================ */
 
-/* ===== お知らせ ===== */
-fetch("https://script.google.com/macros/s/XXXX/exec?type=announcements")
+fetch(`${GAS_URL}?type=announcements`)
   .then(res => res.json())
   .then(list => {
-    const area = document.getElementById("announcements");
+    const area = $("announcements");
+    if (!area) return;
+
     area.innerHTML = "";
 
     list
@@ -227,19 +253,3 @@ fetch("https://script.google.com/macros/s/XXXX/exec?type=announcements")
         area.appendChild(div);
       });
   });
-
-/* ===== データ スプレッドシートから ===== */
-let gachaPool = {};
-
-fetch("https://script.google.com/macros/s/XXXX/exec?type=gacha_data")
-  .then(res => res.json())
-  .then(list => {
-    list.forEach(row => {
-      if (!gachaPool[row.category]) {
-        gachaPool[row.category] = [];
-      }
-      gachaPool[row.category].push(row.value);
-    });
-  });
-
-/* ===== データ スプレッドシートから ===== */
