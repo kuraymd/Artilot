@@ -194,16 +194,22 @@ if (requestBtn) {
 
     fetch("https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         request: text,
         ua: navigator.userAgent
       })
     })
-      .then(() => {
+      .then(res => res.json())
+      .then(data => {
+        console.log("Apps Script response:", data);
         alert("リクエストを送信しました！");
         document.getElementById("requestInput").value = "";
       })
-      .catch(() => {
+      .catch(err => {
+        console.error(err);
         alert("送信に失敗しました");
       });
   };
