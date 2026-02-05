@@ -31,17 +31,19 @@ const randomColors = () =>
 /* ===== カード生成 ===== */
 function drawCards() {
   currentResult = {
-    race: rand(data.race),
-    gender: rand(data.gender),
-    personality: rand(data.personality),
-    hair: rand(data.hair),
-    outfit: rand(data.outfit),
-    motif: rand(data.motif),
-    mood: rand(data.mood),
-    theme: rand(data.theme),
-    composition: rand(data.composition),
+    race: rand(gachaPool.race),
+    gender: rand(gachaPool.gender),
+    personality: rand(gachaPool.personality),
+    hair: rand(gachaPool.hair),
+    outfit: rand(gachaPool.outfit),
+    motif: rand(gachaPool.motif),
+    mood: rand(gachaPool.mood),
+    theme: rand(gachaPool.theme),
+    composition: rand(gachaPool.composition),
     colors: randomColors()
   };
+}
+
 
   for (const key in currentResult) {
     if ($(key)) $(key).textContent = currentResult[key];
@@ -226,3 +228,19 @@ fetch("https://script.google.com/macros/s/XXXX/exec?type=announcements")
         area.appendChild(div);
       });
   });
+
+/* ===== データ スプレッドシートから ===== */
+let gachaPool = {};
+
+fetch("https://script.google.com/macros/s/XXXX/exec?type=gacha_data")
+  .then(res => res.json())
+  .then(list => {
+    list.forEach(row => {
+      if (!gachaPool[row.category]) {
+        gachaPool[row.category] = [];
+      }
+      gachaPool[row.category].push(row.value);
+    });
+  });
+
+/* ===== データ スプレッドシートから ===== */
