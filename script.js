@@ -243,5 +243,5 @@ https://kuraymd.github.io/Artilot/`;
       closeModal(btn.dataset.modalClose)
     );
   });
-
+renderHistory();
 });
