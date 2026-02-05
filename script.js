@@ -193,17 +193,16 @@ if (requestBtn) {
     if (!text) return alert("内容を入力してください");
 
     const url =
-      "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec" +
-      "?request=" + encodeURIComponent(text) +
-      "&ua=" + encodeURIComponent(navigator.userAgent);
+  "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec" +
+  "?type=requests" +
+  "&request=" + encodeURIComponent(text) +
+  "&ua=" + encodeURIComponent(navigator.userAgent);
 
-    fetch(url, {
-      mode: "no-cors"
-    });
+fetch(url, { mode: "no-cors" });
 
-    // ここには絶対に then / catch を書かない
-    alert("リクエストを送信しました！");
-    document.getElementById("requestInput").value = "";
+alert("リクエストを送信しました！");
+document.getElementById("requestInput").value = "";
+
   };
 }
 
