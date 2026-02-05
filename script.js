@@ -194,21 +194,16 @@ if (requestBtn) {
 
     const url =
       "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec" +
-      "?type=requests" +
-      "&request=" + encodeURIComponent(text) +
+      "?request=" + encodeURIComponent(text) +
       "&ua=" + encodeURIComponent(navigator.userAgent);
 
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        alert("リクエストを送信しました！");
-        document.getElementById("requestInput").value = "";
-      })
-      .catch(err => {
-        console.error(err);
-        alert("送信に失敗しました");
-      });
+    fetch(url, {
+      mode: "no-cors"
+    });
+
+    // ここには絶対に then / catch を書かない
+    alert("リクエストを送信しました！");
+    document.getElementById("requestInput").value = "";
   };
 }
 
