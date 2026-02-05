@@ -30,12 +30,18 @@ let gachaPool = {};
 
 let gachaPool = {};
 
-fetch("https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec=gacha_data")
+fetch(
+  "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec?type=gacha_data"
+)
   .then(res => res.json())
   .then(data => {
     gachaPool = data;
+    console.log("ガチャデータ読み込み完了", gachaPool);
+  })
+  .catch(err => {
+    console.error("ガチャデータ取得失敗", err);
+    alert("ガチャデータの読み込みに失敗しました");
   });
-
 
 /* ===============================
    カード生成
@@ -43,7 +49,7 @@ fetch("https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kj
 
 function drawCards() {
   if (!gachaPool["種族"]) {
-    alert("ガチャデータを読み込み中です");
+    alert("ガチャデータを読み込み中です。少し待ってください。");
     return;
   }
 
