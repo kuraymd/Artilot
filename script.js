@@ -42,8 +42,6 @@ function drawCards() {
     composition: rand(gachaPool.composition),
     colors: randomColors()
   };
-}
-
 
   for (const key in currentResult) {
     if ($(key)) $(key).textContent = currentResult[key];
@@ -60,6 +58,7 @@ function drawCards() {
 
   saveHistory(currentResult);
 }
+
 
 /* ===== シェア ===== */
 function shareResult(result = currentResult) {
