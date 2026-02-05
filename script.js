@@ -28,11 +28,7 @@ let gachaPool = {};
    ガチャデータ取得
 ================================ */
 
-let gachaPool = {};
-
-fetch(
-  "https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec?type=gacha_data"
-)
+fetch(`${GAS_URL}?type=gacha_data`)
   .then(res => res.json())
   .then(data => {
     gachaPool = data;
@@ -82,7 +78,6 @@ function drawCards() {
   saveHistory(currentResult);
 }
 
-
 /* ===============================
    シェア
 ================================ */
@@ -92,22 +87,23 @@ function shareResult(result = currentResult) {
 
   const text = `#今日のARTILOT
 
-インスピレーションカードの結果
 ${Object.entries(result)
     .filter(([k]) => k !== "colors")
     .map(([_, v]) => v)
     .join("\n")}
+
 Colors: ${result.colors.join(", ")}
 
-#ARTILOT
-#今日のお題
+ARTILOT
+https://kuraymd.github.io/Artilot/`;
 
-あなたもやってみてね！
-ARTILOT : https://kuraymd.github.io/Artilot/`;
-
-  navigator.share
-    ? navigator.share({ text })
-    : navigator.clipboard.writeText(text).then(() => alert("コピーしました"));
+  if (navigator.share) {
+    navigator.share({ text });
+  } else {
+    navigator.clipboard.writeText(text).then(() =>
+      alert("コピーしました")
+    );
+  }
 }
 
 /* ===============================
@@ -124,6 +120,8 @@ function saveHistory(result) {
 function renderHistory() {
   const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
   const wrap = $("historyList");
+  if (!wrap) return;
+
   wrap.innerHTML = "";
 
   list.forEach(r => {
@@ -134,40 +132,16 @@ function renderHistory() {
     grid.className = "result-card";
 
     const fields = [
-      ["種族 / Race", r.race],
-      ["性別 / Gender", r.gender],
-      ["性格 / Personality", r.personality],
-      ["髪型 / Hair", r.hair],
-      ["服装 / Outfit", r.outfit],
-      ["モチーフ / Motif", r.motif],
-      ["雰囲気 / Mood", r.mood],
-      ["テーマ / Theme", r.theme],
-      ["構図 / Composition", r.composition]
+      r.race, r.gender, r.personality, r.hair,
+      r.outfit, r.motif, r.mood, r.theme, r.composition
     ];
 
-    fields.forEach(([label, value]) => {
+    fields.forEach(v => {
       const item = document.createElement("div");
       item.className = "item";
-      item.innerHTML = `${value}<span>${label}</span>`;
+      item.textContent = v;
       grid.appendChild(item);
     });
-
-    const colorItem = document.createElement("div");
-    colorItem.className = "item color";
-    colorItem.innerHTML = `<span>Color Palette</span>`;
-
-    const colors = document.createElement("div");
-    colors.className = "colors";
-
-    r.colors.forEach(c => {
-      const chip = document.createElement("div");
-      chip.className = "color-chip";
-      chip.style.background = c;
-      colors.appendChild(chip);
-    });
-
-    colorItem.appendChild(colors);
-    grid.appendChild(colorItem);
 
     card.appendChild(grid);
 
@@ -181,33 +155,11 @@ function renderHistory() {
 }
 
 /* ===============================
-   モーダル
-================================ */
-
-$("howtoBtn")?.addEventListener("click", () => $("howtoModal")?.classList.add("show"));
-$("historyHelpBtn")?.addEventListener("click", () => $("historyModal")?.classList.add("show"));
-
-document.querySelectorAll("[data-close]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    btn.closest(".modal")?.classList.remove("show");
-  });
-});
-
-document.querySelectorAll(".modal").forEach(modal => {
-  modal.addEventListener("click", e => {
-    if (e.target === modal) modal.classList.remove("show");
-  });
-});
-
-$("aboutBtn")?.addEventListener("click", () => $("aboutModal")?.classList.add("show"));
-
-/* ===============================
-   初期化
+   ボタン系
 ================================ */
 
 $("drawBtn")?.addEventListener("click", drawCards);
 $("shareBtn")?.addEventListener("click", () => shareResult());
-renderHistory();
 
 /* ===============================
    リクエスト送信
@@ -218,12 +170,10 @@ $("requestSend")?.addEventListener("click", () => {
   const text = input.value.trim();
   if (!text) return alert("内容を入力してください");
 
-  const url =
-    `${GAS_URL}?type=requests` +
-    `&request=${encodeURIComponent(text)}` +
-    `&ua=${encodeURIComponent(navigator.userAgent)}`;
-
-  fetch(url, { mode: "no-cors" });
+  fetch(
+    `${GAS_URL}?type=requests&request=${encodeURIComponent(text)}`,
+    { mode: "no-cors" }
+  );
 
   alert("リクエストを送信しました！");
   input.value = "";
@@ -233,24 +183,40 @@ $("requestSend")?.addEventListener("click", () => {
    お知らせ取得
 ================================ */
 
-fetch("https://script.google.com/macros/s/AKfycbw8ID0l6NsJTesuwNGgxojQSYN8E4z_kjN-MItX199J7nKDrED6Ka7MBJ55QEuhRzcvlQ/exec=announcements")
+/* 上：追加内容（カード表示） */
+fetch(`${GAS_URL}?type=announcements`)
   .then(res => res.json())
   .then(list => {
-    const area = document.getElementById("announcements");
-    area.innerHTML = "";
+    const top = $("announcementCards");
+    const bottom = $("announcements");
+
+    if (top) top.innerHTML = "";
+    if (bottom) bottom.innerHTML = "";
 
     list
       .filter(a => a.visible === true)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .forEach(a => {
-        const div = document.createElement("div");
-        div.className = "announcement";
-        div.innerHTML = `
-          <time>${a.date}</time>
-          <h4>${a.title}</h4>
-          <p>${a.body}</p>
-        `;
-        area.appendChild(div);
+
+        if (a.category === "update" && top) {
+          const card = document.createElement("div");
+          card.className = "news-card";
+          card.innerHTML = `
+            <time>${a.date}</time>
+            <p>${a.title}</p>
+          `;
+          top.appendChild(card);
+        }
+
+        if (bottom) {
+          const div = document.createElement("div");
+          div.className = "announcement";
+          div.innerHTML = `
+            <time>${a.date}</time>
+            <h4>${a.title}</h4>
+            <p>${a.body}</p>
+          `;
+          bottom.appendChild(div);
+        }
       });
   });
-
