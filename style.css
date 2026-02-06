@@ -174,21 +174,23 @@ body {
   margin-top: 4px;
 }
 
-/* ===============================
-   Modal
-=============================== */
+/* モーダル共通 */
 .modal {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.4);
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
   z-index: 1000;
 }
 
 .modal.show {
-  display: flex;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .modal-content {
@@ -199,21 +201,12 @@ body {
   border-radius: 12px;
   padding: 20px;
   position: relative;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
 }
 
-.modal-content h3 {
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.modal-content ul {
-  padding-left: 18px;
-  margin-bottom: 12px;
-}
-
-.modal-content ul.en {
-  font-size: 13px;
-  opacity: 0.7;
+.modal.show .modal-content {
+  transform: translateY(0);
 }
 
 /* close button */
