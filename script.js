@@ -223,42 +223,34 @@ https://kuraymd.github.io/Artilot/`;
   /* ===============================
      モーダル制御
   ================================ */
-document.addEventListener("DOMContentLoaded", () => {
+/* ===============================
+   モーダル制御
+=============================== */
 
-  // モーダル制御（CSSは .show を使用）
-  function openModal(id) {
-    const modal = document.getElementById(id);
-    modal?.classList.add("show");
-  }
+// 開く
+function openModal(id) {
+  const modal = document.getElementById(id);
+  if (!modal) return;
+  modal.classList.add("show");
+}
 
-  function closeModal(id) {
-    const modal = document.getElementById(id);
-    modal?.classList.remove("show");
-  }
+// 閉じる
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (!modal) return;
+  modal.classList.remove("show");
+}
 
-  // 開くボタン
-  document.querySelectorAll("[data-modal-open]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      openModal(btn.dataset.modalOpen);
-    });
+// 開くボタン
+document.querySelectorAll("[data-modal-open]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    openModal(btn.dataset.modalOpen);
   });
+});
 
-  // 閉じるボタン
-  document.querySelectorAll("[data-modal-close]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      closeModal(btn.dataset.modalClose);
-    });
+// 閉じるボタン
+document.querySelectorAll("[data-modal-close]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    closeModal(btn.dataset.modalClose);
   });
-
-  // 背景クリックで閉じる
-  document.querySelectorAll(".modal").forEach(modal => {
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal(modal.id);
-    });
-  });
-
-  // 履歴描画関数があれば呼ぶ
-  if (typeof renderHistory === "function") {
-    renderHistory();
-  }
 });
