@@ -252,6 +252,6 @@ document.querySelectorAll("[data-modal-close]").forEach(btn => {
   });
 });
 
-renderHistory();
+
   
 });
