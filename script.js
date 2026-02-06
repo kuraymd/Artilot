@@ -225,26 +225,25 @@ https://kuraymd.github.io/Artilot/`;
   ================================ */
 document.addEventListener("DOMContentLoaded", () => {
 
+  // モーダル制御（CSSは .show を使用）
   function openModal(id) {
     const modal = document.getElementById(id);
-    if (!modal) return;
-    modal.classList.add("show");
+    modal?.classList.add("show");
   }
 
   function closeModal(id) {
     const modal = document.getElementById(id);
-    if (!modal) return;
-    modal.classList.remove("show");
+    modal?.classList.remove("show");
   }
 
-  // モーダル開くボタン
+  // 開くボタン
   document.querySelectorAll("[data-modal-open]").forEach(btn => {
     btn.addEventListener("click", () => {
       openModal(btn.dataset.modalOpen);
     });
   });
 
-  // モーダル閉じるボタン
+  // 閉じるボタン
   document.querySelectorAll("[data-modal-close]").forEach(btn => {
     btn.addEventListener("click", () => {
       closeModal(btn.dataset.modalClose);
