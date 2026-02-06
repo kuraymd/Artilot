@@ -251,3 +251,4 @@ document.querySelectorAll("[data-modal-close]").forEach(btn => {
     closeModal(btn.dataset.modalClose);
   });
 });
+});
