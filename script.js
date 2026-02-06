@@ -223,25 +223,43 @@ https://kuraymd.github.io/Artilot/`;
   /* ===============================
      モーダル制御
   ================================ */
+document.addEventListener("DOMContentLoaded", () => {
 
   function openModal(id) {
-    $(id)?.classList.add("open");
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.add("show");
   }
 
   function closeModal(id) {
-    $(id)?.classList.remove("open");
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove("show");
   }
 
+  // モーダル開くボタン
   document.querySelectorAll("[data-modal-open]").forEach(btn => {
-    btn.addEventListener("click", () =>
-      openModal(btn.dataset.modalOpen)
-    );
+    btn.addEventListener("click", () => {
+      openModal(btn.dataset.modalOpen);
+    });
   });
 
+  // モーダル閉じるボタン
   document.querySelectorAll("[data-modal-close]").forEach(btn => {
-    btn.addEventListener("click", () =>
-      closeModal(btn.dataset.modalClose)
-    );
+    btn.addEventListener("click", () => {
+      closeModal(btn.dataset.modalClose);
+    });
   });
-renderHistory();
+
+  // 背景クリックで閉じる
+  document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal(modal.id);
+    });
+  });
+
+  // 履歴描画関数があれば呼ぶ
+  if (typeof renderHistory === "function") {
+    renderHistory();
+  }
 });
