@@ -80,11 +80,33 @@ body {
   margin-top: 16px;
 }
 
+/* ===============================
+   Result Card Columns
+=============================== */
+
 .result-card {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+  .result-card {
+    grid-template-columns: 1fr;
+  }
+
+  .col {
+    gap: 12px;
+  }
+}
+
 
 .item {
   font-size: 14px;
@@ -96,9 +118,7 @@ body {
   opacity: 0.6;
 }
 
-.item.color {
-  grid-column: 1 / -1;
-}
+
 
 /* ===============================
    Color Palette
