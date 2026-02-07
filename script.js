@@ -80,16 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
   ================================ */
 
   const LABELS = {
-    race: "種族",
-    gender: "性別",
-    personality: "性格",
-    hair: "髪型",
-    outfit: "服装",
-    motif: "モチーフ",
-    mood: "雰囲気",
-    theme: "テーマ",
-    composition: "構図",
-    color: "カラー"
+    race: "種族 / Race",
+    gender: "性別 / Gender",
+    personality: "性格 / Personality",
+    hair: "髪型 / Hair",
+    outfit: "服装 / Outfit",
+    motif: "モチーフ / Motif",
+    mood: "雰囲気 / Mood",
+    theme: "テーマ / Theme",
+    composition: "構図 / Composition",
+    color: "カラー / Color"
   };
 
   function saveHistory(result) {
