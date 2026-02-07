@@ -178,14 +178,8 @@ body {
   padding: 8px 4px 12px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
+　 touch-action: pan-x;
 }
-
-.history-card button {
-  pointer-events: auto;
-  z-index: 10;
-}
-
 
 /* スクロールバー控えめ */
 .history-cards::-webkit-scrollbar {
