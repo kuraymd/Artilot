@@ -118,22 +118,6 @@ body {
   opacity: 0.6;
 }
 
-/* ===============================
-   Result Card Alignment Fix
-=============================== */
-
-.result-card {
-  justify-items: center; /* ← グリッド内を中央寄せ */
-}
-
-.col {
-  width: 100%;
-  max-width: 320px;      /* ← 横に広がりすぎないよう制限 */
-}
-
-.item {
-  text-align: left;     /* ← テキスト自体は左揃えのまま */
-}
 
 
 /* ===============================
@@ -526,6 +510,24 @@ body {
   opacity: 0.6;
   margin-top: 10px;
 }
+
+/* ===============================
+   Result Card Alignment Fix
+=============================== */
+
+.result-card {
+  justify-items: center; /* ← グリッド内を中央寄せ */
+}
+
+.col {
+  width: 100%;
+  max-width: 320px;      /* ← 横に広がりすぎないよう制限 */
+}
+
+.item {
+  text-align: left;     /* ← テキスト自体は左揃えのまま */
+}
+
 
 /* ===============================
    Result Card Layout Fix
