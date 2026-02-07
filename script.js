@@ -7,11 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const $ = id => document.getElementById(id);
   const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
-  const randomColors = () =>
-    Array.from({ length: 3 }, () =>
-      "#" + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, "0")
-    );
-
   /* ===============================
      GAS 設定
   ================================ */
@@ -68,9 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if ($(key)) $(key).textContent = currentResult[key];
     }
 
-    $("color").textContent = currentResult.color;
-
-
     saveHistory(currentResult);
   }
 
@@ -84,12 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const text = `#今日のARTILOT
 
 ${Object.entries(result)
-      .filter(([k]) => k !== "colors")
       .map(([_, v]) => v)
       .join("\n")}
-
-Color: ${result.color}
-
 
 ARTILOT
 https://kuraymd.github.io/Artilot/`;
@@ -107,20 +95,19 @@ https://kuraymd.github.io/Artilot/`;
      履歴
   ================================ */
 
-const LABELS = {
-  race: "種族 / Race",
-  gender: "性別 / Gender",
-  personality: "性格 / Personality",
-  hair: "髪型 / Hair",
-  outfit: "服装 / Outfit",
-  motif: "モチーフ / Motif",
-  mood: "雰囲気 / Mood",
-  theme: "テーマ / Theme",
-  composition: "構図 / Composition",
-  color: "カラー / Color"
-};
+  const LABELS = {
+    race: "種族 / Race",
+    gender: "性別 / Gender",
+    personality: "性格 / Personality",
+    hair: "髪型 / Hair",
+    outfit: "服装 / Outfit",
+    motif: "モチーフ / Motif",
+    mood: "雰囲気 / Mood",
+    theme: "テーマ / Theme",
+    composition: "構図 / Composition",
+    color: "カラー / Color"
+  };
 
-  
   function saveHistory(result) {
     const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
     list.unshift(result);
@@ -129,61 +116,54 @@ const LABELS = {
   }
 
   function renderHistory() {
-  const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
-  const wrap = $("historyList");
-  if (!wrap) return;
+    const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
+    const wrap = $("historyList");
+    if (!wrap) return;
 
-  wrap.innerHTML = "";
+    wrap.innerHTML = "";
 
-  list.forEach(r => {
-    const card = document.createElement("div");
-    card.className = "history-card";
+    list.forEach(r => {
+      const card = document.createElement("div");
+      card.className = "history-card";
 
-    const grid = document.createElement("div");
-    grid.className = "result-card";
+      const grid = document.createElement("div");
+      grid.className = "result-card";
 
-    const left = document.createElement("div");
-    left.className = "col left";
+      const left = document.createElement("div");
+      left.className = "col";
 
-    const right = document.createElement("div");
-    right.className = "col right";
+      const right = document.createElement("div");
+      right.className = "col";
 
-    const leftKeys  = ["race", "personality", "outfit", "mood", "composition"];
-    const rightKeys = ["gender", "hair", "motif", "theme", "color"];
+      const leftKeys  = ["race", "personality", "outfit", "mood", "composition"];
+      const rightKeys = ["gender", "hair", "motif", "theme", "color"];
 
-    leftKeys.forEach(key => {
-      const item = document.createElement("div");
-      item.className = "item";
-      item.innerHTML = `
-        <span>${LABELS[key]}</span>
-        <div>${r[key]}</div>
-      `;
-      left.appendChild(item);
+      leftKeys.forEach(key => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.innerHTML = `<span>${LABELS[key]}</span><div>${r[key]}</div>`;
+        left.appendChild(item);
+      });
+
+      rightKeys.forEach(key => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.innerHTML = `<span>${LABELS[key]}</span><div>${r[key]}</div>`;
+        right.appendChild(item);
+      });
+
+      grid.appendChild(left);
+      grid.appendChild(right);
+      card.appendChild(grid);
+
+      const btn = document.createElement("button");
+      btn.textContent = "↗︎ シェア";
+      btn.onclick = () => shareResult(r);
+
+      card.appendChild(btn);
+      wrap.appendChild(card);
     });
-
-    rightKeys.forEach(key => {
-      const item = document.createElement("div");
-      item.className = "item";
-      item.innerHTML = `
-        <span>${LABELS[key]}</span>
-        <div>${r[key]}</div>
-      `;
-      right.appendChild(item);
-    });
-
-    grid.appendChild(left);
-    grid.appendChild(right);
-    card.appendChild(grid);
-
-    const btn = document.createElement("button");
-    btn.textContent = "↗︎ シェア";
-    btn.onclick = () => shareResult(r);
-
-    card.appendChild(btn);
-    wrap.appendChild(card);
-  });
-}
-
+  }
 
   /* ===============================
      ボタン
@@ -193,99 +173,31 @@ const LABELS = {
   $("shareBtn")?.addEventListener("click", () => shareResult());
 
   /* ===============================
-     リクエスト送信
+     モーダル制御
   ================================ */
 
-  $("requestSend")?.addEventListener("click", () => {
-    const input = $("requestInput");
-    const text = input.value.trim();
-    if (!text) return alert("内容を入力してください");
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.add("show");
+  }
 
-    fetch(
-      `${GAS_URL}?type=requests&request=${encodeURIComponent(text)}`,
-      { mode: "no-cors" }
-    );
+  function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.remove("show");
+  }
 
-    alert("リクエストを送信しました！");
-    input.value = "";
+  document.querySelectorAll("[data-modal-open]").forEach(btn => {
+    btn.addEventListener("click", () => openModal(btn.dataset.modalOpen));
+  });
+
+  document.querySelectorAll("[data-modal-close]").forEach(btn => {
+    btn.addEventListener("click", () => closeModal(btn.dataset.modalClose));
   });
 
   /* ===============================
-     お知らせ取得
+     初期表示
   ================================ */
 
-  fetch(`${GAS_URL}?type=announcements`)
-    .then(res => res.json())
-    .then(list => {
-      const top = $("announcementCards");
-      const bottom = $("announcements");
-
-      if (top) top.innerHTML = "";
-      if (bottom) bottom.innerHTML = "";
-
-      list
-        .filter(a => a.visible === true)
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .forEach(a => {
-
-          if (a.category === "update" && top) {
-            const card = document.createElement("div");
-            card.className = "news-card";
-            card.innerHTML = `
-              <time>${a.date}</time>
-              <p>${a.title}</p>
-            `;
-            top.appendChild(card);
-          }
-
-          if (bottom) {
-            const div = document.createElement("div");
-            div.className = "announcement";
-            div.innerHTML = `
-              <time>${a.date}</time>
-              <h4>${a.title}</h4>
-              <p>${a.body}</p>
-            `;
-            bottom.appendChild(div);
-          }
-        });
-    });
-
-/* ===============================
-   モーダル制御
-=============================== */
-
-// 開く
-function openModal(id) {
-  const modal = document.getElementById(id);
-  if (!modal) return;
-  modal.classList.add("show");
-}
-
-// 閉じる
-function closeModal(id) {
-  const modal = document.getElementById(id);
-  if (!modal) return;
-  modal.classList.remove("show");
-}
-
-// 開くボタン
-document.querySelectorAll("[data-modal-open]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    openModal(btn.dataset.modalOpen);
-  });
-});
-
-// 閉じるボタン
-document.querySelectorAll("[data-modal-close]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    closeModal(btn.dataset.modalClose);
-  });
-});
-
-
   renderHistory();
-});
 
-  
 });
