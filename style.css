@@ -167,6 +167,33 @@ body {
   cursor: pointer;
 }
 
+/* ===============================
+   History Horizontal Scroll
+=============================== */
+
+.history-cards {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 4px 12px;
+  scroll-snap-type: x mandatory;
+}
+
+/* スクロールバー控えめ */
+.history-cards::-webkit-scrollbar {
+  height: 6px;
+}
+.history-cards::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+/* 横並び用の履歴カード */
+.history-cards .history-card {
+  min-width: 260px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
 
 
 
