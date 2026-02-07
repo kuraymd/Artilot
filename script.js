@@ -88,7 +88,8 @@ ${Object.entries(result)
       .map(([_, v]) => v)
       .join("\n")}
 
-Colors: ${result.colors.join(", ")}
+Color: ${result.color}
+
 
 ARTILOT
 https://kuraymd.github.io/Artilot/`;
