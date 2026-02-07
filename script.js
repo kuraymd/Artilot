@@ -107,6 +107,20 @@ https://kuraymd.github.io/Artilot/`;
      履歴
   ================================ */
 
+const LABELS = {
+  race: "種族 / Race",
+  gender: "性別 / Gender",
+  personality: "性格 / Personality",
+  hair: "髪型 / Hair",
+  outfit: "服装 / Outfit",
+  motif: "モチーフ / Motif",
+  mood: "雰囲気 / Mood",
+  theme: "テーマ / Theme",
+  composition: "構図 / Composition",
+  color: "カラー / Color"
+};
+
+  
   function saveHistory(result) {
     const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
     list.unshift(result);
@@ -115,39 +129,61 @@ https://kuraymd.github.io/Artilot/`;
   }
 
   function renderHistory() {
-    const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
-    const wrap = $("historyList");
-    if (!wrap) return;
+  const list = JSON.parse(localStorage.getItem("artilotHistory") || "[]");
+  const wrap = $("historyList");
+  if (!wrap) return;
 
-    wrap.innerHTML = "";
+  wrap.innerHTML = "";
 
-    list.forEach(r => {
-      const card = document.createElement("div");
-      card.className = "history-card";
+  list.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "history-card";
 
-      const grid = document.createElement("div");
-      grid.className = "result-card";
+    const grid = document.createElement("div");
+    grid.className = "result-card";
 
-      [
-        r.race, r.gender, r.personality, r.hair,
-        r.outfit, r.motif, r.mood, r.theme, r.composition, r.color
-      ].forEach(v => {
-        const item = document.createElement("div");
-        item.className = "item";
-        item.textContent = v;
-        grid.appendChild(item);
-      });
+    const left = document.createElement("div");
+    left.className = "col left";
 
-      card.appendChild(grid);
+    const right = document.createElement("div");
+    right.className = "col right";
 
-      const btn = document.createElement("button");
-      btn.textContent = "↗︎ シェア";
-      btn.onclick = () => shareResult(r);
+    const leftKeys  = ["race", "personality", "outfit", "mood", "composition"];
+    const rightKeys = ["gender", "hair", "motif", "theme", "color"];
 
-      card.appendChild(btn);
-      wrap.appendChild(card);
+    leftKeys.forEach(key => {
+      const item = document.createElement("div");
+      item.className = "item";
+      item.innerHTML = `
+        <span>${LABELS[key]}</span>
+        <div>${r[key]}</div>
+      `;
+      left.appendChild(item);
     });
-  }
+
+    rightKeys.forEach(key => {
+      const item = document.createElement("div");
+      item.className = "item";
+      item.innerHTML = `
+        <span>${LABELS[key]}</span>
+        <div>${r[key]}</div>
+      `;
+      right.appendChild(item);
+    });
+
+    grid.appendChild(left);
+    grid.appendChild(right);
+    card.appendChild(grid);
+
+    const btn = document.createElement("button");
+    btn.textContent = "↗︎ シェア";
+    btn.onclick = () => shareResult(r);
+
+    card.appendChild(btn);
+    wrap.appendChild(card);
+  });
+}
+
 
   /* ===============================
      ボタン
