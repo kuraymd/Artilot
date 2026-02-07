@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       mood: rand(gachaPool["雰囲気"]),
       theme: rand(gachaPool["テーマ"]),
       composition: rand(gachaPool["構図"]),
-      colors: randomColors()
+      color: rand(gachaPool["カラー"])
     };
 
     for (const key in currentResult) {
