@@ -283,7 +283,7 @@ document.querySelectorAll("[data-modal-close]").forEach(btn => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+
   renderHistory();
 });
 
