@@ -130,7 +130,7 @@ https://kuraymd.github.io/Artilot/`;
 
       [
         r.race, r.gender, r.personality, r.hair,
-        r.outfit, r.motif, r.mood, r.theme, r.composition
+        r.outfit, r.motif, r.mood, r.theme, r.composition, r.color
       ].forEach(v => {
         const item = document.createElement("div");
         item.className = "item";
