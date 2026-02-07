@@ -68,14 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if ($(key)) $(key).textContent = currentResult[key];
     }
 
-    const box = $("colorBox");
-    box.innerHTML = "";
-    currentResult.colors.forEach(c => {
-      const d = document.createElement("div");
-      d.className = "color-chip";
-      d.style.background = c;
-      box.appendChild(d);
-    });
+    $("color").textContent = currentResult.color;
+
 
     saveHistory(currentResult);
   }
