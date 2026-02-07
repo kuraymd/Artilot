@@ -167,6 +167,9 @@ body {
   cursor: pointer;
 }
 
+
+
+
 /* ===============================
    Advertisement Area
 =============================== */
@@ -542,4 +545,22 @@ body {
 
 .result-card .item {
   max-width: 320px;
+}
+
+/* ===============================
+   履歴カード内の結果 レイアウト
+=============================== */
+
+/* 履歴カード内の結果レイアウト */
+.history-card .result-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  justify-items: center;
+}
+/* 履歴では項目名を必ず表示 */
+.history-card .item span {
+  display: block;
+  font-size: 11px;
+  opacity: 0.6;
 }
