@@ -1,2 +1,5 @@
 # Artilot
-A simple web app that lets you randomly draw design prompt cards. There are various categories, such as people, monsters, animals, costumes, and color palettes.
+ARTILOT is an inspiration card platform for illustration and creative activities.
+By drawing a card, you can randomly get ideas for characters, atmosphere, composition, and more.
+It is designed to provide inspiration for when you're not sure what to draw.
+The results can be shared directly on social media!
