@@ -149,6 +149,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ===============================
+     リクエスト送信
+  ================================ */
+
+  $("requestSend")?.addEventListener("click", () => {
+    const text = $("requestInput")?.value.trim();
+    if (!text) return;
+
+    fetch(GAS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        request: text,
+        ua: navigator.userAgent
+      })
+    })
+      .then(res => res.json())
+      .then(() => {
+        alert("リクエストを送信しました！");
+        $("requestInput").value = "";
+      })
+      .catch(() => {
+        alert("送信に失敗しました");
+      });
+  });
+
+
+  
+  /* ===============================
      初期表示
   ================================ */
 
