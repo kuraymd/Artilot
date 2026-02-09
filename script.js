@@ -149,21 +149,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ===============================
-     リクエスト送信
-  ================================ */
+   リクエスト送信
+================================ */
 
-  $("requestSend")?.addEventListener("click", () => {
+$("requestSend")?.addEventListener("click", async () => {
   const input = $("requestInput");
   const text = input.value.trim();
-  if (!text) return alert("内容を入力してください");
+  if (!text) {
+    alert("内容を入力してください");
+    return;
+  }
 
-  fetch(
-    `${GAS_URL}?type=requests&request=${encodeURIComponent(text)}`,
-    { mode: "no-cors" }
-  );
+  try {
+    await fetch(GAS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        request: text,
+        ua: navigator.userAgent
+      })
+    });
 
-  alert("リクエストを送信しました！");
-  input.value = "";
+    alert("リクエストを送信しました！");
+    input.value = "";
+  } catch (e) {
+    alert("送信に失敗しました");
+    console.error(e);
+  }
 });
 
 
