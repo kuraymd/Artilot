@@ -148,11 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ===============================
+ /* ===============================
    リクエスト送信
 ================================ */
 
-$("requestSend")?.addEventListener("click", async () => {
+$("requestSend")?.addEventListener("click", () => {
   const input = $("requestInput");
   const text = input.value.trim();
   if (!text) {
@@ -160,24 +160,17 @@ $("requestSend")?.addEventListener("click", async () => {
     return;
   }
 
-  try {
-    await fetch(GAS_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        request: text,
-        ua: navigator.userAgent
-      })
-    });
+  fetch(GAS_URL, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+      request: text,
+      ua: navigator.userAgent
+    })
+  });
 
-    alert("リクエストを送信しました！");
-    input.value = "";
-  } catch (e) {
-    alert("送信に失敗しました");
-    console.error(e);
-  }
+  alert("リクエストを送信しました！");
+  input.value = "";
 });
 
 
