@@ -59,21 +59,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ===============================
-     シェア
-  ================================ */
+   シェア
+=============================== */
 
-  function shareResult(result = currentResult) {
-    if (!result) return;
+function shareResult(result = currentResult) {
+  if (!result) return;
 
-    const text = Object.values(result).join("\n");
+  const SITE_NAME = "ARTILOT";
+  const SITE_URL = "https://ihyli.com/";
 
-    if (navigator.share) {
-      navigator.share({ text });
-    } else {
-      navigator.clipboard.writeText(text);
-      alert("コピーしました");
-    }
+  const text =
+    `${SITE_NAME}\n` +
+    Object.values(result).join("\n") +
+    "\n\n" +
+    SITE_URL;
+
+  if (navigator.share) {
+    navigator.share({
+      text,
+      url: SITE_URL
+    });
+  } else {
+    navigator.clipboard.writeText(text);
+    alert("コピーしました");
   }
+}
 
   /* ===============================
      履歴
