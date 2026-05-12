@@ -9,6 +9,11 @@ const resultArea =
     "resultArea"
   );
 
+const historyList =
+  document.getElementById(
+    "historyList"
+  );
+
 const drawBtn =
   document.getElementById(
     "drawBtn"
@@ -54,12 +59,16 @@ let currentLanguage =
     "ideaSnackLanguage"
   ) || "en";
 
+const HISTORY_KEY =
+  "ideaSnackHistory";
+
 const GAS_URL =
   "https://script.google.com/macros/s/AKfycbxm-zNHpZBB1MpHFEnbqNVP8fazHYPuHBCG6KzT4LB41ny-YrFP7IyJOWGxez2Axd3DsQ/exec";
 
 const translations = {
   en: {
     "nav.draw": "Draw",
+    "nav.history": "History",
     "nav.how": "How to Use",
     "nav.updates": "Updates",
     "nav.request": "Request",
@@ -76,6 +85,11 @@ const translations = {
     "gacha.saveReady": "Ready to save as a PNG.",
     "gacha.saveEmpty": "Draw an idea before saving.",
     "gacha.shareTitle": "Today's Idea Snack",
+    "history.kicker": "History",
+    "history.title": "RECENT DRAWS",
+    "history.empty": "Your latest 10 draws will appear here.",
+    "history.show": "Show This Draw",
+    "history.save": "Save This PNG",
     "how.kicker": "How to Use",
     "how.title": "3 STEPS",
     "how.step1.title": "Choose categories",
@@ -105,6 +119,7 @@ const translations = {
   },
   ja: {
     "nav.draw": "引く",
+    "nav.history": "履歴",
     "nav.how": "使い方",
     "nav.updates": "更新情報",
     "nav.request": "リクエスト",
@@ -121,6 +136,11 @@ const translations = {
     "gacha.saveReady": "PNG画像として保存できます。",
     "gacha.saveEmpty": "画像保存の前にお題を引いてください。",
     "gacha.shareTitle": "今日のIDEA SNACK",
+    "history.kicker": "履歴",
+    "history.title": "最近のお題",
+    "history.empty": "ここに最新10件のお題履歴が表示されます。",
+    "history.show": "このお題を表示",
+    "history.save": "このPNGを保存",
     "how.kicker": "使い方",
     "how.title": "3ステップ",
     "how.step1.title": "カテゴリを選ぶ",
@@ -262,6 +282,8 @@ function applyTranslations(){
     announcementsFallback
   );
 
+  renderHistory();
+
   if(saveImageStatus){
 
     saveImageStatus.textContent =
@@ -391,6 +413,14 @@ function drawIdea(){
 
   });
 
+  if(lastDrawResults.length > 0){
+
+    saveHistory(
+      lastDrawResults
+    );
+
+  }
+
   if(saveImageBtn){
 
     saveImageBtn.disabled =
@@ -406,6 +436,225 @@ function drawIdea(){
         text("gacha.saveReady");
 
   }
+
+}
+
+
+function renderResult(results){
+
+  resultArea.innerHTML = "";
+
+  results.forEach(result=>{
+
+    const card =
+      document.createElement(
+        "div"
+      );
+
+    card.className =
+      "result-card";
+
+    card.innerHTML = `
+      <p class="result-title">
+        ${result.category}
+      </p>
+
+      <p class="result-value">
+        ${result.item}
+      </p>
+    `;
+
+    resultArea.appendChild(card);
+
+  });
+
+  lastDrawResults =
+    results;
+
+  if(saveImageBtn){
+
+    saveImageBtn.disabled =
+      lastDrawResults.length === 0;
+
+  }
+
+  if(saveImageStatus){
+
+    saveImageStatus.textContent =
+      lastDrawResults.length === 0 ?
+        text("gacha.saveEmpty") :
+        text("gacha.saveReady");
+
+  }
+
+}
+
+
+function getHistory(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        HISTORY_KEY
+      ) || "[]"
+    );
+
+  } catch(error){
+
+    return [];
+
+  }
+
+}
+
+
+function saveHistory(results){
+
+  const history =
+    getHistory();
+
+  history.unshift({
+    createdAt: new Date().toISOString(),
+    results
+  });
+
+  localStorage.setItem(
+    HISTORY_KEY,
+    JSON.stringify(
+      history.slice(0, 10)
+    )
+  );
+
+  renderHistory();
+
+}
+
+
+function formatHistoryDate(value){
+
+  const date =
+    new Date(value);
+
+  if(Number.isNaN(date.getTime())){
+    return "";
+  }
+
+  return date.toLocaleDateString(
+    currentLanguage === "ja" ? "ja-JP" : "en-US",
+    {
+      month: "short",
+      day: "numeric"
+    }
+  );
+
+}
+
+
+function renderHistory(){
+
+  if(!historyList){
+    return;
+  }
+
+  const history =
+    getHistory();
+
+  historyList.innerHTML = "";
+
+  if(history.length === 0){
+
+    const empty =
+      document.createElement(
+        "p"
+      );
+
+    empty.className =
+      "history-empty";
+
+    empty.textContent =
+      text("history.empty");
+
+    historyList.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+  history.forEach((entry, index)=>{
+
+    const card =
+      document.createElement(
+        "article"
+      );
+
+    card.className =
+      "history-card";
+
+    const itemsHtml =
+      entry.results
+        .map(result=>`
+          <div class="history-card__item">
+            <small>${result.category}</small>
+            <strong>${result.item}</strong>
+          </div>
+        `)
+        .join("");
+
+    card.innerHTML = `
+      <div class="history-card__meta">
+        <span>#${index + 1}</span>
+        <span>${formatHistoryDate(entry.createdAt)}</span>
+      </div>
+
+      <div class="history-card__items">
+        ${itemsHtml}
+      </div>
+
+      <div class="history-card__actions">
+        <button type="button" data-history-action="show">
+          ${text("history.show")}
+        </button>
+        <button type="button" data-history-action="save">
+          ${text("history.save")}
+        </button>
+      </div>
+    `;
+
+    card
+      .querySelector('[data-history-action="show"]')
+      .addEventListener(
+        "click",
+        ()=>{
+
+          renderResult(
+            entry.results
+          );
+
+        }
+      );
+
+    card
+      .querySelector('[data-history-action="save"]')
+      .addEventListener(
+        "click",
+        ()=>{
+
+          lastDrawResults =
+            entry.results;
+
+          saveResultImage();
+
+        }
+      );
+
+    historyList.appendChild(
+      card
+    );
+
+  });
 
 }
 
