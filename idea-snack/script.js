@@ -1,4 +1,4 @@
-```js id="u7m3x5"
+id="u7m3x5"
 const categoryArea =
   document.getElementById(
     "categoryArea"
@@ -143,4 +143,4 @@ drawBtn.addEventListener(
   "click",
   drawIdea
 );
-```
+
