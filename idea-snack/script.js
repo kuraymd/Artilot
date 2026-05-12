@@ -129,9 +129,7 @@ async function loadData(){
   const data =
     await response.json();
 
-  gachaData = data;
-
-  createCategories();
+  gachaData = data; document.getElementById( "loadingText" ).remove(); createCategories();
 
 }
 
