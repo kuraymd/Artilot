@@ -1,1 +1,182 @@
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
+  <title>IDEA SNACK</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="bg-[#FFF8E8] text-[#222]">
+
+  <!-- background -->
+  <div class="bg-deco">
+    ⭐ 🎲 ⚡ 🍬 🫧
+  </div>
+
+  <!-- header -->
+  <header class="px-6 py-6">
+
+    <a
+      href="/"
+      class="
+      inline-block
+      text-sm
+      font-black
+      mb-6
+      "
+    >
+      ← BACK TO IHYLI
+    </a>
+
+    <h1
+      class="
+      text-5xl
+      md:text-7xl
+      font-black
+      leading-none
+      "
+    >
+      IDEA<br>SNACK
+    </h1>
+
+    <p
+      class="
+      mt-4
+      text-lg
+      font-bold
+      max-w-lg
+      "
+    >
+      Random idea generator
+      for illustrations and character designs.
+    </p>
+
+  </header>
+
+  <main
+    class="
+    max-w-6xl
+    mx-auto
+
+    px-6
+    pb-32
+
+    grid
+    grid-cols-1
+    lg:grid-cols-[1fr_320px]
+    gap-8
+    "
+  >
+
+    <!-- left -->
+    <section>
+
+      <!-- categories -->
+      <div class="panel">
+
+        <h2 class="section-title">
+          SELECT CATEGORY
+        </h2>
+
+        <div
+          id="categoryArea"
+          class="
+          flex
+          flex-wrap
+          gap-3
+          "
+        ></div>
+
+      </div>
+
+      <!-- button -->
+      <button
+        id="drawBtn"
+        class="draw-btn"
+      >
+        🎲 DRAW IDEA
+      </button>
+
+      <!-- result -->
+      <div
+        id="resultArea"
+        class="
+        mt-8
+        grid
+        gap-5
+        "
+      ></div>
+
+    </section>
+
+    <!-- right -->
+    <aside
+      class="
+      lg:sticky
+      lg:top-6
+      h-fit
+      "
+    >
+
+      <div class="panel">
+
+        <h2 class="section-title">
+          THEME
+        </h2>
+
+        <div class="theme-list">
+
+          <button class="theme-chip active">
+            🌈 ALL
+          </button>
+
+          <button class="theme-chip">
+            🍬 POP
+          </button>
+
+          <button class="theme-chip">
+            🐟 ABYSS
+          </button>
+
+          <button class="theme-chip">
+            ⚡ CYBER
+          </button>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+```
