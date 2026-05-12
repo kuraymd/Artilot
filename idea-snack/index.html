@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,84 +22,120 @@
   >
 
   <link
-    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap"
     rel="stylesheet"
   >
 
   <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body class="bg-[#FFF8E8] text-[#222]">
-
   <!-- background -->
-  <div class="bg-deco">
-    ⭐ 🎲 ⚡ 🍬 🫧
+  <div class="bg-deco" aria-hidden="true">
+    IDEA SNACK / DRAW / CREATE / MIX
   </div>
 
   <!-- header -->
-  <header class="px-6 py-6">
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="/" class="back-link">BACK TO IHYLI</a>
 
-    <a
-      href="/"
-      class="
-      inline-block
-      text-sm
-      font-black
-      mb-6
-      "
-    >
-      ← BACK TO IHYLI
-    </a>
+      <div class="nav-links" aria-label="Page navigation">
+        <a href="#draw">Draw</a>
+        <a href="#how-to-use">How to Use</a>
+        <a href="#updates">Updates</a>
+        <a href="#request">Request</a>
+      </div>
+    </nav>
 
-    <h1
-      class="
-      text-5xl
-      md:text-7xl
-      font-black
-      leading-none
-      "
-    >
-      IDEA<br>SNACK
-    </h1>
+    <div class="hero-shell" id="draw">
+      <div class="hero-copy">
+        <p class="eyebrow">Illustration Inspiration Gacha</p>
+        <h1>IDEA<br>SNACK</h1>
+        <p class="hero-lead">
+          Random idea generator for illustrations and character designs.
+          Choose your categories, draw a snack-sized prompt, and start sketching.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#gacha">Start Drawing</a>
+          <a class="btn btn-ghost" href="#how-to-use">How to Use</a>
+        </div>
+      </div>
 
-    <p
-      class="
-      mt-4
-      text-lg
-      font-bold
-      max-w-lg
-      "
-    >
-      Random idea generator
-      for illustrations and character designs.
-    </p>
-
+      <div class="hero-preview" aria-hidden="true">
+        <div class="preview-card preview-card-yellow">
+          <span>Theme</span>
+          <strong>Retro Pop</strong>
+        </div>
+        <div class="preview-card preview-card-pink">
+          <span>Mood</span>
+          <strong>Cheerful</strong>
+        </div>
+        <div class="preview-card">
+          <span>Motif</span>
+          <strong>Magic Soda</strong>
+        </div>
+      </div>
+    </div>
   </header>
+
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span>CHARACTER</span>
+      <span>ILLUSTRATION</span>
+      <span>INSPIRATION</span>
+      <span>CREATIVE</span>
+      <span>IDEA SNACK</span>
+      <span>DRAW A CARD</span>
+      <span>CHARACTER</span>
+      <span>ILLUSTRATION</span>
+      <span>INSPIRATION</span>
+      <span>CREATIVE</span>
+      <span>IDEA SNACK</span>
+      <span>DRAW A CARD</span>
+    </div>
+  </div>
 
   <main
     class="
     max-w-6xl
     mx-auto
-
     px-6
     pb-32
-
-    grid grid-cols-1 gap-8
+    grid grid-cols-1 gap-12
     "
   >
+    <section id="gacha" class="gacha-section">
+      <!-- categories -->
+      <div class="panel">
+        <div class="section-heading">
+          <p class="section-kicker">Gacha Setup</p>
+          <h2 class="section-title">SELECT CATEGORY</h2>
+        </div>
 
-    <!-- left -->
-    <section>
-
-      <!-- categories --> <div class="panel"> <h2 class="section-title"> SELECT CATEGORY </h2> <div id="categoryArea" class=" flex flex-wrap gap-3 " > <p id="loadingText" class=" text-lg font-bold opacity-60 " > Loading ideas... </p> </div> </div>
+        <div
+          id="categoryArea"
+          class="
+          flex flex-wrap gap-3
+          "
+        >
+          <p
+            id="loadingText"
+            class="
+            text-lg font-bold opacity-60
+            "
+          >
+            Loading ideas...
+          </p>
+        </div>
+      </div>
 
       <!-- button -->
       <button
         id="drawBtn"
         class="draw-btn"
       >
-        🎲 DRAW IDEA
+        DRAW IDEA
       </button>
 
       <!-- result -->
@@ -111,16 +146,107 @@
         grid
         gap-5
         "
+        aria-live="polite"
       ></div>
-
     </section>
 
-   
+    <section class="info-section how-section" id="how-to-use">
+      <div class="section-heading">
+        <p class="section-kicker">How to Use</p>
+        <h2 class="section-title">3 STEPS</h2>
+      </div>
 
+      <div class="step-grid">
+        <article class="step-card">
+          <span class="step-number">01</span>
+          <h3>カテゴリを選ぶ</h3>
+          <p>使いたいカテゴリだけをONにします。全部ONのままなら、よりカオスで楽しいお題になります。</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-number">02</span>
+          <h3>DRAW IDEA</h3>
+          <p>ボタンを押すと、GASから読み込んだ各カテゴリの候補からランダムに1つずつ表示されます。</p>
+        </article>
+
+        <article class="step-card">
+          <span class="step-number">03</span>
+          <h3>描いて遊ぶ</h3>
+          <p>出た組み合わせをそのまま描いても、気に入った要素だけ拾ってもOK。創作の入口として使えます。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="info-section updates-request-section" id="updates">
+      <div class="updates-column">
+        <div class="section-heading">
+          <p class="section-kicker">Updates</p>
+          <h2 class="section-title">RECENT NOTES</h2>
+        </div>
+
+        <div
+          id="updatesList"
+          class="updates-list"
+          aria-live="polite"
+        ></div>
+      </div>
+
+      <div class="request-column" id="request">
+        <div class="section-heading">
+          <p class="section-kicker">Request</p>
+          <h2 class="section-title">SEND AN IDEA</h2>
+        </div>
+
+        <form class="request-box" id="requestForm">
+          <label>
+            <span>Category</span>
+            <select id="requestCategory" name="category">
+              <option value="theme">Theme</option>
+              <option value="motif">Motif</option>
+              <option value="hair">Hair</option>
+              <option value="outfit">Outfit</option>
+              <option value="mood">Mood</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Your idea</span>
+            <textarea
+              id="requestText"
+              name="idea"
+              rows="4"
+              placeholder="例: 宇宙クリームソーダ、雨の日の魔法使い..."
+            ></textarea>
+          </label>
+
+          <button class="btn btn-primary request-submit" type="submit">
+            Send Request
+          </button>
+
+          <p id="requestStatus" class="request-status">
+            リクエスト送信は今後 requests シート連携予定です。
+          </p>
+        </form>
+      </div>
+    </section>
   </main>
 
-  <script src="script.js"></script>
+  <footer class="site-footer">
+    <div>
+      <strong>IDEA SNACK</strong>
+      <p>Snack-sized prompts for illustration and character design.</p>
+    </div>
 
+    <nav aria-label="Footer navigation">
+      <a href="#draw">Draw</a>
+      <a href="#how-to-use">How to Use</a>
+      <a href="#updates">Updates</a>
+      <a href="#request">Request</a>
+      <a href="/">IHYLI</a>
+    </nav>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
