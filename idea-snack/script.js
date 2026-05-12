@@ -1,4 +1,4 @@
-```js
+
 const categoryArea =
   document.getElementById(
     "categoryArea"
