@@ -1,4 +1,4 @@
-
+```js id="u7m3x5"
 const categoryArea =
   document.getElementById(
     "categoryArea"
@@ -15,35 +15,16 @@ const drawBtn =
   );
 
 
-// 仮データ
-const gachaData = {
+let gachaData = {};
 
-  hair:[
-    "Twin Tail",
-    "Short Bob",
-    "Long Hair",
-    "Messy Hair"
-  ],
-
-  outfit:[
-    "Oversized Hoodie",
-    "Cyber Jacket",
-    "Retro Dress",
-    "School Uniform"
-  ],
-
-  motif:[
-    "Deep Sea",
-    "Candy",
-    "Arcade",
-    "Space"
-  ]
-
-};
+const GAS_URL =
+  "https://script.google.com/macros/s/AKfycbxm-zNHpZBB1MpHFEnbqNVP8fazHYPuHBCG6KzT4LB41ny-YrFP7IyJOWGxez2Axd3DsQ/exec";
 
 
 // category生成
 function createCategories(){
+
+  categoryArea.innerHTML = "";
 
   Object.keys(gachaData)
     .forEach(category=>{
@@ -139,8 +120,22 @@ function drawIdea(){
 }
 
 
-// 初期化
-createCategories();
+// Spreadsheet読み込み
+async function loadData(){
+
+  const response =
+    await fetch(GAS_URL);
+
+  const data =
+    await response.json();
+
+  gachaData = data;
+
+  createCategories();
+
+}
+
+loadData();
 
 
 // button
@@ -148,4 +143,4 @@ drawBtn.addEventListener(
   "click",
   drawIdea
 );
-
+```
