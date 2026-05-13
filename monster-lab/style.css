@@ -1,32 +1,408 @@
-body{
-background:#07111c;
-color:white;
-font-family:sans-serif;
-text-align:center;
-padding:40px;
+:root {
+  color-scheme: dark;
+  --bg: #04090f;
+  --surface: #080f1a;
+  --surface-soft: #0d1724;
+  --accent: #00e5ff;
+  --accent2: #0077aa;
+  --danger: #ff3658;
+  --text: #c8dde8;
+  --text-dim: #6d8796;
+  --border: #0d2a3d;
+  --gold: #c8a84b;
 }
 
-button{
-padding:10px 20px;
-font-size:16px;
-border-radius:8px;
-border:none;
-background:#00bcd4;
-color:white;
-cursor:pointer;
+* {
+  box-sizing: border-box;
 }
 
-#result{
-margin-top:30px;
-padding:20px;
-background:#0f1f2d;
-border-radius:10px;
-display:inline-block;
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(0, 80, 120, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(0, 40, 80, 0.1) 0%, transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Noto Serif JP", serif;
+  padding: 24px 16px 60px;
+  overflow-x: hidden;
 }
 
-svg{
-width:300px;
-height:260px;
-fill:white;
-stroke:white;
+.container {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.site-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.label-en,
+.archive-title,
+.archive-count,
+.specimen-no,
+.danger-badge,
+.theme-control span,
+.data-item dt,
+.placeholder-text,
+.wagara-title {
+  font-family: "Share Tech Mono", monospace;
+}
+
+.label-en {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--accent2);
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(21px, 6vw, 30px);
+  line-height: 1.45;
+  color: #fff;
+  letter-spacing: 0;
+}
+
+.divider {
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+  margin: 14px auto 0;
+}
+
+.terminal-panel,
+.placeholder,
+.specimen-card,
+.archive-empty,
+.archive-card {
+  background: rgba(8, 15, 26, 0.94);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.terminal-panel {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+
+.theme-control {
+  display: grid;
+  gap: 7px;
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.theme-control select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #02060d;
+  color: var(--text);
+  font: 14px "Noto Serif JP", serif;
+}
+
+.btn-generate,
+.btn-save {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.btn-generate {
+  min-height: 52px;
+  border: 1px solid var(--accent2);
+  background: linear-gradient(135deg, #004466, #006688);
+  color: #fff;
+  font: 700 15px "Noto Serif JP", serif;
+  letter-spacing: 0.12em;
+}
+
+.btn-generate:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.btn-generate:active,
+.btn-save:active {
+  transform: scale(0.98);
+}
+
+.result {
+  margin-bottom: 12px;
+}
+
+.placeholder {
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.placeholder-icon {
+  font-family: "Share Tech Mono", monospace;
+  color: rgba(0, 229, 255, 0.18);
+  font-size: 34px;
+  margin-bottom: 14px;
+}
+
+.placeholder-text {
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+}
+
+.specimen-card {
+  overflow: hidden;
+}
+
+.specimen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.specimen-no {
+  color: var(--accent2);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.danger-badge {
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: 2px;
+  padding: 3px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.monster-name {
+  margin: 0;
+  padding: 14px 16px;
+  color: #fff;
+  font-size: clamp(18px, 5vw, 22px);
+  border-bottom: 1px solid var(--border);
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.data-item {
+  padding: 11px 14px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.data-item:nth-child(even),
+.data-item.full {
+  border-right: 0;
+}
+
+.data-item.full {
+  grid-column: 1 / -1;
+}
+
+.data-item dt {
+  margin-bottom: 5px;
+  color: var(--text-dim);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.data-item dd {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.description {
+  margin: 0;
+  padding: 14px 16px;
+  color: var(--text-dim);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.wagara-section {
+  margin: 0 16px 16px;
+  padding: 14px;
+  border: 1px solid rgba(200, 168, 75, 0.35);
+  border-radius: 5px;
+  background: rgba(200, 168, 75, 0.05);
+}
+
+.wagara-title {
+  color: var(--accent2);
+  font-size: 9px;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.wagara-name {
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.wagara-section p {
+  margin: 0;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.btn-save {
+  padding: 12px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font: 700 13px "Noto Serif JP", serif;
+  letter-spacing: 0.08em;
+}
+
+.btn-save:hover:not(:disabled) {
+  background: rgba(200, 168, 75, 0.1);
+  box-shadow: 0 0 12px rgba(200, 168, 75, 0.2);
+}
+
+.btn-save:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.archive-section {
+  margin-top: 36px;
+}
+
+.archive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.archive-title {
+  color: var(--accent2);
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.archive-count {
+  color: var(--text-dim);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.archive-list {
+  display: grid;
+  gap: 10px;
+}
+
+.archive-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-dim);
+  font: 10px "Share Tech Mono", monospace;
+  letter-spacing: 2px;
+}
+
+.archive-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 12px 14px;
+}
+
+.archive-card-name {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.archive-card-meta {
+  color: var(--text-dim);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.archive-card-wagara {
+  color: var(--gold);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.btn-delete {
+  align-self: start;
+  border: 1px solid rgba(255, 54, 88, 0.35);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--danger);
+  padding: 6px 8px;
+  font: 10px "Share Tech Mono", monospace;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  body {
+    padding: 18px 10px 44px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .label-en {
+    letter-spacing: 2px;
+  }
+
+  .terminal-panel {
+    padding: 12px;
+  }
+
+  .btn-generate {
+    min-height: 50px;
+    font-size: 14px;
+  }
+
+  .specimen-header,
+  .archive-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .data-item {
+    border-right: 0;
+  }
+
+  .archive-card {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-delete {
+    width: 100%;
+  }
 }
