@@ -146,7 +146,7 @@ const translations = {
     "how.step1.title": "カテゴリを選ぶ",
     "how.step1.body": "使いたいカテゴリだけをONにします。全部ONのままなら、よりカオスで楽しいお題になります。",
     "how.step2.title": "お題を引く",
-    "how.step2.body": "ボタンを押すと、GASから読み込んだ各カテゴリの候補からランダムに1つずつ表示されます。",
+    "how.step2.body": "ボタンを押すと、各カテゴリの候補からランダムに1つずつ表示されます。",
     "how.step3.title": "描いて遊ぶ",
     "how.step3.body": "出た組み合わせをそのまま描いても、気に入った要素だけ拾ってもOK。創作の入口として使えます。",
     "updates.kicker": "更新情報",
@@ -163,7 +163,7 @@ const translations = {
     "request.idea": "アイデア",
     "request.placeholder": "例: 宇宙クリームソーダ、雨の日の魔法使い...",
     "request.submit": "リクエストを送る",
-    "request.status.ready": "リクエスト送信は今後 requests シート連携予定です。",
+    "request.status.ready": "リクエストは追加するワードの参考にさせていただきます!",
     "request.status.empty": "リクエスト内容を入力してください。",
     "request.status.thanks": "ありがとうございます。requests シート連携時に送信できるようになります。",
     "footer.tagline": "イラストやキャラクターデザインのための、ひとくちサイズのお題集。"
