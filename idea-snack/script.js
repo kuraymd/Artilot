@@ -206,6 +206,9 @@ const announcementsFallback = [
   }
 ];
 
+let currentAnnouncements =
+  announcementsFallback;
+
 if(!translations[currentLanguage]){
 
   currentLanguage =
@@ -279,7 +282,7 @@ function applyTranslations(){
   });
 
   renderUpdates(
-    announcementsFallback
+    currentAnnouncements
   );
 
   renderHistory();
@@ -907,15 +910,71 @@ function saveResultImage(){
 }
 
 
+function formatAnnouncementDate(value){
+
+  const raw =
+    String(value || "").trim();
+
+  if(!raw){
+    return "";
+  }
+
+  const date =
+    new Date(raw);
+
+  if(!Number.isNaN(date.getTime())){
+
+    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}`;
+
+  }
+
+  return raw;
+
+}
+
+
+function normalizeAnnouncement(item){
+
+  return {
+    date: formatAnnouncementDate(
+      item.date ||
+      item.day ||
+      item.month ||
+      item["日付"]
+    ),
+    label:
+      item.label ||
+      item.badge ||
+      item.type ||
+      item["ラベル"] ||
+      "NEW",
+    text:
+      item.text ||
+      item.body ||
+      item.message ||
+      item.title ||
+      item["本文"] ||
+      item["内容"] ||
+      item["お知らせ"] ||
+      ""
+  };
+
+}
+
+
 function renderUpdates(items){
 
   if(!updatesList){
-        return;
-      }
+    return;
+  }
 
-      updatesList.innerHTML = "";
+  updatesList.innerHTML = "";
 
-  items.forEach(item=>{
+  items
+    .map(normalizeAnnouncement)
+    .filter(item=>item.text)
+    .slice(0, 6)
+    .forEach(item=>{
 
     const update =
       document.createElement(
@@ -925,16 +984,54 @@ function renderUpdates(items){
     update.className =
       "update-item";
 
-    update.innerHTML = `
-      <div class="update-date">
-        ${item.date}
-      </div>
+    const date =
+      document.createElement(
+        "div"
+      );
 
-      <div class="update-body">
-        <strong>${localized(item.label)}</strong>
-        <p>${localized(item.text)}</p>
-      </div>
-    `;
+    date.className =
+      "update-date";
+
+    date.textContent =
+      item.date;
+
+    const body =
+      document.createElement(
+        "div"
+      );
+
+    body.className =
+      "update-body";
+
+    const label =
+      document.createElement(
+        "strong"
+      );
+
+    label.textContent =
+      localized(
+        item.label
+      );
+
+    const textElement =
+      document.createElement(
+        "p"
+      );
+
+    textElement.textContent =
+      localized(
+        item.text
+      );
+
+    body.append(
+      label,
+      textElement
+    );
+
+    update.append(
+      date,
+      body
+    );
 
     updatesList.appendChild(
       update
@@ -945,11 +1042,51 @@ function renderUpdates(items){
 }
 
 
-// Future: load from announcements sheet.
 async function loadAnnouncements(){
 
+  try{
+
+    const url =
+      new URL(
+        GAS_URL
+      );
+
+    url.searchParams.set(
+      "action",
+      "announcements"
+    );
+
+    const response =
+      await fetch(
+        url.toString()
+      );
+
+    const data =
+      await response.json();
+
+    const announcements =
+      Array.isArray(data) ?
+        data :
+        data.announcements;
+
+    if(!Array.isArray(announcements)){
+      throw new Error("Announcements response is not an array.");
+    }
+
+    currentAnnouncements =
+      announcements.length ?
+        announcements :
+        announcementsFallback;
+
+  }catch(error){
+
+    currentAnnouncements =
+      announcementsFallback;
+
+  }
+
   renderUpdates(
-    announcementsFallback
+    currentAnnouncements
   );
 
 }
@@ -963,7 +1100,7 @@ function setupRequestForm(){
 
   requestForm.addEventListener(
     "submit",
-    event=>{
+    async event=>{
 
       event.preventDefault();
 
@@ -988,12 +1125,60 @@ function setupRequestForm(){
 
       }
 
+      const payload =
+        new URLSearchParams();
+
+      payload.set(
+        "action",
+        "request"
+      );
+
+      payload.set(
+        "createdAt",
+        new Date().toISOString()
+      );
+
+      payload.set(
+        "category",
+        String(formData.get("category") || "")
+      );
+
+      payload.set(
+        "idea",
+        idea
+      );
+
       requestStatus.textContent =
-        text(
-          "request.status.thanks"
+        currentLanguage === "ja" ?
+          "送信中です..." :
+          "Sending...";
+
+      try{
+
+        await fetch(
+          GAS_URL,
+          {
+            method: "POST",
+            body: payload,
+            mode: "no-cors"
+          }
         );
 
-      requestForm.reset();
+        requestStatus.textContent =
+          currentLanguage === "ja" ?
+            "送信しました。ありがとうございます!" :
+            "Sent. Thank you!";
+
+        requestForm.reset();
+
+      }catch(error){
+
+        requestStatus.textContent =
+          currentLanguage === "ja" ?
+            "送信できませんでした。時間をおいてもう一度お試しください。" :
+            "Could not send. Please try again later.";
+
+      }
 
     }
   );
