@@ -41,24 +41,30 @@
       <a href="/" class="back-link">BACK TO IHYLI</a>
 
       <div class="nav-links" aria-label="Page navigation">
-        <a href="#draw">Draw</a>
-        <a href="#how-to-use">How to Use</a>
-        <a href="#updates">Updates</a>
-        <a href="#request">Request</a>
+        <a href="#draw" data-i18n="nav.draw">Draw</a>
+        <a href="#history" data-i18n="nav.history">History</a>
+        <a href="#how-to-use" data-i18n="nav.how">How to Use</a>
+        <a href="#updates" data-i18n="nav.updates">Updates</a>
+        <a href="#request" data-i18n="nav.request">Request</a>
+      </div>
+
+      <div class="language-switch" aria-label="Language switch">
+        <button type="button" class="lang-btn is-active" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="ja">JP</button>
       </div>
     </nav>
 
     <div class="hero-shell" id="draw">
       <div class="hero-copy">
-        <p class="eyebrow">Illustration Inspiration Gacha</p>
+        <p class="eyebrow" data-i18n="hero.kicker">Illustration Inspiration Gacha</p>
         <h1>IDEA<br>SNACK</h1>
-        <p class="hero-lead">
+        <p class="hero-lead" data-i18n="hero.lead">
           Random idea generator for illustrations and character designs.
           Choose your categories, draw a snack-sized prompt, and start sketching.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#gacha">Start Drawing</a>
-          <a class="btn btn-ghost" href="#how-to-use">How to Use</a>
+          <a class="btn btn-primary" href="#gacha" data-i18n="hero.start">Start Drawing</a>
+          <a class="btn btn-ghost" href="#how-to-use" data-i18n="hero.how">How to Use</a>
         </div>
       </div>
 
@@ -109,8 +115,8 @@
       <!-- categories -->
       <div class="panel">
         <div class="section-heading">
-          <p class="section-kicker">Gacha Setup</p>
-          <h2 class="section-title">SELECT CATEGORY</h2>
+          <p class="section-kicker" data-i18n="gacha.kicker">Gacha Setup</p>
+          <h2 class="section-title" data-i18n="gacha.title">SELECT CATEGORY</h2>
         </div>
 
         <div
@@ -125,7 +131,7 @@
             text-lg font-bold opacity-60
             "
           >
-            Loading ideas...
+            <span data-i18n="gacha.loading">Loading ideas...</span>
           </p>
         </div>
       </div>
@@ -135,7 +141,7 @@
         id="drawBtn"
         class="draw-btn"
       >
-        DRAW IDEA
+        <span data-i18n="gacha.draw">DRAW IDEA</span>
       </button>
 
       <!-- result -->
@@ -148,31 +154,63 @@
         "
         aria-live="polite"
       ></div>
+
+      <div class="result-actions">
+        <button
+          id="saveImageBtn"
+          class="btn btn-ghost save-image-btn"
+          type="button"
+          disabled
+        >
+          <span data-i18n="gacha.saveImage">Save as Image</span>
+        </button>
+
+        <p
+          id="saveImageStatus"
+          class="save-image-status"
+          data-i18n="gacha.saveHint"
+        >
+          Draw an idea first, then save it as a PNG.
+        </p>
+      </div>
+
+      <section class="history-section" id="history">
+        <div class="section-heading">
+          <p class="section-kicker" data-i18n="history.kicker">History</p>
+          <h2 class="section-title" data-i18n="history.title">RECENT DRAWS</h2>
+        </div>
+
+        <div
+          id="historyList"
+          class="history-list"
+          aria-live="polite"
+        ></div>
+      </section>
     </section>
 
     <section class="info-section how-section" id="how-to-use">
       <div class="section-heading">
-        <p class="section-kicker">How to Use</p>
-        <h2 class="section-title">3 STEPS</h2>
+        <p class="section-kicker" data-i18n="how.kicker">How to Use</p>
+        <h2 class="section-title" data-i18n="how.title">3 STEPS</h2>
       </div>
 
       <div class="step-grid">
         <article class="step-card">
           <span class="step-number">01</span>
-          <h3>カテゴリを選ぶ</h3>
-          <p>使いたいカテゴリだけをONにします。全部ONのままなら、よりカオスで楽しいお題になります。</p>
+          <h3 data-i18n="how.step1.title">Choose categories</h3>
+          <p data-i18n="how.step1.body">Turn on only the categories you want. Keeping everything on makes the prompt more playful and chaotic.</p>
         </article>
 
         <article class="step-card">
           <span class="step-number">02</span>
-          <h3>DRAW IDEA</h3>
-          <p>ボタンを押すと、GASから読み込んだ各カテゴリの候補からランダムに1つずつ表示されます。</p>
+          <h3 data-i18n="how.step2.title">DRAW IDEA</h3>
+          <p data-i18n="how.step2.body">Press the button to randomly pick one idea from each selected category loaded from GAS.</p>
         </article>
 
         <article class="step-card">
           <span class="step-number">03</span>
-          <h3>描いて遊ぶ</h3>
-          <p>出た組み合わせをそのまま描いても、気に入った要素だけ拾ってもOK。創作の入口として使えます。</p>
+          <h3 data-i18n="how.step3.title">Draw and play</h3>
+          <p data-i18n="how.step3.body">Use the full combination as-is, or keep only the parts you like. Treat it as a small doorway into making something.</p>
         </article>
       </div>
     </section>
@@ -180,8 +218,8 @@
     <section class="info-section updates-request-section" id="updates">
       <div class="updates-column">
         <div class="section-heading">
-          <p class="section-kicker">Updates</p>
-          <h2 class="section-title">RECENT NOTES</h2>
+          <p class="section-kicker" data-i18n="updates.kicker">Updates</p>
+          <h2 class="section-title" data-i18n="updates.title">RECENT NOTES</h2>
         </div>
 
         <div
@@ -193,38 +231,39 @@
 
       <div class="request-column" id="request">
         <div class="section-heading">
-          <p class="section-kicker">Request</p>
-          <h2 class="section-title">SEND AN IDEA</h2>
+          <p class="section-kicker" data-i18n="request.kicker">Request</p>
+          <h2 class="section-title" data-i18n="request.title">SEND AN IDEA</h2>
         </div>
 
         <form class="request-box" id="requestForm">
           <label>
-            <span>Category</span>
+            <span data-i18n="request.category">Category</span>
             <select id="requestCategory" name="category">
-              <option value="theme">Theme</option>
-              <option value="motif">Motif</option>
-              <option value="hair">Hair</option>
-              <option value="outfit">Outfit</option>
-              <option value="mood">Mood</option>
-              <option value="other">Other</option>
+              <option value="theme" data-i18n="request.option.theme">Theme</option>
+              <option value="motif" data-i18n="request.option.motif">Motif</option>
+              <option value="hair" data-i18n="request.option.hair">Hair</option>
+              <option value="outfit" data-i18n="request.option.outfit">Outfit</option>
+              <option value="mood" data-i18n="request.option.mood">Mood</option>
+              <option value="other" data-i18n="request.option.other">Other</option>
             </select>
           </label>
 
           <label>
-            <span>Your idea</span>
+            <span data-i18n="request.idea">Your idea</span>
             <textarea
               id="requestText"
               name="idea"
               rows="4"
-              placeholder="例: 宇宙クリームソーダ、雨の日の魔法使い..."
+              placeholder="Example: space cream soda, a wizard on a rainy day..."
+              data-i18n-placeholder="request.placeholder"
             ></textarea>
           </label>
 
           <button class="btn btn-primary request-submit" type="submit">
-            Send Request
+            <span data-i18n="request.submit">Send Request</span>
           </button>
 
-          <p id="requestStatus" class="request-status">
+          <p id="requestStatus" class="request-status" data-i18n="request.status.ready">
             リクエスト送信は今後 requests シート連携予定です。
           </p>
         </form>
@@ -235,14 +274,15 @@
   <footer class="site-footer">
     <div>
       <strong>IDEA SNACK</strong>
-      <p>Snack-sized prompts for illustration and character design.</p>
+      <p data-i18n="footer.tagline">Snack-sized prompts for illustration and character design.</p>
     </div>
 
     <nav aria-label="Footer navigation">
-      <a href="#draw">Draw</a>
-      <a href="#how-to-use">How to Use</a>
-      <a href="#updates">Updates</a>
-      <a href="#request">Request</a>
+      <a href="#draw" data-i18n="nav.draw">Draw</a>
+      <a href="#history" data-i18n="nav.history">History</a>
+      <a href="#how-to-use" data-i18n="nav.how">How to Use</a>
+      <a href="#updates" data-i18n="nav.updates">Updates</a>
+      <a href="#request" data-i18n="nav.request">Request</a>
       <a href="/">IHYLI</a>
     </nav>
   </footer>
