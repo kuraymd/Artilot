@@ -207,7 +207,10 @@ const announcementsFallback = [
 ];
 
 let currentAnnouncements =
-  announcementsFallback;
+  [];
+
+let updatesStatus =
+  "loading";
 
 if(!translations[currentLanguage]){
 
@@ -970,6 +973,41 @@ function renderUpdates(items){
 
   updatesList.innerHTML = "";
 
+  if(!items.length){
+
+    const status =
+      document.createElement(
+        "p"
+      );
+
+    status.className =
+      "updates-status";
+
+    status.textContent =
+      updatesStatus === "error" ?
+        (
+          currentLanguage === "ja" ?
+            "更新情報を読み込めませんでした。" :
+            "Could not load updates."
+        ) :
+      updatesStatus === "empty" ?
+        (
+          currentLanguage === "ja" ?
+            "まだお知らせはありません。" :
+            "No updates yet."
+        ) :
+      currentLanguage === "ja" ?
+        "更新情報を読み込み中です..." :
+        "Loading updates...";
+
+    updatesList.appendChild(
+      status
+    );
+
+    return;
+
+  }
+
   items
     .map(normalizeAnnouncement)
     .filter(item=>item.text)
@@ -1076,12 +1114,20 @@ async function loadAnnouncements(){
     currentAnnouncements =
       announcements.length ?
         announcements :
-        announcementsFallback;
+        [];
+
+    updatesStatus =
+      announcements.length ?
+        "ready" :
+        "empty";
 
   }catch(error){
 
     currentAnnouncements =
-      announcementsFallback;
+      [];
+
+    updatesStatus =
+      "error";
 
   }
 
