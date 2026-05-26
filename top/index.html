@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="IHYLI.com is a portfolio and idea-tool portal for playful web experiments."
+    />
+    <title>IHYLI.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body id="top">
+    <header class="site-header" aria-label="サイトヘッダー">
+      <a class="brand" href="#top" aria-label="IHYLI.com トップへ">
+        <span class="brand-orb" aria-hidden="true"></span>
+        IHYLI.com
+      </a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="sr-only">メニューを開閉する</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+        <a href="#start">Start</a>
+        <a href="#play">Play</a>
+        <a href="#tools">Tools</a>
+        <a href="#links">Links</a>
+        <a href="#updates">Updates</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero reveal" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="kicker">IDEA TOOLS / PORTFOLIO</p>
+            <h1 id="hero-title">
+              IHYLI.com
+              <span>creates little worlds.</span>
+            </h1>
+            <p class="hero-lead">
+              深海、モンスター、ガチャ、アイデア支援。
+              気軽に遊べる個人制作ツールを、ここから探せます。
+            </p>
+            <div class="button-row">
+              <a class="button primary" href="#start">はじめる</a>
+              <a class="button ghost" href="#tools">ツールを見る</a>
+            </div>
+          </div>
+          <div class="hero-panel" aria-label="IHYLI.com のビジュアル">
+            <img src="./assets/hero-avatar.png" alt="IHYLI.com のプロフィールアイコン" />
+            <div class="hero-token token-a">2 TOOLS</div>
+            <div class="hero-token token-b">PORTFOLIO</div>
+            <div class="hero-token token-c">LINK HUB</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="path-section reveal" id="start" aria-labelledby="start-title">
+        <div class="section-copy">
+          <p class="kicker">CHOOSE YOUR ROUTE</p>
+          <h2 id="start-title">まずは、今の気分から。</h2>
+        </div>
+        <div class="route-grid">
+          <a class="route-card" href="#about">
+            <span class="route-number">01</span>
+            <p class="route-label">I'M A</p>
+            <h3>NEWBIE</h3>
+            <p>どんな場所か知りたい人へ。制作の雰囲気とテーマを紹介します。</p>
+            <strong>VIEW</strong>
+          </a>
+          <a class="route-card hot" href="#tools">
+            <span class="route-number">02</span>
+            <p class="route-label">I'M A</p>
+            <h3>PLAYER</h3>
+            <p>すぐに遊びたい人へ。公開中のツールをカードで探せます。</p>
+            <strong>VIEW</strong>
+          </a>
+          <a class="route-card" href="#contact">
+            <span class="route-number">03</span>
+            <p class="route-label">TEAM UP</p>
+            <h3>PORTFOLIO</h3>
+            <p>「こんなツールがほしい」を送りたい人はこちらから。</p>
+            <strong>VIEW</strong>
+          </a>
+        </div>
+      </section>
+
+      <section class="about-section reveal" id="about" aria-labelledby="about-title">
+        <div class="about-visual">
+          <img src="./assets/about-image.png" alt="深海を進むポップな潜水艇のイラスト" />
+        </div>
+        <div class="section-copy">
+          <p class="kicker">ABOUT THE LAB</p>
+          <h2 id="about-title">小さなアイデアを、遊べる形に。</h2>
+          <p>
+            IHYLI.com は、思いついた「あったらいいな」を軽く試して、
+            Webツールとして公開していく個人開発の実験場です。
+          </p>
+          <p>
+            つくって、遊んで、シェアして、また次のアイデアにつなげる。
+            そんな小さな循環を楽しむためのポータルです。
+          </p>
+        </div>
+      </section>
+
+      <section class="play-section reveal" id="play" aria-labelledby="play-title">
+        <div class="section-copy center">
+          <p class="kicker">HOW TO PLAY</p>
+          <h2 id="play-title">遊び方は、気軽でOK。</h2>
+          <p>気になる入口を選んで、気分に合うツールを触ってみてください。</p>
+        </div>
+        <div class="play-grid">
+          <article class="play-card">
+            <span>play</span>
+            <h3>まず触る</h3>
+            <p>説明を読み込まなくても、ボタンを押したらすぐ試せるツールを集めています。</p>
+            <a href="#tools">VIEW</a>
+          </article>
+          <article class="play-card">
+            <span>make</span>
+            <h3>結果をつくる</h3>
+            <p>モンスター、名前、プロンプトなど、投稿やメモに使える出力を作れます。</p>
+            <a href="#tools">VIEW</a>
+          </article>
+          <article class="play-card">
+            <span>share</span>
+            <h3>あとで共有</h3>
+            <p>気に入った結果はスクショやリンクで残して、次のアイデアの種にできます。</p>
+            <a href="#contact">VIEW</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="tools-section reveal" id="tools" aria-labelledby="tools-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">TOOL ECOSYSTEM</p>
+            <h2 id="tools-title">Tools Gallery</h2>
+          </div>
+        </div>
+        <div class="tools-grid" id="toolsGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="links-section reveal" id="links" aria-labelledby="links-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">LINK BANNERS</p>
+            <h2 id="links-title">Find me around the web</h2>
+          </div>
+          <p class="section-note">SNS、作品受付、支援先をまとめたポートフォリオ用バナーです。</p>
+        </div>
+        <div class="banner-grid" id="bannerGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="updates-section reveal" id="updates" aria-labelledby="updates-title">
+        <div class="section-copy">
+          <p class="kicker">UPDATES</p>
+          <h2 id="updates-title">Recent Notes</h2>
+        </div>
+        <ol class="updates-list">
+          <li><time datetime="2024-05-20">2024.05.20</time><span>v1.8 モンスター図鑑メーカー追加</span></li>
+          <li><time datetime="2024-05-10">2024.05.10</time><span>v1.7 UIをリニューアルしました</span></li>
+          <li><time datetime="2024-04-26">2024.04.26</time><span>v1.6 ガチャランダマイザー追加</span></li>
+          <li><time datetime="2024-04-12">2024.04.12</time><span>v1.5 深海シミュレーター更新</span></li>
+        </ol>
+      </section>
+
+      <section class="contact-section reveal" id="contact" aria-labelledby="contact-title">
+        <div class="contact-card">
+          <div>
+            <p class="kicker">CONTACT</p>
+            <h2 id="contact-title">アイデア、待っています。</h2>
+            <p>「こんなツールがほしい！」というリクエストがあれば教えてください。</p>
+          </div>
+          <div class="contact-buttons" aria-label="連絡先リンク">
+            <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub Issues</a>
+            <a href="https://x.com/" target="_blank" rel="noreferrer">X / Twitter</a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="mailto:hello@example.com">Contact Form</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <strong>IHYLI.com</strong>
+      <p>Idea tools, portfolio, and playful web experiments. © 2026 IHYLI.com.</p>
+      <a class="top-button" href="#top">TOP</a>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
