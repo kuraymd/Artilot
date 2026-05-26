@@ -25,9 +25,9 @@ const works = [
   { title: "Crimson Cherry", tag: "Character", image: "/image/illustration/クリムゾンチェリーサイン追加.jpg" },
   { title: "Mulberry Pie", tag: "Character", image: "/image/illustration/マルベリーパイサイン追加.JPG" },
   { title: "Pina Colada", tag: "Character", image: "/image/illustration/ピニャコラーダサイン追加.JPG" },
-  { title: "Lily", tag: "Character", image: "/image/illustration/リリーサイン追加.JPG" },
-  { title: "Retro Pattern", tag: "Pattern", image: "/image/illustration/IMG_3352.PNG" },
-  { title: "Color Mood", tag: "Pattern", image: "/image/illustration/IMG_3353.PNG" },
+  { title: "Sticker Character", tag: "Character", image: "/image/illustration/IMG_3260.PNG" },
+  { title: "Sunny Character", tag: "Character", image: "/image/illustration/IMG_3354.PNG" },
+  { title: "Color Mood", tag: "Pattern", image: "/image/illustration/IMG_3204.JPG" },
   { title: "Tiny World", tag: "Artwork", image: "/image/illustration/IMG_3356.PNG" },
 ];
 

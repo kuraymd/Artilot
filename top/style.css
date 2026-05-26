@@ -313,31 +313,61 @@ h1 span {
 .hero-token {
   position: absolute;
   z-index: 2;
-  padding: 10px 14px;
+  padding: 11px 16px;
+  color: #07111f;
   font-family: "Fredoka", sans-serif;
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  backdrop-filter: blur(12px);
+  background: var(--bubble-color, var(--lime));
+  border: 2px solid rgba(255, 255, 255, 0.86);
+  border-radius: 22px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.hero-token::after {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  content: "";
+  background: var(--bubble-color, var(--lime));
+  border-right: 2px solid rgba(255, 255, 255, 0.86);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.86);
+  transform: rotate(45deg);
 }
 
 .token-a {
   top: 34px;
   left: 28px;
-  color: var(--lime);
+  --bubble-color: var(--lime);
+}
+
+.token-a::after {
+  right: 24px;
+  bottom: -8px;
 }
 
 .token-b {
   right: 24px;
   bottom: 82px;
-  color: var(--cyan);
+  --bubble-color: var(--cyan);
+}
+
+.token-b::after {
+  left: 20px;
+  bottom: -8px;
 }
 
 .token-c {
   bottom: 28px;
   left: 34px;
-  color: var(--pink);
+  --bubble-color: var(--pink);
+}
+
+.token-c::after {
+  right: 20px;
+  top: -8px;
+  border: 0;
+  border-left: 2px solid rgba(255, 255, 255, 0.86);
+  border-top: 2px solid rgba(255, 255, 255, 0.86);
 }
 
 .section-copy {
@@ -543,6 +573,8 @@ h2 {
 .polaroid-grid {
   align-items: start;
   padding: 22px 8px 36px;
+  column-gap: clamp(18px, 2.6vw, 34px);
+  row-gap: clamp(48px, 6vw, 86px);
 }
 
 .works-grid.polaroid-grid {
@@ -577,27 +609,23 @@ h2 {
 .polaroid-grid .goods-card:nth-child(5n + 2) {
   --card-shift: 58px;
   --card-tilt: 1.2deg;
-  margin-left: -34px;
 }
 
 .polaroid-grid .work-card:nth-child(4n + 3),
 .polaroid-grid .goods-card:nth-child(5n + 3) {
   --card-shift: 14px;
   --card-tilt: -0.8deg;
-  margin-left: -20px;
 }
 
 .polaroid-grid .work-card:nth-child(4n),
 .polaroid-grid .goods-card:nth-child(5n + 4) {
   --card-shift: 82px;
   --card-tilt: 1.7deg;
-  margin-left: -42px;
 }
 
 .polaroid-grid .goods-card:nth-child(5n) {
   --card-shift: 30px;
   --card-tilt: -1.1deg;
-  margin-left: -28px;
 }
 
 .polaroid-grid .work-card:hover,
