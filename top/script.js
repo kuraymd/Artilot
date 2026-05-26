@@ -16,8 +16,29 @@ const tools = [
     title: "Game Dialogue Generator",
     displayTitle: ["Game", "Dialogue", "Generator"],
     description: "ビジュアルノベル風の会話画像を作れるツール。",
-    url: "https://ihyli.com/Game-Dialogue-Generator/",
+    url: "https://ihyli.com/game-dialogue-generator/",
   },
+];
+
+const works = [
+  { title: "レトロチリ", tag: "Character", image: "/image/illustration/レトロチリサイン追加.JPG" },
+  { title: "Crimson Cherry", tag: "Character", image: "/image/illustration/クリムゾンチェリーサイン追加.jpg" },
+  { title: "Mulberry Pie", tag: "Character", image: "/image/illustration/マルベリーパイサイン追加.JPG" },
+  { title: "Pina Colada", tag: "Character", image: "/image/illustration/ピニャコラーダサイン追加.JPG" },
+  { title: "Lily", tag: "Character", image: "/image/illustration/リリーサイン追加.JPG" },
+  { title: "Retro Pattern", tag: "Pattern", image: "/image/illustration/IMG_3352.PNG" },
+  { title: "Color Mood", tag: "Pattern", image: "/image/illustration/IMG_3353.PNG" },
+  { title: "Tiny World", tag: "Artwork", image: "/image/illustration/IMG_3356.PNG" },
+];
+
+const goods = [
+  { title: "ステッカー", image: "/image/goods/ステッカー.png" },
+  { title: "アクキー", image: "/image/goods/アクキー.png" },
+  { title: "にんじんバッテリー", image: "/image/goods/にんじんバッテリー.png" },
+  { title: "さくらんぼグラス", image: "/image/goods/さくらんぼグラス.webp" },
+  { title: "コーンマグ", image: "/image/goods/コーンマグ.webp" },
+  { title: "パンエコバッグ", image: "/image/goods/パンエコバック.webp" },
+  { title: "ピニャコラーダバッチ", image: "/image/goods/ピニャコラーダバッチ.webp" },
 ];
 
 const socialLinks = [
@@ -26,7 +47,7 @@ const socialLinks = [
   { name: "クリエイター図鑑", label: "Commission", icon: "CR", url: "https://creary.jp/creator/kurayamad", color: "#7d9cff" },
   { name: "Etsy", label: "Commission / Shop", icon: "ET", url: "https://ihyli.etsy.com", color: "#ff7ad9" },
   { name: "foriio", label: "Portfolio", icon: "FO", url: "https://fori.io/kurayamad", color: "#41d9ff" },
-  { name: "BOOTH", label: "Goods / Materials", icon: "BT", url: "https://kannmiya.booth.pm/items/6630798", color: "#ff5fb8" },
+  { name: "BOOTH", label: "Goods / Materials", icon: "BT", url: "https://kannmiya.booth.pm/", color: "#ff5fb8" },
   { name: "suzuri", label: "Goods / Materials", icon: "SZ", url: "https://suzuri.jp/kurayamad", color: "#b8ff4f" },
   { name: "BASE", label: "Goods / Materials", icon: "BA", url: "https://base.ihyli.com/", color: "#ffb84d" },
   { name: "YouTube", label: "Timelapse / Process", icon: "YT", url: "https://youtube.com/@kurayamadesignch?si=xhmd_fPJ4jzSbmXT", color: "#ff3b5c" },
@@ -42,12 +63,14 @@ const socialLinks = [
 ];
 
 const toolsGrid = document.querySelector("#toolsGrid");
+const worksGrid = document.querySelector("#worksGrid");
+const goodsGrid = document.querySelector("#goodsGrid");
 const bannerGrid = document.querySelector("#bannerGrid");
 const nav = document.querySelector("#site-nav");
 const menuToggle = document.querySelector(".menu-toggle");
 
 function escapeHtml(value) {
-  return value.replace(/[&<>"']/g, (char) => {
+  return String(value).replace(/[&<>"']/g, (char) => {
     const entities = {
       "&": "&amp;",
       "<": "&lt;",
@@ -74,30 +97,34 @@ function createToolCard(tool) {
     tool.url ? `${tool.title} を開く` : `${tool.title} はComing Soonです`
   );
 
-  const safeTitle = escapeHtml(tool.title);
-  const safeDescription = escapeHtml(tool.description);
-  const safeStatus = tool.status ? `<span class="tool-status">${escapeHtml(tool.status)}</span>` : "";
   const titleArt = (tool.displayTitle || tool.title.split(" "))
     .map((line) => `<span>${escapeHtml(line)}</span>`)
     .join("");
+  const safeStatus = tool.status ? `<span class="tool-status">${escapeHtml(tool.status)}</span>` : "";
 
   card.innerHTML = `
     <div class="tool-thumb">
       <div class="tool-title-art" aria-hidden="true">${titleArt}</div>
     </div>
-    <h3>${safeTitle}</h3>
+    <h3>${escapeHtml(tool.title)}</h3>
     ${safeStatus}
-    <p>${safeDescription}</p>
+    <p>${escapeHtml(tool.description)}</p>
   `;
 
   return card;
 }
 
-function renderTools() {
-  if (!toolsGrid) return;
-  const fragment = document.createDocumentFragment();
-  tools.forEach((tool) => fragment.appendChild(createToolCard(tool)));
-  toolsGrid.appendChild(fragment);
+function createPolaroidCard(item, className) {
+  const card = document.createElement("article");
+  card.className = className;
+  card.innerHTML = `
+    <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy" />
+    <div class="work-caption">
+      <strong>${escapeHtml(item.title)}</strong>
+      ${item.tag ? `<span>${escapeHtml(item.tag)}</span>` : ""}
+    </div>
+  `;
+  return card;
 }
 
 function createSocialBanner(link) {
@@ -124,14 +151,20 @@ function createSocialBanner(link) {
   return banner;
 }
 
-function renderSocialLinks() {
-  if (!bannerGrid) return;
+function renderList(target, items, factory) {
+  if (!target) return;
   const fragment = document.createDocumentFragment();
-  socialLinks.forEach((link) => fragment.appendChild(createSocialBanner(link)));
-  bannerGrid.appendChild(fragment);
+  items.forEach((item, index) => {
+    const element = factory(item, index);
+    element.style.setProperty("--stack-index", index);
+    fragment.appendChild(element);
+  });
+  target.appendChild(fragment);
 }
 
 function setupMenu() {
+  if (!menuToggle || !nav) return;
+
   menuToggle.addEventListener("click", () => {
     const isOpen = nav.classList.toggle("is-open");
     menuToggle.setAttribute("aria-expanded", String(isOpen));
@@ -168,7 +201,9 @@ function setupReveal() {
   revealItems.forEach((item) => observer.observe(item));
 }
 
-renderTools();
-renderSocialLinks();
+renderList(toolsGrid, tools, createToolCard);
+renderList(worksGrid, works, (item) => createPolaroidCard(item, "work-card"));
+renderList(goodsGrid, goods, (item) => createPolaroidCard(item, "goods-card"));
+renderList(bannerGrid, socialLinks, createSocialBanner);
 setupMenu();
 setupReveal();
