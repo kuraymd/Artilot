@@ -265,7 +265,7 @@ h1 span {
   display: grid;
   min-height: 560px;
   place-items: center;
-  overflow: hidden;
+  overflow: visible;
   background:
     linear-gradient(160deg, rgba(65, 217, 255, 0.22), transparent 42%),
     linear-gradient(330deg, rgba(255, 95, 184, 0.18), transparent 48%),
@@ -277,11 +277,10 @@ h1 span {
 
 .hero-art-panel {
   min-height: 640px;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.18), transparent 18rem),
-    radial-gradient(circle at 18% 22%, rgba(184, 255, 79, 0.2), transparent 12rem),
-    linear-gradient(160deg, rgba(255, 95, 184, 0.2), transparent 44%),
-    var(--panel);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .hero-panel::before {
@@ -290,6 +289,10 @@ h1 span {
   content: "";
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 28px;
+}
+
+.hero-art-panel::before {
+  content: none;
 }
 
 .hero-panel img {
@@ -301,8 +304,8 @@ h1 span {
 }
 
 .hero-art-panel img {
-  width: min(84%, 430px);
-  max-height: 600px;
+  width: min(92%, 500px);
+  max-height: 660px;
   object-fit: contain;
   border-radius: 0;
 }

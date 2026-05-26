@@ -6,17 +6,17 @@ const tools = [
     url: "https://ihyli.com/idea-snack/",
   },
   {
+    title: "Game Dialogue Generator",
+    displayTitle: ["Game", "Dialogue", "Generator"],
+    description: "ビジュアルノベル風の会話画像を作れるツール。",
+    url: "https://ihyli.com/game-dialogue-generator/",
+  },
+  {
     title: "Monster Lab",
     displayTitle: ["Monster", "Lab"],
     status: "Coming Soon",
     description: "テーマやモチーフから、ユニークなモンスターを生成して楽しむ実験室。",
     url: "",
-  },
-  {
-    title: "Game Dialogue Generator",
-    displayTitle: ["Game", "Dialogue", "Generator"],
-    description: "ビジュアルノベル風の会話画像を作れるツール。",
-    url: "https://ihyli.com/game-dialogue-generator/",
   },
 ];
 
