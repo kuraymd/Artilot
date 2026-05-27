@@ -28,7 +28,7 @@ const works = [
   { title: "Sticker Character", tag: "Character", image: "/image/illustration/IMG_3260.PNG" },
   { title: "Sunny Character", tag: "Character", image: "/image/illustration/IMG_3354.PNG" },
   { title: "Color Mood", tag: "Pattern", image: "/image/illustration/IMG_3204.JPG" },
-  { title: "Tiny World", tag: "Artwork", image: "/image/illustration/IMG_3356.PNG" },
+  { title: "Tiny World", tag: "Artwork", image: "/image/illustration/IMG_3240.PNG" },
 ];
 
 const goods = [
