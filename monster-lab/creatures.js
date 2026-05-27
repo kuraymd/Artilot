@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 const THEMES = {
   deepsea: {
     label: "深海",
@@ -51,3 +52,12 @@ const THEMES = {
 
 const DANGER_LEVELS = ["C", "B", "A", "S", "SS"];
 const SIZES = ["30cm", "1m", "3m", "5m", "10m", "20m"];
+=======
+const DEEPSEA_DATA = {
+  motifs: ["クラゲ", "深海魚", "鯨骨", "ウミユリ", "透明な甲殻"],
+  traits: ["発光する", "無音で漂う", "目が退化した", "触手が多い", "人の声を真似る"],
+  colors: ["青黒", "深緑", "銀白", "紫紺", "半透明"],
+  abilities: ["微弱な電流を放つ", "水圧を操る", "記憶を幻視させる", "擬態する", "光で獲物を誘う"],
+  habitats: ["海底火山の裂け目", "沈没船の観測室", "光の届かない海溝", "古い研究施設の排水路", "鯨骨の墓場"]
+};
+>>>>>>> Stashed changes
