@@ -26,7 +26,7 @@ const works = [
   { title: "Mulberry Pie", tag: "Character", image: "/image/illustration/マルベリーパイサイン追加.JPG" },
   { title: "Pina Colada", tag: "Character", image: "/image/illustration/ピニャコラーダサイン追加.JPG" },
   { title: "Sticker Character", tag: "Character", image: "/image/illustration/IMG_3260.PNG" },
-  { title: "Sunny Character", tag: "Character", image: "/image/illustration/IMG_3354.PNG" },
+  { title: "Sunny Character", tag: "Character", image: "/image/illustration/IMG_3357.PNG" },
   { title: "Color Mood", tag: "Pattern", image: "/image/illustration/IMG_3204.JPG" },
   { title: "Tiny World", tag: "Artwork", image: "/image/illustration/IMG_3240.PNG" },
 ];

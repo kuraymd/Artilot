@@ -248,6 +248,7 @@ h1 span {
 }
 
 .button.primary {
+  color: #07111f;
   background: linear-gradient(135deg, var(--lime), var(--cyan));
   box-shadow: 0 18px 38px rgba(65, 217, 255, 0.2);
 }
@@ -323,7 +324,8 @@ h1 span {
   border-radius: 0;
   opacity: 0;
   transform-origin: 50% 50%;
-  animation: heroFlip 12s infinite;
+  backface-visibility: hidden;
+  animation: artFlip 12s infinite ease-in-out;
 }
 
 .hero-art-panel .is-two {
@@ -334,22 +336,30 @@ h1 span {
   animation-delay: 8s;
 }
 
-@keyframes heroFlip {
+@keyframes artFlip {
   0% {
-    opacity: 0;
-    transform: rotateY(-92deg) scale(0.96);
-  }
-
-  6%,
-  28% {
     opacity: 1;
     transform: rotateY(0deg) scale(1);
   }
 
-  34%,
-  100% {
+  27% {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+  }
+
+  33.333% {
     opacity: 0;
     transform: rotateY(92deg) scale(0.96);
+  }
+
+  33.334% {
+    opacity: 0;
+    transform: rotateY(-92deg) scale(0.96);
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotateY(-92deg) scale(0.96);
   }
 }
 
@@ -557,9 +567,30 @@ h2 {
   object-fit: cover;
 }
 
-.about-visual img {
+.about-rotator {
+  position: relative;
   aspect-ratio: 4 / 3;
+  overflow: hidden;
   border-radius: 24px;
+  perspective: 900px;
+}
+
+.about-visual .about-art {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: 4 / 3;
+  opacity: 0;
+  border-radius: 24px;
+  backface-visibility: hidden;
+  animation: artFlip 12s infinite ease-in-out;
+}
+
+.about-visual .is-two {
+  animation-delay: 4s;
+}
+
+.about-visual .is-three {
+  animation-delay: 8s;
 }
 
 .about-tags {
@@ -1347,11 +1378,13 @@ h2 {
     transform: none;
   }
 
-  .hero-art-panel .hero-art {
+  .hero-art-panel .hero-art,
+  .about-visual .about-art {
     animation: none;
   }
 
-  .hero-art-panel .hero-art:first-child {
+  .hero-art-panel .hero-art:first-child,
+  .about-visual .about-art:first-child {
     opacity: 1;
   }
 
