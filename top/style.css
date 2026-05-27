@@ -758,16 +758,43 @@ h2 {
   transform: translateY(calc(var(--card-shift, 0px) - 10px)) rotate(0deg);
 }
 
+.polaroid-image-stack,
 .work-card img,
 .goods-card img {
   width: 100%;
-  object-fit: cover;
   background: #f7f2e8;
   border: 1px solid rgba(23, 34, 58, 0.14);
   border-radius: 4px;
 }
 
+.polaroid-image-stack {
+  position: relative;
+  overflow: hidden;
+  perspective: 900px;
+}
+
+.polaroid-image-stack .polaroid-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  object-fit: cover;
+  border: 0;
+  border-radius: 0;
+  backface-visibility: hidden;
+  animation: artFlip 9s infinite ease-in-out;
+}
+
+.polaroid-image-stack .is-2 {
+  animation-delay: 4.5s;
+}
+
 .work-card img {
+  aspect-ratio: 4 / 5;
+}
+
+.work-card .polaroid-image-stack {
   aspect-ratio: 4 / 5;
 }
 
@@ -1535,12 +1562,14 @@ h2 {
   }
 
   .hero-art-panel .hero-art,
-  .about-visual .about-art {
+  .about-visual .about-art,
+  .polaroid-image-stack .polaroid-art {
     animation: none;
   }
 
   .hero-art-panel .hero-art:first-child,
-  .about-visual .about-art:first-child {
+  .about-visual .about-art:first-child,
+  .polaroid-image-stack .polaroid-art:first-child {
     opacity: 1;
   }
 

@@ -21,14 +21,14 @@ const tools = [
 ];
 
 const works = [
-  { title: "レトロチリ", tag: "Character", image: "/image/illustration/レトロチリサイン追加.JPG" },
-  { title: "Crimson Cherry", tag: "Character", image: "/image/illustration/クリムゾンチェリーサイン追加.jpg" },
-  { title: "Mulberry Pie", tag: "Character", image: "/image/illustration/マルベリーパイサイン追加.JPG" },
-  { title: "Pina Colada", tag: "Character", image: "/image/illustration/ピニャコラーダサイン追加.JPG" },
-  { title: "Sticker Character", tag: "Character", image: "/image/illustration/IMG_3260.PNG" },
-  { title: "Sunny Character", tag: "Character", image: "/image/illustration/IMG_3357.PNG" },
-  { title: "Color Mood", tag: "Pattern", image: "/image/illustration/IMG_3204.JPG" },
-  { title: "Tiny World", tag: "Artwork", image: "/image/illustration/IMG_3240.PNG" },
+  { title: "Retro Chili", tag: "Character", images: ["/image/illustration/レトロチリサイン追加.JPG", "/image/illustration/IMG_3239.PNG"] },
+  { title: "Crimson Cherry", tag: "Character", images: ["/image/illustration/クリムゾンチェリーサイン追加.jpg", "/image/illustration/IMG_3231.JPG"] },
+  { title: "Mulberry Pie", tag: "Character", images: ["/image/illustration/マルベリーパイサイン追加.JPG", "/image/illustration/IMG_3235.JPG"] },
+  { title: "Pina Colada", tag: "Character", images: ["/image/illustration/ピニャコラーダサイン追加.JPG", "/image/illustration/IMG_3274.JPG"] },
+  { title: "Sticker Character", tag: "Character", images: ["/image/illustration/IMG_3260.PNG", "/image/illustration/IMG_3248.PNG"] },
+  { title: "Sunny Character", tag: "Character", images: ["/image/illustration/IMG_3357.PNG", "/image/illustration/IMG_3281.JPG"] },
+  { title: "Color Mood", tag: "Pattern", images: ["/image/illustration/IMG_3204.JPG", "/image/illustration/IMG_3247.PNG"] },
+  { title: "Tiny World", tag: "Artwork", images: ["/image/illustration/IMG_3240.PNG", "/image/illustration/IMG_3203.JPG"] },
 ];
 
 const goods = [
@@ -117,8 +117,16 @@ function createToolCard(tool) {
 function createPolaroidCard(item, className) {
   const card = document.createElement("article");
   card.className = className;
+  const images = item.images || [item.image];
+  const imageMarkup = images
+    .map(
+      (image, imageIndex) =>
+        `<img class="polaroid-art is-${imageIndex + 1}" src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}" loading="lazy" />`
+    )
+    .join("");
+
   card.innerHTML = `
-    <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy" />
+    <div class="polaroid-image-stack">${imageMarkup}</div>
     <div class="work-caption">
       <strong>${escapeHtml(item.title)}</strong>
       ${item.tag ? `<span>${escapeHtml(item.tag)}</span>` : ""}
