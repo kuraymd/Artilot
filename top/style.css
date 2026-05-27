@@ -438,6 +438,18 @@ h2 {
   line-height: 1.05;
 }
 
+.about-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.12em 0.28em;
+  align-items: baseline;
+}
+
+.about-title span:first-child::after {
+  content: "/";
+  margin-left: 0.28em;
+}
+
 .section-copy p:not(.kicker),
 .contact-card p {
   color: var(--muted);
@@ -790,12 +802,23 @@ h2 {
   animation-delay: 4.5s;
 }
 
+.polaroid-image-stack .polaroid-art:only-child {
+  position: relative;
+  display: block;
+  opacity: 1;
+  animation: none;
+}
+
 .work-card img {
   aspect-ratio: 4 / 5;
 }
 
 .work-card .polaroid-image-stack {
   aspect-ratio: 4 / 5;
+}
+
+.goods-card .polaroid-image-stack {
+  aspect-ratio: 1;
 }
 
 .work-caption {
@@ -1461,6 +1484,17 @@ h2 {
   .youtube-card h2,
   .goods-cta h2 {
     font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .about-title {
+    display: grid;
+    gap: 2px;
+    font-size: clamp(2.55rem, 12vw, 4rem);
+  }
+
+  .about-title span:first-child::after {
+    content: "";
+    margin: 0;
   }
 
   .commission-card p,
