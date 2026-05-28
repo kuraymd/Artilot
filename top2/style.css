@@ -8,7 +8,7 @@
   --sun: #f5ba35;
   --pink: #f47aa5;
   --blue: #4f8edb;
-  --card-w: min(74vw, 360px);
+  --card-w: min(74vw, 340px);
 }
 
 * {
@@ -188,7 +188,7 @@ h2,
 .track-card {
   display: grid;
   min-height: 100svh;
-  padding: calc(68px + env(safe-area-inset-top)) 0 calc(86px + env(safe-area-inset-bottom));
+  padding: calc(56px + env(safe-area-inset-top)) 0 calc(70px + env(safe-area-inset-bottom));
   place-items: center;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -241,7 +241,7 @@ h2,
 }
 
 .art-window.portrait {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
   background: linear-gradient(160deg, #84c246, #f2844a);
 }
 
@@ -251,13 +251,13 @@ h2,
 }
 
 .art-window.pattern {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
 }
 
 .art-window.grid-art {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
   gap: 2px;
   background: var(--paper);
 }
@@ -269,7 +269,7 @@ h2,
 
 .link-board {
   display: grid;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   padding: 12px;
@@ -311,14 +311,14 @@ h2,
 
 .track-title {
   display: grid;
-  gap: 8px;
-  padding: 12px 10px 14px;
+  gap: 7px;
+  padding: 10px 10px 12px;
 }
 
 .track-title::before,
 .track-title::after {
   display: block;
-  height: 4px;
+  height: 3px;
   content: "";
   background: var(--paper);
 }
@@ -332,10 +332,10 @@ h2 {
 }
 
 .track-title p {
-  min-height: 3.2em;
+  min-height: 0;
   margin: 0;
   color: rgba(251, 250, 244, 0.78);
-  font-size: clamp(0.78rem, 3.3vw, 0.94rem);
+  font-size: clamp(0.72rem, 3vw, 0.88rem);
   font-weight: 700;
   line-height: 1.45;
   text-align: center;
@@ -344,11 +344,11 @@ h2 {
 .player-controls {
   position: fixed;
   right: 50%;
-  bottom: max(14px, env(safe-area-inset-bottom));
+  bottom: max(10px, env(safe-area-inset-bottom));
   z-index: 30;
   display: grid;
   width: min(72vw, 320px);
-  height: 48px;
+  height: 44px;
   grid-template-columns: 1fr 1.25fr 1fr;
   gap: 0;
   padding: 4px;
@@ -492,6 +492,13 @@ h2 {
     padding-bottom: calc(92px + env(safe-area-inset-bottom));
   }
 
+  .art-window.portrait,
+  .art-window.pattern,
+  .art-window.grid-art,
+  .link-board {
+    aspect-ratio: 1 / 1;
+  }
+
   .track-inner {
     transform: rotate(-0.3deg);
   }
@@ -503,7 +510,7 @@ h2 {
 
 @media (max-width: 420px) {
   :root {
-    --card-w: min(82vw, 330px);
+    --card-w: min(80vw, 310px);
   }
 
   .site-header {
@@ -520,17 +527,9 @@ h2 {
     font-size: 0.74rem;
   }
 
-  .track-title {
-    padding-bottom: 12px;
-  }
-
-  .track-title p {
-    min-height: 2.95em;
-  }
-
   .player-controls {
     width: min(76vw, 292px);
-    height: 46px;
+    height: 42px;
   }
 }
 
