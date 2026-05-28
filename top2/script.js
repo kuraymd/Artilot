@@ -1,0 +1,217 @@
+const tools = [
+  {
+    title: "Idea Snack",
+    displayTitle: ["Idea", "Snack"],
+    description: "ランダムに出てくるお題から、アイデアのきっかけをつくるガチャ風ツール。",
+    url: "https://ihyli.com/idea-snack/",
+  },
+  {
+    title: "Game Dialogue Generator",
+    displayTitle: ["Game", "Dialogue", "Generator"],
+    description: "ビジュアルノベル風の会話画像を作れるツール。",
+    url: "https://ihyli.com/game-dialogue-generator/",
+  },
+  {
+    title: "Monster Lab",
+    displayTitle: ["Monster", "Lab"],
+    status: "Coming Soon",
+    description: "テーマやモチーフから、ユニークなモンスターを生成して楽しむ実験室。",
+    url: "",
+  },
+];
+
+const works = [
+  { title: "Retro Chili", tag: "Character", images: ["/image/illustration/レトロチリサイン追加.JPG", "/image/illustration/IMG_3239.PNG"] },
+  { title: "Crimson Cherry", tag: "Character", images: ["/image/illustration/クリムゾンチェリーサイン追加.jpg", "/image/illustration/IMG_3231.JPG"] },
+  { title: "Mulberry Pie", tag: "Character", images: ["/image/illustration/マルベリーパイサイン追加.JPG", "/image/illustration/IMG_3235.JPG"] },
+  { title: "Pina Colada", tag: "Character", images: ["/image/illustration/ピニャコラーダサイン追加.JPG", "/image/illustration/IMG_3274.JPG"] },
+  { title: "Sticker Character", tag: "Character", images: ["/image/illustration/IMG_3260.PNG", "/image/illustration/IMG_3248.PNG"] },
+  { title: "Sunny Character", tag: "Character", images: ["/image/illustration/IMG_3357.PNG", "/image/illustration/IMG_3281.JPG"] },
+  { title: "Color Mood", tag: "Pattern", images: ["/image/illustration/IMG_3204.JPG", "/image/illustration/IMG_3247.PNG"] },
+  { title: "Tiny World", tag: "Artwork", images: ["/image/illustration/IMG_3240.PNG", "/image/illustration/IMG_3203.JPG"] },
+];
+
+const goods = [
+  { title: "ステッカー", image: "/image/goods/ステッカー.png" },
+  { title: "アクキー", image: "/image/goods/アクキー.png" },
+  { title: "にんじんバッテリー", image: "/image/goods/にんじんバッテリー.png" },
+  { title: "さくらんぼグラス", image: "/image/goods/さくらんぼグラス.webp" },
+  { title: "コーンマグ", image: "/image/goods/コーンマグ.webp" },
+  { title: "パンエコバッグ", image: "/image/goods/パンエコバック.webp" },
+  { title: "ピニャコラーダバッチ", image: "/image/goods/ピニャコラーダバッチ.webp" },
+];
+
+const socialLinks = [
+  { name: "SKIMA", label: "Commission", icon: "SK", url: "https://skima.jp/profile?id=61358", color: "#ffb84d" },
+  { name: "つなぐ", label: "Commission", icon: "TN", url: "https://tsunagu.cloud/users/kurayamad", color: "#b8ff4f" },
+  { name: "クリエイター図鑑", label: "Commission", icon: "CR", url: "https://creary.jp/creator/kurayamad", color: "#7d9cff" },
+  { name: "Etsy", label: "Commission / Shop", icon: "ET", url: "https://ihyli.etsy.com", color: "#ff7ad9" },
+  { name: "foriio", label: "Portfolio", icon: "FO", url: "https://fori.io/kurayamad", color: "#41d9ff" },
+  { name: "BOOTH", label: "Goods / Materials", icon: "BT", url: "https://kannmiya.booth.pm/", color: "#ff5fb8" },
+  { name: "suzuri", label: "Goods / Materials", icon: "SZ", url: "https://suzuri.jp/kurayamad", color: "#b8ff4f" },
+  { name: "BASE", label: "Goods / Materials", icon: "BA", url: "https://base.ihyli.com/", color: "#ffb84d" },
+  { name: "YouTube", label: "Timelapse / Process", icon: "YT", url: "https://youtube.com/@kurayamadesignch?si=xhmd_fPJ4jzSbmXT", color: "#ff3b5c" },
+  { name: "Instagram", label: "Timelapse / Process", icon: "IG", url: "https://www.instagram.com/kurayamad?igsh=ZXRlYm5hZHNmNnFl&utm_source=qr", color: "#ff7ad9" },
+  { name: "TikTok", label: "Timelapse / Process", icon: "TT", url: "https://www.tiktok.com/@kurayamad?_r=1&_t=ZS-95pGIqZ7WuA", color: "#41d9ff" },
+  { name: "Pinterest", label: "SNS / Illustration", icon: "PI", url: "https://pin.it/6oUD6ScFB", color: "#ff6b6b" },
+  { name: "Bluesky", label: "SNS / Illustration", icon: "BS", url: "https://bsky.app/profile/kurayamad.bsky.social", color: "#41d9ff" },
+  { name: "pixiv", label: "SNS / Illustration", icon: "PX", url: "https://www.pixiv.net/users/2064392", color: "#7d9cff" },
+  { name: "Twitter", label: "SNS / Illustration", icon: "X", url: "https://x.com/kurayamad", color: "#ffffff" },
+  { name: "wick", label: "SNS / Illustration", icon: "WK", url: "https://wick-share.com/sns/share/MKbNW7iJ", color: "#ff5fb8" },
+  { name: "deviantart", label: "SNS / Illustration", icon: "DA", url: "https://www.deviantart.com/kurayamad", color: "#b8ff4f" },
+  { name: "ko-fi", label: "SNS / Support", icon: "KF", url: "https://ko-fi.com/kurayamad", color: "#41d9ff" },
+];
+
+const toolsGrid = document.querySelector("#toolsGrid");
+const worksGrid = document.querySelector("#worksGrid");
+const goodsGrid = document.querySelector("#goodsGrid");
+const bannerGrid = document.querySelector("#bannerGrid");
+const nav = document.querySelector("#site-nav");
+const menuToggle = document.querySelector(".menu-toggle");
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (char) => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;",
+    };
+    return entities[char];
+  });
+}
+
+function createToolCard(tool) {
+  const card = document.createElement(tool.url ? "a" : "article");
+  card.className = `tool-card${tool.url ? "" : " is-coming-soon"}`;
+
+  if (tool.url) {
+    card.href = tool.url;
+    card.target = "_blank";
+    card.rel = "noreferrer";
+  }
+
+  card.setAttribute(
+    "aria-label",
+    tool.url ? `${tool.title} を開く` : `${tool.title} はComing Soonです`
+  );
+
+  const titleArt = (tool.displayTitle || tool.title.split(" "))
+    .map((line) => `<span>${escapeHtml(line)}</span>`)
+    .join("");
+  const safeStatus = tool.status ? `<span class="tool-status">${escapeHtml(tool.status)}</span>` : "";
+
+  card.innerHTML = `
+    <div class="tool-thumb">
+      <div class="tool-title-art" aria-hidden="true">${titleArt}</div>
+    </div>
+    <h3>${escapeHtml(tool.title)}</h3>
+    ${safeStatus}
+    <p>${escapeHtml(tool.description)}</p>
+  `;
+
+  return card;
+}
+
+function createPolaroidCard(item, className) {
+  const card = document.createElement("article");
+  card.className = className;
+  const images = item.images || [item.image];
+  const imageMarkup = images
+    .map(
+      (image, imageIndex) =>
+        `<img class="polaroid-art is-${imageIndex + 1}" src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}" loading="lazy" />`
+    )
+    .join("");
+
+  card.innerHTML = `
+    <div class="polaroid-image-stack">${imageMarkup}</div>
+    <div class="work-caption">
+      <strong>${escapeHtml(item.title)}</strong>
+      ${item.tag ? `<span>${escapeHtml(item.tag)}</span>` : ""}
+    </div>
+  `;
+  return card;
+}
+
+function createSocialBanner(link) {
+  const banner = document.createElement("a");
+  banner.className = "link-banner";
+  banner.href = link.url;
+  banner.style.setProperty("--banner-color", link.color);
+  banner.setAttribute("aria-label", `${link.name} を開く`);
+
+  if (link.url !== "#") {
+    banner.target = "_blank";
+    banner.rel = "noreferrer";
+  }
+
+  banner.innerHTML = `
+    <span class="banner-icon" aria-hidden="true">${escapeHtml(link.icon)}</span>
+    <span class="banner-main">
+      <strong>${escapeHtml(link.name)}</strong>
+      <span>${escapeHtml(link.label)}</span>
+    </span>
+    <span class="banner-arrow" aria-hidden="true">VIEW</span>
+  `;
+
+  return banner;
+}
+
+function renderList(target, items, factory) {
+  if (!target) return;
+  const fragment = document.createDocumentFragment();
+  items.forEach((item, index) => {
+    const element = factory(item, index);
+    element.style.setProperty("--stack-index", index);
+    fragment.appendChild(element);
+  });
+  target.appendChild(fragment);
+}
+
+function setupMenu() {
+  if (!menuToggle || !nav) return;
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.addEventListener("click", (event) => {
+    if (event.target instanceof HTMLAnchorElement) {
+      nav.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+function setupReveal() {
+  const revealItems = document.querySelectorAll(".reveal");
+
+  if (!("IntersectionObserver" in window)) {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.16 }
+  );
+
+  revealItems.forEach((item) => observer.observe(item));
+}
+
+renderList(toolsGrid, tools, createToolCard);
+renderList(worksGrid, works, (item) => createPolaroidCard(item, "work-card"));
+renderList(goodsGrid, goods, (item) => createPolaroidCard(item, "goods-card"));
+renderList(bannerGrid, socialLinks, createSocialBanner);
+setupMenu();
+setupReveal();
