@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="IHYLI.com is an illustration portfolio, commission hub, and playful web tool portal."
+    />
+    <title>IHYLI.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="#about" aria-label="IHYLI.com top">
+        <span class="brand-orb" aria-hidden="true"></span>
+        <span>IHYLI.com</span>
+      </a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="sr-only">メニューを開く</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#tool">Tool</a>
+        <a href="#goods">Goods</a>
+        <a href="#link">Link</a>
+      </nav>
+    </header>
+
+    <main class="player-shell" aria-label="IHYLI.com playlist">
+      <section class="track-card is-profile" id="about" data-title="About" data-action="#work">
+        <div class="track-inner">
+          <p class="track-number">01 / About</p>
+          <div class="art-window portrait">
+            <img src="./assets/hero-avatar.png" alt="IHYLI.com avatar illustration" />
+          </div>
+          <div class="track-title">
+            <h1>About</h1>
+            <p>Illustration, goods, and small web toys by kurayamad.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="track-card is-work" id="work" data-title="Work" data-action="https://fori.io/kurayamad">
+        <div class="track-inner">
+          <p class="track-number">02 / Work</p>
+          <div class="art-window pattern">
+            <img src="./assets/about-image.png" alt="Pattern and illustration collage" />
+          </div>
+          <div class="track-title">
+            <h2>Work</h2>
+            <p>Character art, retro-pop motifs, pattern design, and commissions.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="track-card is-tool" id="tool" data-title="Tool" data-action="https://ihyli.com/idea-snack/">
+        <div class="track-inner">
+          <p class="track-number">03 / Tool</p>
+          <div class="art-window grid-art">
+            <img src="./assets/tool-idea.png" alt="Idea Snack tool thumbnail" />
+            <img src="./assets/tool-monster.png" alt="Monster Lab tool thumbnail" />
+            <img src="./assets/tool-random.png" alt="Random tool thumbnail" />
+            <img src="./assets/tool-book.png" alt="Book tool thumbnail" />
+          </div>
+          <div class="track-title">
+            <h2>Tool</h2>
+            <p>Idea Snack, Monster Lab, and playful generators for making things.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="track-card is-goods" id="goods" data-title="Goods" data-action="https://kannmiya.booth.pm/">
+        <div class="track-inner">
+          <p class="track-number">04 / Goods</p>
+          <div class="art-window pattern">
+            <img src="./assets/thumb-idea-snack.png" alt="Goods and material thumbnail" />
+          </div>
+          <div class="track-title">
+            <h2>Goods</h2>
+            <p>Stickers, acrylic goods, materials, and shop items.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="track-card is-link" id="link" data-title="Link" data-action="https://x.com/kurayamad">
+        <div class="track-inner">
+          <p class="track-number">05 / Link</p>
+          <div class="art-window link-board">
+            <a href="https://skima.jp/profile?id=61358" target="_blank" rel="noreferrer">SKIMA</a>
+            <a href="https://tsunagu.cloud/users/kurayamad" target="_blank" rel="noreferrer">Tsunagu</a>
+            <a href="https://fori.io/kurayamad" target="_blank" rel="noreferrer">foriio</a>
+            <a href="https://youtube.com/@kurayamadesignch?si=xhmd_fPJ4jzSbmXT" target="_blank" rel="noreferrer">YouTube</a>
+            <a href="https://www.instagram.com/kurayamad?igsh=ZXRlYm5hZHNmNnFl&utm_source=qr" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://x.com/kurayamad" target="_blank" rel="noreferrer">X</a>
+          </div>
+          <div class="track-title">
+            <h2>Link</h2>
+            <p>Commission desks, shops, SNS, and process videos.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="mini-list" aria-label="Playlist thumbnails">
+      <a href="#about" aria-label="About"></a>
+      <a href="#work" aria-label="Work"></a>
+      <a href="#tool" aria-label="Tool"></a>
+      <a href="#goods" aria-label="Goods"></a>
+      <a href="#link" aria-label="Link"></a>
+    </aside>
+
+    <div class="player-controls" aria-label="Player controls">
+      <button class="control-button" type="button" data-control="prev" aria-label="前のカードへ">
+        <span class="icon previous" aria-hidden="true"></span>
+      </button>
+      <button class="control-button play" type="button" data-control="play" aria-label="このページを開く">
+        <span class="icon play-icon" aria-hidden="true"></span>
+      </button>
+      <button class="control-button" type="button" data-control="next" aria-label="次のカードへ">
+        <span class="icon next" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

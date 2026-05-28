@@ -26,6 +26,7 @@ html {
 body {
   min-width: 320px;
   margin: 0;
+  overflow-x: hidden;
   color: var(--ink);
   font-family: "M PLUS Rounded 1c", system-ui, sans-serif;
   background:
@@ -1355,6 +1356,20 @@ h2 {
     width: min(100% - 24px, 560px);
   }
 
+  .path-section,
+  .about-section,
+  .play-section,
+  .tools-section,
+  .works-section,
+  .commission-section,
+  .timelapse-section,
+  .goods-section,
+  .links-section,
+  .updates-section,
+  .contact-section {
+    padding: 46px 0;
+  }
+
   .hero {
     padding-top: 38px;
     padding-bottom: 44px;
@@ -1517,11 +1532,20 @@ h2 {
   .route-card,
   .play-card {
     min-height: 300px;
+    padding-bottom: 74px;
   }
 
   .section-heading {
     align-items: flex-start;
     flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .section-note {
+    max-width: none;
+    font-size: 0.95rem;
+    line-height: 1.8;
   }
 
   .updates-list li {
@@ -1558,6 +1582,7 @@ h2 {
   .play-card {
     min-height: 270px;
     padding: 22px;
+    padding-bottom: 70px;
   }
 
   .route-card h3 {
@@ -1577,6 +1602,15 @@ h2 {
 
   .banner-main strong {
     font-size: 1.25rem;
+  }
+
+  .about-title {
+    font-size: clamp(2.3rem, 11vw, 3.25rem);
+  }
+
+  .commission-card,
+  .youtube-card {
+    padding: 18px;
   }
 }
 
