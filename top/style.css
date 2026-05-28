@@ -847,7 +847,12 @@ h2 {
   padding-bottom: 28px;
 }
 
-.works-grid .work-caption {
+.goods-grid .goods-card {
+  padding-bottom: 28px;
+}
+
+.works-grid .work-caption,
+.goods-grid .work-caption {
   display: none;
 }
 

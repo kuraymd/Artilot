@@ -32,13 +32,18 @@ const works = [
 ];
 
 const goods = [
-  { title: "ステッカー", image: "/image/goods/ステッカー.png" },
-  { title: "アクキー", image: "/image/goods/アクキー.png" },
-  { title: "にんじんバッテリー", image: "/image/goods/にんじんバッテリー.png" },
-  { title: "さくらんぼグラス", image: "/image/goods/さくらんぼグラス.webp" },
-  { title: "コーンマグ", image: "/image/goods/コーンマグ.webp" },
-  { title: "パンエコバッグ", image: "/image/goods/パンエコバック.webp" },
-  { title: "ピニャコラーダバッチ", image: "/image/goods/ピニャコラーダバッチ.webp" },
+  { title: "Goods 01", images: ["/image/goods/01.png", "/image/goods/02.webp"] },
+  { title: "Goods 02", images: ["/image/goods/03.webp", "/image/goods/04.png"] },
+  { title: "Goods 03", images: ["/image/goods/05.png", "/image/goods/06.webp"] },
+  { title: "Goods 04", images: ["/image/goods/07.webp", "/image/goods/08.webp"] },
+  { title: "Goods 05", images: ["/image/goods/09.webp", "/image/goods/10.webp"] },
+  { title: "Goods 06", images: ["/image/goods/11.webp", "/image/goods/12.webp"] },
+  { title: "Goods 07", images: ["/image/goods/13.webp", "/image/goods/14.webp"] },
+  { title: "Goods 08", images: ["/image/goods/15.webp", "/image/goods/16.webp"] },
+  { title: "Goods 09", images: ["/image/goods/17.webp", "/image/goods/18.webp"] },
+  { title: "Goods 10", images: ["/image/goods/19.webp", "/image/goods/20.webp"] },
+  { title: "Goods 11", images: ["/image/goods/21.webp", "/image/goods/22.webp"] },
+  { title: "Goods 12", images: ["/image/goods/23.webp", "/image/goods/24.webp"] },
 ];
 
 const socialLinks = [
