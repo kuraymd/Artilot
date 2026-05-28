@@ -830,6 +830,14 @@ h2 {
   padding: 16px 18px 18px;
 }
 
+.works-grid .work-card {
+  padding-bottom: 28px;
+}
+
+.works-grid .work-caption {
+  display: none;
+}
+
 .work-caption strong,
 .video-card h3,
 .goods-card h3 {

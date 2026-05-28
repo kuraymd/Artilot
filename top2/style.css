@@ -246,8 +246,9 @@ h2,
 }
 
 .art-window.portrait img {
-  object-fit: contain;
-  padding: 6px;
+  object-fit: cover;
+  object-position: center 44%;
+  padding: 0;
 }
 
 .art-window.pattern {
