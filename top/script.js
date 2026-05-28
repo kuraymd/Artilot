@@ -21,14 +21,14 @@ const tools = [
 ];
 
 const works = [
-  { title: "Retro Chili", tag: "Character", images: ["/image/illustration/レトロチリサイン追加.JPG", "/image/illustration/IMG_3239.PNG"] },
-  { title: "Crimson Cherry", tag: "Character", images: ["/image/illustration/クリムゾンチェリーサイン追加.jpg", "/image/illustration/IMG_3231.JPG"] },
-  { title: "Mulberry Pie", tag: "Character", images: ["/image/illustration/マルベリーパイサイン追加.JPG", "/image/illustration/IMG_3235.JPG"] },
-  { title: "Pina Colada", tag: "Character", images: ["/image/illustration/ピニャコラーダサイン追加.JPG", "/image/illustration/IMG_3274.JPG"] },
-  { title: "Sticker Character", tag: "Character", images: ["/image/illustration/IMG_3260.PNG", "/image/illustration/IMG_3248.PNG"] },
-  { title: "Sunny Character", tag: "Character", images: ["/image/illustration/IMG_3357.PNG", "/image/illustration/IMG_3281.JPG"] },
-  { title: "Color Mood", tag: "Pattern", images: ["/image/illustration/IMG_3204.JPG", "/image/illustration/IMG_3247.PNG"] },
-  { title: "Tiny World", tag: "Artwork", images: ["/image/illustration/IMG_3240.PNG", "/image/illustration/IMG_3203.JPG"] },
+  { title: "Retro Chili", tag: "Character", images: ["/image/illustration/gallery/レトロチリサイン追加.JPG", "/image/illustration/gallery/IMG_2626.JPG"] },
+  { title: "Crimson Cherry", tag: "Character", images: ["/image/illustration/gallery/クリムゾンチェリーサイン追加.jpg", "/image/illustration/gallery/IMG_2628.JPG"] },
+  { title: "Mulberry Pie", tag: "Character", images: ["/image/illustration/gallery/マルベリーパイサイン追加.JPG", "/image/illustration/gallery/IMG_2632.JPG"] },
+  { title: "Pina Colada", tag: "Character", images: ["/image/illustration/gallery/ピニャコラーダサイン追加.JPG", "/image/illustration/gallery/IMG_2653.JPG"] },
+  { title: "Sticker Character", tag: "Character", images: ["/image/illustration/gallery/IMG_3203.JPG", "/image/illustration/gallery/IMG_2678.JPG"] },
+  { title: "Sunny Character", tag: "Character", images: ["/image/illustration/gallery/IMG_3052 (1).JPG", "/image/illustration/gallery/IMG_2718.JPG"] },
+  { title: "Color Mood", tag: "Pattern", images: ["/image/illustration/gallery/IMG_3204.JPG", "/image/illustration/gallery/IMG_2719.JPG"] },
+  { title: "Tiny World", tag: "Artwork", images: ["/image/illustration/gallery/IMG_3139.JPG", "/image/illustration/gallery/IMG_2723.JPG"] },
 ];
 
 const goods = [

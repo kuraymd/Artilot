@@ -594,15 +594,11 @@ h2 {
   aspect-ratio: 4 / 3;
   opacity: 0;
   border-radius: 24px;
-  animation: artFade 12s infinite ease-in-out;
+  animation: artFadeTwo 8s infinite ease-in-out;
 }
 
 .about-visual .is-two {
   animation-delay: 4s;
-}
-
-.about-visual .is-three {
-  animation-delay: 8s;
 }
 
 @keyframes artFade {
@@ -617,6 +613,23 @@ h2 {
   }
 
   34%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes artFadeTwo {
+  0%,
+  6% {
+    opacity: 0;
+  }
+
+  12%,
+  44% {
+    opacity: 1;
+  }
+
+  50%,
   100% {
     opacity: 0;
   }
