@@ -675,6 +675,10 @@ h2 {
   color: var(--paper);
 }
 
+.page-copy-wide {
+  grid-column: 1 / -1;
+}
+
 .page-art {
   overflow: hidden;
   aspect-ratio: 4 / 3;
@@ -716,6 +720,13 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.page-action-label {
+  color: var(--paper);
+  font-family: "Fredoka", "M PLUS Rounded 1c", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .page-button {
@@ -770,12 +781,66 @@ h2 {
   gap: 12px;
 }
 
-.gallery-grid img {
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.filter-button {
+  min-height: 38px;
+  padding: 7px 12px;
+  color: var(--ink);
+  font-family: "M PLUS Rounded 1c", system-ui, sans-serif;
+  font-weight: 800;
+  background: var(--paper);
+  border: 2px solid var(--line);
+}
+
+.filter-button.is-active {
+  background: var(--sun);
+}
+
+.gallery-item {
+  display: grid;
+  gap: 6px;
+  padding: 8px;
+  margin: 0;
+  background: var(--paper);
+  border: 2px solid var(--line);
+}
+
+.gallery-item.is-hidden {
+  display: none;
+}
+
+.gallery-item img {
   width: 100%;
+  height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  background: var(--mint);
-  border: 2px solid var(--paper);
+  background:
+    linear-gradient(rgba(5, 5, 5, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(5, 5, 5, 0.06) 1px, transparent 1px),
+    #ffffff;
+  background-size: 18px 18px;
+  border: 2px solid var(--line);
+}
+
+.gallery-item[data-tag="フルボディ"] img {
+  object-fit: contain;
+}
+
+.goods-sample-grid .gallery-item img {
+  object-fit: contain;
+}
+
+.gallery-item figcaption {
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
 }
 
 @media (max-width: 720px) {

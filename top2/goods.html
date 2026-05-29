@@ -45,6 +45,44 @@
       </section>
 
       <section class="page-panel">
+        <h2>Sample</h2>
+        <div class="filter-bar" aria-label="グッズサンプル絞り込み">
+          <button class="filter-button is-active" type="button" data-filter="all">すべて</button>
+          <button class="filter-button" type="button" data-filter="goods">goods</button>
+          <button class="filter-button" type="button" data-filter="material">material</button>
+        </div>
+        <div class="gallery-grid goods-sample-grid filterable-gallery">
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/01.png" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/02.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/03.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/04.png" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/05.png" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/06.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/07.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/08.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/09.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/10.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/11.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/12.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/13.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/14.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/15.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/16.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/17.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/18.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/19.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/20.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/21.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/22.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/23.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="goods"><img src="./image/goods/24.webp" alt="goodsサンプル" loading="lazy" /><figcaption>goods</figcaption></figure>
+          <figure class="gallery-item" data-tag="material"><img src="./image/goods/material/material01.jpg" alt="materialサンプル" loading="lazy" /><figcaption>material</figcaption></figure>
+          <figure class="gallery-item" data-tag="material"><img src="./image/goods/material/material02.jpg" alt="materialサンプル" loading="lazy" /><figcaption>material</figcaption></figure>
+          <figure class="gallery-item" data-tag="material"><img src="./image/goods/material/material03.jpg" alt="materialサンプル" loading="lazy" /><figcaption>material</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="page-panel">
         <h2>ショップリンク</h2>
         <div class="shop-links">
           <a class="page-button" href="https://kannmiya.booth.pm/" target="_blank" rel="noreferrer">BOOTH</a>
@@ -54,5 +92,20 @@
         </div>
       </section>
     </main>
+
+    <script>
+      const filterButtons = document.querySelectorAll(".filter-button");
+      const galleryItems = document.querySelectorAll(".gallery-item");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.dataset.filter;
+          filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+          galleryItems.forEach((item) => {
+            item.classList.toggle("is-hidden", filter !== "all" && item.dataset.tag !== filter);
+          });
+        });
+      });
+    </script>
   </body>
 </html>
