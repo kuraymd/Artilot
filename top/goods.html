@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="IHYLI.com のグッズと素材の一覧。" />
+    <title>Goods | IHYLI.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body id="top">
+    <header class="site-header" aria-label="サイトヘッダー">
+      <a class="brand" href="./index.html" aria-label="IHYLI.com トップへ">
+        <span class="brand-orb" aria-hidden="true"></span>
+        IHYLI.com
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">メニューを開閉する</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+        <a href="./about.html">About</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./goods.html">Goods</a>
+        <a href="./index.html#tools">Tools</a>
+        <a href="./index.html#links">Links</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="detail-page-title reveal">
+        <p class="kicker">GOODS / MATERIALS</p>
+        <h1>Goods</h1>
+        <p>ステッカーや雑貨など、グッズ展開しているアイテムを一覧で見られます。</p>
+      </section>
+
+      <section class="detail-grid-section reveal">
+        <div class="detail-polaroid-grid goods-detail-grid" data-detail-grid="goods" aria-live="polite"></div>
+      </section>
+
+      <section class="detail-section reveal">
+        <div class="detail-heading">
+          <p class="kicker">SHOP LINKS</p>
+          <h2>ショップはこちら</h2>
+        </div>
+        <div class="player-links">
+          <a class="player-link" href="https://kannmiya.booth.pm/" target="_blank" rel="noreferrer">
+            <span class="player-play">▶</span>
+            <span class="player-track">
+              <strong>BOOTH</strong>
+              <small>Goods / Materials</small>
+            </span>
+            <span class="player-wave" aria-hidden="true"></span>
+          </a>
+          <a class="player-link" href="https://suzuri.jp/kurayamad" target="_blank" rel="noreferrer">
+            <span class="player-play">▶</span>
+            <span class="player-track">
+              <strong>suzuri</strong>
+              <small>Goods shop</small>
+            </span>
+            <span class="player-wave" aria-hidden="true"></span>
+          </a>
+          <a class="player-link" href="https://base.ihyli.com/" target="_blank" rel="noreferrer">
+            <span class="player-play">▶</span>
+            <span class="player-track">
+              <strong>BASE</strong>
+              <small>Online store</small>
+            </span>
+            <span class="player-wave" aria-hidden="true"></span>
+          </a>
+          <a class="player-link" href="https://ihyli.etsy.com" target="_blank" rel="noreferrer">
+            <span class="player-play">▶</span>
+            <span class="player-track">
+              <strong>Etsy</strong>
+              <small>Commission / Shop</small>
+            </span>
+            <span class="player-wave" aria-hidden="true"></span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <strong>IHYLI.com</strong>
+      <p>I hope you like it. © 2026 IHYLI.com.</p>
+      <a class="top-button" href="#top">TOP</a>
+    </footer>
+
+    <script src="./script.js"></script>
+    <script src="./detail-pages.js"></script>
+  </body>
+</html>

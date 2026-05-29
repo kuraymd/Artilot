@@ -10,6 +10,11 @@ function clampIndex(index) {
   return Math.max(0, Math.min(cards.length - 1, index));
 }
 
+function wrapIndex(index) {
+  if (!cards.length) return 0;
+  return (index + cards.length) % cards.length;
+}
+
 function setCurrent(index) {
   currentIndex = clampIndex(index);
   dots.forEach((dot, dotIndex) => {
@@ -18,7 +23,7 @@ function setCurrent(index) {
 }
 
 function scrollToCard(index) {
-  const target = cards[clampIndex(index)];
+  const target = cards[wrapIndex(index)];
   if (!target) return;
   target.scrollIntoView({ behavior: "smooth", block: "start" });
 }

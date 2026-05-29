@@ -1,4 +1,4 @@
-id="u7m3x5"
+﻿id="u7m3x5"
 const categoryArea =
   document.getElementById(
     "categoryArea"
@@ -95,7 +95,7 @@ const translations = {
     "how.step1.title": "Choose categories",
     "how.step1.body": "Turn on only the categories you want. Keeping everything on makes the prompt more playful and chaotic.",
     "how.step2.title": "DRAW IDEA",
-    "how.step2.body": "Press the button to randomly pick one idea from each selected category loaded from GAS.",
+    "how.step2.body": "Press the button to randomly pick one idea from each selected category.",
     "how.step3.title": "Draw and play",
     "how.step3.body": "Use the full combination as-is, or keep only the parts you like. Treat it as a small doorway into making something.",
     "updates.kicker": "Updates",
@@ -112,9 +112,9 @@ const translations = {
     "request.idea": "Your idea",
     "request.placeholder": "Example: space cream soda, a wizard on a rainy day...",
     "request.submit": "Send Request",
-    "request.status.ready": "Request sending will be connected to the requests sheet later.",
+    "request.status.ready": "Requests will be used as reference for future words.",
     "request.status.empty": "Please enter your request idea.",
-    "request.status.thanks": "Thank you. This will be sendable when the requests sheet integration is added.",
+    "request.status.thanks": "Sent. Thank you!",
     "footer.tagline": "Snack-sized prompts for illustration and character design."
   },
   ja: {
@@ -146,11 +146,7 @@ const translations = {
     "how.step1.title": "カテゴリを選ぶ",
     "how.step1.body": "使いたいカテゴリだけをONにします。全部ONのままなら、よりカオスで楽しいお題になります。",
     "how.step2.title": "お題を引く",
-<<<<<<< Updated upstream
     "how.step2.body": "ボタンを押すと、各カテゴリの候補からランダムに1つずつ表示されます。",
-=======
-    "how.step2.body": "ボタンを押すと、GASから読み込んだ各カテゴリの候補からランダムに1つずつ表示されます。",
->>>>>>> Stashed changes
     "how.step3.title": "描いて遊ぶ",
     "how.step3.body": "出た組み合わせをそのまま描いても、気に入った要素だけ拾ってもOK。創作の入口として使えます。",
     "updates.kicker": "更新情報",
@@ -167,62 +163,21 @@ const translations = {
     "request.idea": "アイデア",
     "request.placeholder": "例: 宇宙クリームソーダ、雨の日の魔法使い...",
     "request.submit": "リクエストを送る",
-<<<<<<< Updated upstream
     "request.status.ready": "リクエストは追加するワードの参考にさせていただきます!",
-=======
-    "request.status.ready": "リクエスト送信は今後 requests シート連携予定です。",
->>>>>>> Stashed changes
     "request.status.empty": "リクエスト内容を入力してください。",
-    "request.status.thanks": "ありがとうございます。requests シート連携時に送信できるようになります。",
+    "request.status.thanks": "送信しました。ありがとうございます!",
     "footer.tagline": "イラストやキャラクターデザインのための、ひとくちサイズのお題集。"
   }
 };
 
-const announcementsFallback = [
-  {
-    date: "2026.05",
-    label: {
-      en: "NEW",
-      ja: "NEW"
-    },
-    text: {
-      en: "Added How to Use, Updates, and Request sections.",
-      ja: "How to Use / Updates / Request セクションを追加しました。"
-    }
-  },
-  {
-    date: "2026.05",
-    label: {
-      en: "TIP",
-      ja: "TIP"
-    },
-    text: {
-      en: "Try turning off a few categories when you want a simpler prompt.",
-      ja: "シンプルなお題にしたいときは、いくつかのカテゴリをOFFにしてみてください。"
-    }
-  },
-  {
-    date: "NEXT",
-    label: {
-      en: "PLAN",
-      ja: "予定"
-    },
-    text: {
-      en: "Prepared for future loading from the announcements sheet.",
-      ja: "announcements シートから更新情報を取得できる構造に拡張予定です。"
-    }
-  }
-];
+const announcementsFallback = [];
 
-<<<<<<< Updated upstream
 let currentAnnouncements =
   [];
 
 let updatesStatus =
   "loading";
 
-=======
->>>>>>> Stashed changes
 if(!translations[currentLanguage]){
 
   currentLanguage =
@@ -296,11 +251,7 @@ function applyTranslations(){
   });
 
   renderUpdates(
-<<<<<<< Updated upstream
     currentAnnouncements
-=======
-    announcementsFallback
->>>>>>> Stashed changes
   );
 
   renderHistory();
@@ -925,7 +876,6 @@ function saveResultImage(){
 
   }, "image/png");
 
-<<<<<<< Updated upstream
 }
 
 
@@ -978,18 +928,16 @@ function normalizeAnnouncement(item){
       ""
   };
 
-=======
->>>>>>> Stashed changes
 }
 
 
 function renderUpdates(items){
 
   if(!updatesList){
-        return;
-      }
+    return;
+  }
 
-      updatesList.innerHTML = "";
+  updatesList.innerHTML = "";
 
   if(!items.length){
 
@@ -1045,7 +993,6 @@ function renderUpdates(items){
         "div"
       );
 
-<<<<<<< Updated upstream
     date.className =
       "update-date";
 
@@ -1089,13 +1036,6 @@ function renderUpdates(items){
       date,
       body
     );
-=======
-      <div class="update-body">
-        <strong>${localized(item.label)}</strong>
-        <p>${localized(item.text)}</p>
-      </div>
-    `;
->>>>>>> Stashed changes
 
     updatesList.appendChild(
       update
@@ -1104,7 +1044,6 @@ function renderUpdates(items){
   });
 
 }
-
 
 async function loadAnnouncements(){
 
@@ -1197,15 +1136,8 @@ function setupRequestForm(){
 
       }
 
-<<<<<<< Updated upstream
       const payload =
         new URLSearchParams();
-=======
-      requestStatus.textContent =
-        text(
-          "request.status.thanks"
-        );
->>>>>>> Stashed changes
 
       payload.set(
         "action",
@@ -1323,3 +1255,6 @@ drawBtn.addEventListener(
   "click",
   drawIdea
 );
+
+
+

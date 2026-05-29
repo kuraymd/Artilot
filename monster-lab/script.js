@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-<<<<<<< Updated upstream
   const themeSelect = document.getElementById("themeSelect");
   const generateBtn = document.getElementById("generateBtn");
   const saveBtn = document.getElementById("saveBtn");
@@ -115,40 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
     saveBtn.disabled = false;
     saveBtn.textContent = "この標本を標本庫に登録する";
     return currentMonster;
-=======
-  const resultCard = document.getElementById("resultCard");
-  const generateBtn = document.getElementById("generateBtn");
-
-  const randomItem = items => items[Math.floor(Math.random() * items.length)];
-
-  window.generateMonster = function generateMonster() {
-    const monster = {
-      motif: randomItem(DEEPSEA_DATA.motifs),
-      trait: randomItem(DEEPSEA_DATA.traits),
-      color: randomItem(DEEPSEA_DATA.colors),
-      ability: randomItem(DEEPSEA_DATA.abilities),
-      habitat: randomItem(DEEPSEA_DATA.habitats)
-    };
-
-    resultCard.innerHTML = `
-      <div class="specimen-label">生成標本</div>
-      <dl class="specimen-grid">
-        <div><dt>モチーフ</dt><dd>${monster.motif}</dd></div>
-        <div><dt>特性</dt><dd>${monster.trait}</dd></div>
-        <div><dt>色彩</dt><dd>${monster.color}</dd></div>
-        <div><dt>能力</dt><dd>${monster.ability}</dd></div>
-        <div><dt>生息域</dt><dd>${monster.habitat}</dd></div>
-      </dl>
-    `;
-
-    return monster;
->>>>>>> Stashed changes
   };
 
   generateBtn.addEventListener("click", () => {
     window.generateMonster();
   });
-<<<<<<< Updated upstream
 
   saveBtn.addEventListener("click", () => {
     if (!currentMonster) return;
@@ -159,6 +129,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setupThemes();
   renderArchive();
-=======
->>>>>>> Stashed changes
 });
