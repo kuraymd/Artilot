@@ -798,6 +798,115 @@ h2 {
   background: var(--sun);
 }
 
+.link-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.check-filter {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  color: var(--ink);
+  font-family: "M PLUS Rounded 1c", system-ui, sans-serif;
+  font-weight: 800;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  cursor: pointer;
+}
+
+.check-filter input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--sun);
+}
+
+.check-filter.is-active {
+  background: var(--sun);
+}
+
+.link-directory {
+  display: grid;
+  gap: 10px;
+}
+
+.link-card {
+  display: grid;
+  min-height: 54px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--link-color, var(--sun));
+  border: 2px solid var(--line);
+}
+
+.link-card:nth-child(2),
+.link-card:nth-child(8),
+.link-card:nth-child(14) {
+  --link-color: var(--pink);
+}
+
+.link-card:nth-child(3),
+.link-card:nth-child(9),
+.link-card:nth-child(15) {
+  --link-color: var(--blue);
+}
+
+.link-card:nth-child(4),
+.link-card:nth-child(10),
+.link-card:nth-child(16) {
+  --link-color: var(--accent);
+}
+
+.link-card:nth-child(5),
+.link-card:nth-child(11),
+.link-card:nth-child(17) {
+  --link-color: #ffffff;
+}
+
+.link-card:nth-child(6),
+.link-card:nth-child(12),
+.link-card:nth-child(18) {
+  --link-color: #b9e25f;
+}
+
+.link-card.is-hidden {
+  display: none;
+}
+
+.link-name {
+  min-width: 0;
+  overflow: hidden;
+  font-family: "Fredoka", "M PLUS Rounded 1c", sans-serif;
+  font-size: clamp(1.02rem, 3vw, 1.34rem);
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.link-tags span {
+  padding: 3px 7px;
+  color: rgba(5, 5, 5, 0.72);
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: rgba(251, 250, 244, 0.62);
+  border: 2px solid rgba(5, 5, 5, 0.16);
+}
+
 .gallery-item {
   display: grid;
   gap: 6px;
@@ -908,5 +1017,14 @@ h2 {
 
   .tool-playlist {
     grid-template-columns: 1fr;
+  }
+
+  .link-card {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .link-tags {
+    justify-content: flex-start;
   }
 }
