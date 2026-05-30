@@ -427,7 +427,7 @@ h2 {
 .player-controls {
   position: fixed;
   right: 50%;
-  bottom: max(28px, calc(env(safe-area-inset-bottom) + 18px));
+  bottom: max(clamp(54px, 9vh, 86px), calc(env(safe-area-inset-bottom) + 48px));
   z-index: 30;
   display: grid;
   width: min(72vw, 320px);
@@ -672,7 +672,10 @@ h2 {
 }
 
 body:not(.page-body) .site-footer {
-  margin-bottom: calc(92px + env(safe-area-inset-bottom));
+  margin-bottom: calc(150px + env(safe-area-inset-bottom));
+  scroll-margin-bottom: calc(158px + env(safe-area-inset-bottom));
+  scroll-snap-align: end;
+  scroll-snap-stop: always;
 }
 
 .footer-inner {
