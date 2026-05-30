@@ -427,7 +427,7 @@ h2 {
 .player-controls {
   position: fixed;
   right: 50%;
-  bottom: max(10px, env(safe-area-inset-bottom));
+  bottom: max(28px, calc(env(safe-area-inset-bottom) + 18px));
   z-index: 30;
   display: grid;
   width: min(72vw, 320px);
