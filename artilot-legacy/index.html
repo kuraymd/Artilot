@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 基本SEO -->
+  <title>ARTILOT｜イラスト・創作向けインスピレーションカード</title>
+  <meta name="description" content="ARTILOTは、イラストや創作活動向けのインスピレーションカード。種族・性格・雰囲気・構図・カラーなどをランダム生成し、SNSでそのままシェアできます。" />
+
+  <!-- 検索エンジン向け -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- OGP（SNSシェア用） -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ARTILOT｜イラスト・創作向けインスピレーションカード" />
+  <meta property="og:description" content="カードを引いて、今日の創作アイデアを受け取ろう。イラスト・キャラクターデザイン向けインスピレーションツール。" />
+  <meta property="og:url" content="https://kuraymd.github.io/Artilot/" />
+  <meta property="og:site_name" content="ARTILOT" />
+  <!-- OGP画像（用意できたら差し替え） -->
+  <!--
+  <meta property="og:image" content="https://kuraymd.github.io/Artilot/ogp.png" />
+  -->
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ARTILOT｜Inspiration Card for Creators" />
+  <meta name="twitter:description" content="Draw a card and get today’s creative prompt. Inspiration tool for illustration and art." />
+  <!--
+  <meta name="twitter:image" content="https://kuraymd.github.io/Artilot/ogp.png" />
+  -->
+
+  <!-- スタイル / スクリプト -->
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+
+  <!-- Google Search Console（取得後に入れる） -->
+  <!--
+  <meta name="google-site-verification" content="ここにコード" />
+  -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6741451264961202"
+     crossorigin="anonymous"></script>
+  
+</head>
+<body>
+
+<!-- ① ヘッダー -->
+<header class="header">
+  <h1>ARTILOT</h1>
+  <p class="subtitle">Inspiration Card</p>
+</header>
+
+<main class="container">
+
+  <!-- 一言説明（表面） -->
+  <p class="howto">
+    カードをめくって、創作アイデアを受け取ろう。<br>
+    <span class="en">Draw a card and get creative inspiration.</span>
+  </p>
+
+<section class="howto-section">
+  
+<div class="about-header">
+  <h2>ARTILOTについて / About ARTILOT</h2>
+<button class="help-btn" data-modal-open="aboutModal">?</button>
+</div>
+</section>
+
+  
+  <!-- 使い方 見出し（履歴と同じ見た目） -->
+  <section class="howto-section">
+    <div class="history-header">
+      <h2>使い方 / How to</h2>
+<button class="help-btn" data-modal-open="howtoModal">？</button>
+    </div>
+  </section>
+
+  <button id="drawBtn" class="draw-btn">カードを引く / Draw Card</button>
+
+  <!-- RESULT CARD -->
+<section class="result-card" id="resultCard">
+
+  <!-- 左カラム -->
+  <div class="col left">
+    <div class="item"><span>種族 / Race</span><div id="race"></div></div>
+    <div class="item"><span>性格 / Personality</span><div id="personality"></div></div>
+    <div class="item"><span>服装 / Outfit</span><div id="outfit"></div></div>
+    <div class="item"><span>雰囲気 / Mood</span><div id="mood"></div></div>
+    <div class="item"><span>構図 / Composition</span><div id="composition"></div></div>
+  </div>
+
+  <!-- 右カラム -->
+  <div class="col right">
+    <div class="item"><span>性別 / Gender</span><div id="gender"></div></div>
+    <div class="item"><span>髪型 / Hair</span><div id="hair"></div></div>
+    <div class="item"><span>モチーフ / Motif</span><div id="motif"></div></div>
+    <div class="item"><span>テーマ / Theme</span><div id="theme"></div></div>
+    <div class="item"><span>カラー / Color</span><div id="color"></div></div>
+  </div>
+
+</section>
+
+
+  <button id="shareBtn" class="share-btn">シェア / Share</button>
+
+  <!-- HISTORY -->
+  <section class="history">
+    <div class="history-header">
+      <h2>履歴 / History</h2>
+<button class="help-btn" data-modal-open="historyModal">？</button>
+    </div>
+    <div id="historyList" class="history-cards"></div>
+
+  </section>
+
+  <!-- リクエスト --> 
+<section class="request-card">
+  <h3>＋ リクエスト/+ Request</h3>
+
+  <p>
+    ARTILOTに追加してほしい<br>
+    モチーフ・髪型・雰囲気などを教えてください<br>
+    Please tell us the motif, hairstyle, atmosphere, etc. <br>you would like to see added to ARTILOT.<br>
+
+  </p>
+
+  <textarea
+    id="requestInput"
+    placeholder="例：モチーフに『歯車』を追加してほしい / Example: I would like to add "gears" to the motif."
+  ></textarea>
+
+  <button id="requestSend">リクエストを送る/Request</button>
+
+  <p class="request-note">
+    ※すべてのリクエストに対応できるとは限りません<br>
+    *Please note that we may not be able to accommodate all requests.
+  </p>
+</section>
+
+<section class="update-section">
+  <h3 class="update-title">🆕 更新情報/Update information</h3>
+
+  <div class="update-cards">
+    <div class="update-card">
+      <span class="update-date">2026.02</span>
+      <p class="update-text">
+        モチーフに「ハート / Heart」を追加しました
+      </p>
+    </div>
+
+    <div class="update-card">
+      <span class="update-date">2026.01</span>
+      <p class="update-text">
+        髪型に「ウルフカット / Wolf Cut」を追加しました
+      </p>
+    </div>
+
+    <div class="update-card">
+      <span class="update-date">2025.12</span>
+      <p class="update-text">
+        雰囲気に「ホラー / Horror」を追加しました
+      </p>
+    </div>
+  </div>
+
+  <p class="update-note">
+    みなさんのリクエストをもとにカードは更新されます
+  </p>
+</section>
+
+
+
+  
+ <!-- お知らせ --> 
+<section class="info-section" id="news">
+  <div class="history-header">
+    <h2>お知らせ / News</h2>
+  </div>
+
+  <ul class="info-list">
+    <li>
+      <strong>2025.12</strong><br>
+      ARTILOTを公開しました。創作のヒントとして自由にお使いください。<br>
+      <span class="en">ARTILOT is now live.</span>
+    </li>
+
+    <li>
+      <strong>2026.02</strong><br>
+      Privacy / Contact セクションを追加しました。<br>
+      <span class="en">Privacy and Contact sections have been added.</span>
+    </li>
+
+    <li>
+      <strong>2026.02</strong><br>
+      お知らせ欄とリクエスト機能を追加しました。<br>
+      <span class="en">Privacy and Contact sections have been added.</span>
+    </li>
+    
+  </ul>
+</section>
+
+  
+  <!-- 広告 -->
+  <!--
+  <div class="ad-area">
+    <div class="ad-dummy">
+      <small>Advertisement</small>
+      <span>ここに広告が表示されます</span>
+    </div>
+  </div>
+　-->
+  <section class="policy-section">
+
+  <!-- Privacy -->
+  <div class="policy-card" id="privacy">
+    <h2>
+      プライバシーポリシー<br>
+      <span class="en">Privacy Policy</span>
+    </h2>
+
+   <!--  <p>
+      当サイト「ARTILOT」では、サービス向上のためにアクセス解析や広告配信を行う場合があります。<br>
+      <span class="en">
+        ARTILOT may use access analysis and advertising services to improve the user experience.
+      </span>
+    </p>
+
+    <p>
+      Google AdSense などの第三者配信広告では Cookie を使用することがあります。<br>
+      <span class="en">
+        Third-party advertising services such as Google AdSense may use cookies.
+      </span>
+    </p>
+
+    <p class="policy-link">
+      <a href="https://policies.google.com/technologies/ads" target="_blank">
+        Google Ads Policy
+      </a>
+    </p>
+    -->
+    <p>
+      リクエスト送信は外部フォームを利用しており、送信内容は運営改善の目的のみに使用されます。<br>
+      <span class="en">
+        Requests are sent via an external form and used only for site improvement.
+      </span>
+    </p>
+  </div>
+
+
+    
+  <!-- Contact -->
+  <div class="policy-card" id="contact">
+    <h2>
+      お問い合わせ<br>
+      <span class="en">Contact</span>
+    </h2>
+
+    <p>
+      ARTILOT に関するご質問・ご連絡はこちらからお願いいたします。<br>
+      <span class="en">
+        If you have any questions or feedback about ARTILOT, feel free to contact us.
+      </span>
+    </p>
+
+    <p class="contact-mail">
+      <a href="mailto:ihyli.info@gmail.com">ihyli.info@gmail.com</a>
+    </p>
+  </div>
+
+</section>
+
+
+</main>
+
+<footer class="footer">
+  © 2025 ARTILOT<br>
+
+  <div class="footer-links">
+    <a href="#privacy" class="footer-button">Privacy</a>
+    <a href="#contact" class="footer-button">Contact</a>
+  </div>
+
+  <a href="https://t.co/hWn3jW8FT9" target="_blank" rel="noopener">
+    Created by kurayamad
+  </a>
+</footer>
+
+
+<!-- ========================= -->
+<!-- HOW TO MODAL（箇条書き） -->
+<!-- ========================= -->
+<div class="modal" id="howtoModal">
+  <div class="modal-content">
+    <button class="close-btn" data-modal-close="howtoModal">×</button>
+
+    <h3>使い方 / How to</h3>
+
+    <ul>
+      <li>「カードを引く」を押すと、ランダムでお題カードが生成されます</li>
+      <li>表示された内容を元に、イラストや創作のアイデアに使えます</li>
+      <li>気に入った部分のみを採用しても良いです</li>
+      <li>「シェア」を押すと、結果をそのままSNSに投稿できます</li>
+      <li>過去の結果は履歴に保存され、あとから見返せます</li>
+    </ul>
+
+    <ul class="en">
+      <li>Tap “Draw Card” to generate a random inspiration card</li>
+      <li>Use the result as a prompt for your creative work</li>
+      <li>You can just use the parts you like.</li>
+      <li>Tap “Share” to post the result directly to SNS</li>
+      <li>Past results are saved in the history</li>
+    </ul>
+  </div>
+</div>
+
+  <!-- ========================= -->
+<!-- HISTORY MODAL -->
+<!-- ========================= -->
+<div class="modal" id="historyModal">
+  <div class="modal-content">
+    <button class="close-btn" data-modal-close="historyModal">×</button>
+
+    <h3>履歴 / History</h3>
+
+    <ul>
+      <li>過去に生成したカード結果を確認できます</li>
+      <li>↗︎ シェアを押すと、その結果を再度共有できます</li>
+      <li>履歴は最大10件まで保存されます</li>
+      <li>履歴は左から最新のカードで、スライドすると他の結果も確認できます</li>
+    </ul>
+
+    <ul class="en">
+      <li>You can review past results</li>
+      <li>Tap ↗︎ Share to share the same result again</li>
+      <li>Up to 10 history items are saved</li>
+      <li>The history is the most recent card on the left, and you can slide it to see other results.</li>
+    </ul>
+  </div>
+</div>
+
+  <!-- ========================= -->
+<!-- ABOUT MODAL -->
+<!-- ========================= -->
+<div class="modal" id="aboutModal">
+  <div class="modal-content">
+    <button class="close-btn" data-modal-close="aboutModal">×</button>
+
+    <h3>ARTILOTとは？</h3>
+
+    <ul>
+      <li>ARTILOTは、イラストや創作活動向けのインスピレーションカードです</li>
+      <li>カードを引くことで、キャラクターや雰囲気、構図などのアイデアをランダムに得られます</li>
+      <li>「何を描こうか迷ったとき」のきっかけ作りを目的としています</li>
+      <li>生成された結果は、そのままSNSでシェアできます</li>
+    </ul>
+
+    <ul class="en">
+      <li>ARTILOT is an inspiration card tool for artists and creators</li>
+      <li>Draw a card to get random ideas such as character traits, mood, and composition</li>
+      <li>It helps you start creating when you don’t know what to draw</li>
+      <li>You can share the generated result directly on SNS</li>
+    </ul>
+  </div>
+</div>
+
+
+  
+</body>
+</html>
