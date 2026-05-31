@@ -227,22 +227,33 @@ h1 {
   display: grid;
   grid-template-columns: auto auto;
   align-items: end;
-  gap: 8px;
+  gap: 12px;
   color: var(--ink);
 }
 
 .danger-box span {
-  font-size: 20px;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 18px;
+  letter-spacing: 1px;
   border-bottom: 2px solid var(--ink);
-  padding: 0 36px 4px 0;
+  padding: 0 44px 4px 0;
 }
 
 .danger-box strong {
   color: var(--accent);
-  font-family: "Share Tech Mono", monospace;
-  font-size: clamp(58px, 14vw, 116px);
+  font-family: "Comic Sans MS", "Segoe Print", "Yu Gothic", cursive;
+  font-size: clamp(64px, 15vw, 124px);
+  font-weight: 900;
   font-style: italic;
-  line-height: 0.8;
+  line-height: 0.72;
+  letter-spacing: -0.08em;
+  transform: rotate(-7deg) skewX(-8deg);
+  text-shadow:
+    1px 0 0 var(--accent),
+    -1px 1px 0 rgba(217, 31, 36, 0.75),
+    2px 2px 0 rgba(217, 31, 36, 0.22);
+  paint-order: stroke fill;
+  -webkit-text-stroke: 1px rgba(217, 31, 36, 0.24);
 }
 
 .monster-name {

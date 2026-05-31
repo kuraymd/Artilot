@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="report-subhead">
           <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
           <div class="danger-box">
-            <span>危険度</span>
+            <span>RANK</span>
             <strong>${escapeHtml(monster.danger)}</strong>
           </div>
         </div>

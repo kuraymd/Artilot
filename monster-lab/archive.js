@@ -43,7 +43,7 @@ function renderArchive() {
       <div class="archive-card-info">
         <div class="archive-card-name">${monster.name}</div>
         <div class="archive-card-meta">
-          No.${monster.specimen} / ${monster.themeLabel} / ${monster.toneLabel || "トーン未設定"} / 危険度:${monster.danger}<br>
+          No.${monster.specimen} / ${monster.themeLabel} / ${monster.toneLabel || "トーン未設定"} / RANK:${monster.danger}<br>
           ${monster.motif} - ${monster.trait}<br>
           ${monster.habitat}
         </div>
