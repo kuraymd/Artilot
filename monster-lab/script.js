@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const themeSelect = document.getElementById("themeSelect");
+  const toneSelect = document.getElementById("toneSelect");
   const generateBtn = document.getElementById("generateBtn");
   const saveBtn = document.getElementById("saveBtn");
   const result = document.getElementById("result");
@@ -20,6 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
       option.value = key;
       option.textContent = theme.label;
       themeSelect.appendChild(option);
+    });
+  }
+
+  function setupTones() {
+    Object.entries(TONES).forEach(([key, tone]) => {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = tone.label;
+      toneSelect.appendChild(option);
     });
   }
 
@@ -44,22 +54,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function buildMonster() {
     const themeKey = themeSelect.value || "deepsea";
+    const toneKey = toneSelect.value || "cute";
     const theme = THEMES[themeKey] || THEMES.deepsea;
+    const tone = TONES[toneKey] || TONES.cute;
     const specimen = Math.floor(Math.random() * 900) + 100;
     const motif = randomItem(theme.motifs);
-    const trait = randomItem(theme.traits);
-    const color = randomItem(theme.colors);
-    const ability = randomItem(theme.abilities);
+    const trait = randomItem([...theme.traits, ...tone.traits]);
+    const color = randomItem([...theme.colors, ...tone.colors]);
+    const ability = randomItem([...theme.abilities, ...tone.abilities]);
     const habitat = randomItem(theme.habitats);
-    const danger = randomItem(DANGER_LEVELS);
+    const danger = tone.grade;
     const size = randomItem(SIZES);
+    const nameWord = randomItem(tone.nameWords);
 
     const monster = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
       specimen,
       themeKey,
       themeLabel: theme.label,
-      name: `${motif}型クリーチャー`,
+      toneKey,
+      toneLabel: tone.label,
+      name: `${motif}型${nameWord}`,
       motif,
       trait,
       color,
@@ -86,15 +101,22 @@ document.addEventListener("DOMContentLoaded", () => {
     result.innerHTML = `
       <article class="specimen-card">
         <div class="specimen-header">
-          <span class="specimen-no">IDEA NO.${monster.specimen}</span>
-          <span class="danger-badge">TONE: ${escapeHtml(monster.danger)}</span>
+          <span class="specimen-no">NO.${monster.specimen}</span>
+          <span class="report-title">報告書</span>
         </div>
-        <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
+        <div class="report-subhead">
+          <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
+          <div class="danger-box">
+            <span>危険度</span>
+            <strong>${escapeHtml(monster.danger)}</strong>
+          </div>
+        </div>
         <dl class="data-grid">
           <div class="data-item"><dt>THEME</dt><dd>${escapeHtml(monster.themeLabel)}</dd></div>
-          <div class="data-item"><dt>SCALE</dt><dd>${escapeHtml(monster.size)}</dd></div>
+          <div class="data-item"><dt>TONE</dt><dd>${escapeHtml(monster.toneLabel)}</dd></div>
           <div class="data-item"><dt>MOTIF</dt><dd>${escapeHtml(monster.motif)}</dd></div>
           <div class="data-item"><dt>COLOR</dt><dd>${escapeHtml(monster.color)}</dd></div>
+          <div class="data-item"><dt>SCALE</dt><dd>${escapeHtml(monster.size)}</dd></div>
           <div class="data-item full"><dt>TRAIT</dt><dd>${escapeHtml(monster.trait)}</dd></div>
           <div class="data-item full"><dt>ABILITY</dt><dd>${escapeHtml(monster.ability)}</dd></div>
           <div class="data-item full"><dt>SCENE</dt><dd>${escapeHtml(monster.habitat)}</dd></div>
@@ -102,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="description">
           ${escapeHtml(monster.themeLabel)}テーマの創作用アイデア。
           ${escapeHtml(monster.habitat)}を舞台に、${escapeHtml(monster.motif)}の要素と「${escapeHtml(monster.trait)}」性格を組み合わせる。
+          トーンは「${escapeHtml(monster.toneLabel)}」。
         </p>
         ${wagaraHtml}
       </article>
@@ -128,5 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   setupThemes();
+  setupTones();
   renderArchive();
 });
