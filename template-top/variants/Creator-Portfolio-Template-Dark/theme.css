@@ -1,0 +1,58 @@
+/* Dark: black, crimson, and violet */
+:root {
+  --bg: #090809;
+  --panel: #141112;
+  --panel-soft: #21161b;
+  --ink: #f2eeee;
+  --muted: #b9a9ad;
+  --cyan: #8f4bd8;
+  --lime: #e0473f;
+  --pink: #c2185b;
+  --violet: #6f38a7;
+  --orange: #d88b52;
+  --cream: #f0e2d7;
+  --line: rgba(224, 71, 63, 0.24);
+  --shadow: 0 30px 90px rgba(0, 0, 0, 0.62);
+}
+
+body {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(111, 56, 167, 0.2), transparent 24rem),
+    radial-gradient(circle at 12% 26%, rgba(194, 24, 91, 0.18), transparent 22rem),
+    linear-gradient(180deg, #0d0b0c 0%, #070607 100%);
+}
+
+body::before {
+  background:
+    linear-gradient(rgba(224, 71, 63, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224, 71, 63, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.brand-orb,
+.button.primary {
+  background: linear-gradient(135deg, #e0473f, #6f38a7);
+}
+
+.site-header,
+.commission-card,
+.youtube-card,
+.route-card,
+.tool-card,
+.link-banner {
+  background-color: rgba(20, 17, 18, 0.86);
+  border-color: rgba(224, 71, 63, 0.28);
+}
+
+h1 span,
+.kicker,
+.route-card strong,
+.play-card a {
+  color: #e0473f;
+}
+
+.template-hero-art,
+.template-about-art,
+.template-card-art {
+  filter: saturate(0.9) contrast(1.08);
+}

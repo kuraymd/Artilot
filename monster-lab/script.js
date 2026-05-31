@@ -33,25 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function chooseWagara(monster) {
-    if (monster.themeKey !== "deepsea") return null;
-
-    const source = [
-      monster.motif,
-      monster.trait,
-      monster.color,
-      monster.ability,
-      monster.habitat,
-      monster.themeLabel
-    ].join(" ");
-
-    const matches = WAGARA_PATTERNS.filter(pattern =>
-      pattern.tags.some(tag => source.includes(tag))
-    );
-
-    return randomItem(matches.length > 0 ? matches : WAGARA_PATTERNS);
-  }
-
   function buildMonster() {
     const themeKey = themeSelect.value || "deepsea";
     const toneKey = toneSelect.value || "cute";
@@ -85,19 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
       createdAt: new Date().toISOString()
     };
 
-    monster.wagara = chooseWagara(monster);
     return monster;
   }
 
   function renderMonster(monster) {
-    const wagaraHtml = monster.wagara ? `
-      <section class="wagara-section">
-        <div class="wagara-title">ASSOCIATED PATTERN - 和柄診断</div>
-        <div class="wagara-name">${escapeHtml(monster.wagara.name)}</div>
-        <p>${escapeHtml(monster.wagara.description)}</p>
-      </section>
-    ` : "";
-
     result.innerHTML = `
       <article class="specimen-card">
         <div class="specimen-header">
@@ -126,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
           ${escapeHtml(monster.habitat)}を舞台に、${escapeHtml(monster.motif)}の要素と「${escapeHtml(monster.trait)}」性格を組み合わせる。
           トーンは「${escapeHtml(monster.toneLabel)}」。
         </p>
-        ${wagaraHtml}
       </article>
     `;
   }

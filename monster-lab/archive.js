@@ -47,7 +47,6 @@ function renderArchive() {
           ${monster.motif} - ${monster.trait}<br>
           ${monster.habitat}
         </div>
-        ${monster.wagara ? `<div class="archive-card-wagara">和柄: ${monster.wagara.name}</div>` : ""}
       </div>
       <button class="btn-delete" type="button" data-delete-id="${monster.id}" aria-label="${monster.name}を削除">DELETE</button>
     </article>

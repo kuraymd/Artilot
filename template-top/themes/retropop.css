@@ -1,0 +1,76 @@
+/* RetroPop: bright yellow, candy pink, sky, and flat outlines */
+:root {
+  --bg: #fffbee;
+  --panel: #ffffff;
+  --panel-soft: #fff2a8;
+  --ink: #333333;
+  --muted: #645f55;
+  --cyan: #63cdf2;
+  --lime: #f4dd58;
+  --pink: #f45b7b;
+  --violet: #8e6cf4;
+  --orange: #ff9f43;
+  --cream: #fffbee;
+  --line: #333333;
+  --shadow: 7px 7px 0 #333333;
+  --paper-shadow: 5px 5px 0 #333333;
+}
+
+body {
+  color: var(--ink);
+  background:
+    linear-gradient(rgba(51, 51, 51, 0.06) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(51, 51, 51, 0.06) 2px, transparent 2px),
+    #fffbee;
+  background-size: 34px 34px;
+}
+
+body::before {
+  background: none;
+}
+
+.site-header,
+.commission-card,
+.youtube-card,
+.route-card,
+.tool-card,
+.link-banner,
+.hero-panel,
+.work-card,
+.goods-card {
+  border: 3px solid #333333;
+  box-shadow: var(--shadow);
+}
+
+.site-header {
+  background: #ffffff;
+}
+
+.brand-orb,
+.button.primary {
+  background: linear-gradient(135deg, var(--lime), var(--cyan));
+  box-shadow: 4px 4px 0 #333333;
+}
+
+.button {
+  border: 3px solid #333333;
+  box-shadow: 3px 3px 0 #333333;
+}
+
+.button.ghost {
+  background: #ffffff;
+}
+
+h1 span,
+.kicker,
+.route-card strong,
+.play-card a {
+  color: var(--pink);
+}
+
+.template-hero-art,
+.template-about-art,
+.template-card-art {
+  border: 3px solid #333333;
+  box-shadow: 6px 6px 0 #333333;
+}

@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Creator portfolio template for illustration, commissions, tools, shops, and social links."
+    />
+    <title>CREATOR NAME | Portfolio Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./theme.css" />
+  </head>
+  <body id="top">
+    <header class="site-header" aria-label="サイトヘッダー">
+      <a class="brand" href="#top" aria-label="トップへ戻る">
+        <span class="brand-orb" aria-hidden="true"></span>
+        <span data-site-brand>CREATOR NAME</span>
+      </a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="sr-only">メニューを開閉する</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+        <a href="#about">About</a>
+        <a href="#works">Gallery</a>
+        <a href="#commission">Commission</a>
+        <a href="#tools">Tools</a>
+        <a href="#movie">Movie</a>
+        <a href="#goods">Shop</a>
+        <a href="#links">Links</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero reveal" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="kicker" data-hero-kicker>ILLUSTRATION / GOODS / LINKS</p>
+            <h1 id="hero-title">
+              <span data-hero-name>CREATOR NAME</span>
+              <span data-hero-tagline>Portfolio Template</span>
+            </h1>
+            <p class="hero-lead" data-hero-lead>
+              イラスト、制作依頼、グッズ販売、SNSリンクをまとめられる
+              クリエイター向けポートフォリオテンプレートです。
+            </p>
+            <div class="button-row">
+              <a class="button primary" href="#works">作品を見る</a>
+              <a class="button ghost" href="#commission">依頼について</a>
+              <a class="button ghost" href="#links">リンクを見る</a>
+            </div>
+          </div>
+          <div class="hero-panel hero-art-panel" aria-label="メインビジュアル">
+            <div class="template-hero-art" aria-hidden="true">
+              <span class="art-shape shape-one"></span>
+              <span class="art-shape shape-two"></span>
+              <span class="art-shape shape-three"></span>
+              <span class="art-window">
+                <strong>YOUR ART</strong>
+                <small>Replace with your illustration</small>
+              </span>
+            </div>
+            <div class="hero-token token-a">Illustration</div>
+            <div class="hero-token token-b">Commission</div>
+            <div class="hero-token token-c">Shop</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="path-section reveal" id="start" aria-labelledby="start-title">
+        <div class="section-copy">
+          <p class="kicker">CHOOSE YOUR ROUTE</p>
+          <h2 id="start-title">見たい場所へすぐ移動できます。</h2>
+        </div>
+        <div class="route-grid">
+          <a class="route-card" href="#works">
+            <span class="route-number">01</span>
+            <p class="route-label">LOOK</p>
+            <h3>GALLERY</h3>
+            <p>代表作や制作サンプルをカード形式で見せられます。</p>
+            <strong>GO</strong>
+          </a>
+          <a class="route-card hot" href="#commission">
+            <span class="route-number">02</span>
+            <p class="route-label">ORDER</p>
+            <h3>COMMISSION</h3>
+            <p>依頼受付サービスや料金ページへの導線をまとめられます。</p>
+            <strong>GO</strong>
+          </a>
+          <a class="route-card" href="#links">
+            <span class="route-number">03</span>
+            <p class="route-label">CONNECT</p>
+            <h3>LINKS</h3>
+            <p>SNS、ショップ、支援サービスを一か所に整理できます。</p>
+            <strong>GO</strong>
+          </a>
+        </div>
+      </section>
+
+      <section class="about-section reveal" id="about" aria-labelledby="about-title">
+        <div class="about-visual">
+          <div class="template-about-art" aria-hidden="true">
+            <span>PROFILE</span>
+          </div>
+        </div>
+        <div class="section-copy">
+          <p class="kicker">ABOUT ME</p>
+          <h2 id="about-title" class="about-title">
+            <span data-about-name>Creator Name</span>
+            <span data-about-role>Illustrator</span>
+          </h2>
+          <p data-about-body>
+            ここには自己紹介を入れます。得意な制作ジャンル、世界観、
+            依頼で対応できることなどを短くまとめると読みやすくなります。
+          </p>
+          <div class="about-tags tag-marquee" aria-label="制作ジャンル">
+            <div class="tag-track" aria-hidden="true" id="tagTrack"></div>
+            <span class="sr-only" id="tagText">Illustration, Character, Goods</span>
+          </div>
+          <div class="about-actions">
+            <a class="button small primary" href="#commission">依頼先を見る</a>
+            <a class="button small ghost" href="#works">作品を見る</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="works-section reveal" id="works" aria-labelledby="works-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">ILLUSTRATION GALLERY</p>
+            <h2 id="works-title">Gallery</h2>
+          </div>
+          <p class="section-note">
+            画像パスを差し替えるだけで、ポートフォリオのカードを更新できます。
+          </p>
+        </div>
+        <div class="works-grid polaroid-grid" id="worksGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="commission-section reveal" id="commission" aria-labelledby="commission-title">
+        <div class="commission-card">
+          <div>
+            <p class="kicker">COMMISSION</p>
+            <h2 id="commission-title">ご依頼・ご相談はこちらから。</h2>
+            <p data-commission-body>
+              アイコン、立ち絵、グッズ用イラスト、素材制作など、
+              受付中の制作内容に合わせて文章を編集してください。
+            </p>
+          </div>
+          <div class="commission-actions" id="commissionLinks"></div>
+        </div>
+      </section>
+
+      <section class="tools-section reveal" id="tools" aria-labelledby="tools-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">PROJECTS / TOOLS</p>
+            <h2 id="tools-title">Projects</h2>
+          </div>
+          <p class="section-note">
+            自作ツール、制作実績、販売ページなどを大きめのカードで紹介できます。
+          </p>
+        </div>
+        <div class="tools-grid" id="toolsGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="timelapse-section reveal" id="movie" aria-labelledby="movie-title">
+        <div class="youtube-card">
+          <div>
+            <p class="kicker">MOVIE / PROCESS</p>
+            <h2 id="movie-title">Making Videos</h2>
+            <p data-movie-body>
+              制作過程やタイムラプスを公開している場合は、動画チャンネルへの導線として使えます。
+            </p>
+          </div>
+          <a class="button primary" data-movie-link href="#" target="_blank" rel="noreferrer">動画を見る</a>
+        </div>
+      </section>
+
+      <section class="goods-section reveal" id="goods" aria-labelledby="goods-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">GOODS / MATERIALS</p>
+            <h2 id="goods-title">Goods & Materials</h2>
+          </div>
+          <p class="section-note">
+            グッズ、素材集、デジタル商品などをカードで並べられます。
+          </p>
+        </div>
+        <div class="goods-grid polaroid-grid" id="goodsGrid" aria-live="polite"></div>
+        <div class="commission-card goods-cta" aria-labelledby="goods-cta-title">
+          <div>
+            <p class="kicker">SHOP</p>
+            <h2 id="goods-cta-title">販売ページはこちら。</h2>
+            <p data-shop-body>
+              BOOTH、SUZURI、BASE、Etsyなど、使っているショップへのリンクを置けます。
+            </p>
+          </div>
+          <div class="commission-actions" id="shopLinks"></div>
+        </div>
+      </section>
+
+      <section class="links-section reveal" id="links" aria-labelledby="links-title">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">LINK BANNERS</p>
+            <h2 id="links-title">Find me around the web</h2>
+          </div>
+          <p class="section-note">
+            SNS、ポートフォリオ、ショップ、支援先をバナーでまとめられます。
+          </p>
+        </div>
+        <div class="banner-grid" id="bannerGrid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <strong data-footer-brand>CREATOR NAME</strong>
+      <p data-footer-text>Thank you for visiting. © 2026 CREATOR NAME.</p>
+      <a class="top-button" href="#top">TOP</a>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,51 @@
+/* Cool: deep navy, teal, and muted gold */
+:root {
+  --bg: #15182a;
+  --panel: #1b2140;
+  --panel-soft: #202a4d;
+  --ink: #edf4f8;
+  --muted: #a7b3ca;
+  --cyan: #19b8b2;
+  --lime: #d5b95c;
+  --pink: #78a7ff;
+  --violet: #5666c8;
+  --orange: #d5b95c;
+  --cream: #f2ead3;
+  --line: rgba(213, 185, 92, 0.24);
+  --shadow: 0 28px 88px rgba(3, 8, 24, 0.46);
+}
+
+body {
+  background:
+    linear-gradient(rgba(213, 185, 92, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(213, 185, 92, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 82% 12%, rgba(25, 184, 178, 0.2), transparent 25rem),
+    linear-gradient(180deg, #171a2e 0%, #101527 100%);
+  background-size: 44px 44px, 44px 44px, auto, auto;
+}
+
+body::before {
+  background: linear-gradient(135deg, rgba(213, 185, 92, 0.08), transparent 45%);
+}
+
+.site-header,
+.commission-card,
+.youtube-card,
+.tool-card,
+.link-banner {
+  border-color: rgba(213, 185, 92, 0.28);
+}
+
+.kicker,
+.route-card strong,
+.play-card a {
+  color: var(--lime);
+}
+
+.button.primary {
+  background: linear-gradient(135deg, var(--lime), var(--cyan));
+}
+
+.route-card.hot {
+  background: linear-gradient(145deg, rgba(25, 184, 178, 0.22), rgba(213, 185, 92, 0.12)), var(--panel);
+}

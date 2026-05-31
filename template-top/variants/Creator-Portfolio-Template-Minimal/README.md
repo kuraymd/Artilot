@@ -1,4 +1,4 @@
-# Creator Portfolio Template
+﻿# Creator Portfolio Template
 
 イラスト、制作依頼、グッズ販売、SNSリンクをまとめるための静的ポートフォリオテンプレートです。
 HTML / CSS / JavaScript だけで動くので、GitHub Pages や一般的なレンタルサーバーにそのまま置けます。
@@ -73,3 +73,9 @@ works: [
 ## クレジット表記
 
 販売・配布する場合は、あなたの販売ページの規約に合わせてクレジット要否や再配布可否を追記してください。
+
+## このバリエーション
+
+このフォルダは Minimal テーマです。色や雰囲気は theme.css で上書きしています。
+
+

@@ -1,0 +1,62 @@
+/* Girly: soft pink, cream, and lavender */
+:root {
+  --bg: #fff8fb;
+  --panel: #ffffff;
+  --panel-soft: #fff0f7;
+  --ink: #332833;
+  --muted: #7b6876;
+  --cyan: #c5a1ec;
+  --lime: #f3a8c8;
+  --pink: #ff7eb3;
+  --violet: #c5a1ec;
+  --orange: #ffd06a;
+  --cream: #fff9ef;
+  --line: rgba(243, 168, 200, 0.42);
+  --shadow: 0 22px 70px rgba(243, 168, 200, 0.28);
+  --paper-shadow: 0 18px 40px rgba(243, 168, 200, 0.24);
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(circle, rgba(243, 168, 200, 0.16) 1px, transparent 1px),
+    radial-gradient(circle at 80% 18%, rgba(197, 161, 236, 0.24), transparent 23rem),
+    linear-gradient(180deg, #fff8fb 0%, #fff1f8 100%);
+  background-size: 28px 28px, auto, auto;
+}
+
+body::before {
+  background: none;
+}
+
+.site-header,
+.commission-card,
+.youtube-card,
+.tool-card,
+.link-banner,
+.route-card {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: var(--line);
+}
+
+.button.ghost {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.button.primary,
+.brand-orb {
+  background: linear-gradient(135deg, var(--pink), var(--cyan));
+}
+
+.kicker,
+h1 span,
+.route-card strong,
+.play-card a {
+  color: #e07eaa;
+}
+
+.template-hero-art,
+.template-about-art,
+.template-card-art {
+  border-radius: 34px;
+}

@@ -44,8 +44,7 @@ body {
 .theme-control span,
 .data-item dt,
 .placeholder-icon,
-.placeholder-text,
-.wagara-title {
+.placeholder-text {
   font-family: "Share Tech Mono", monospace;
 }
 
@@ -300,35 +299,6 @@ h1 {
   padding-bottom: 20px;
 }
 
-.wagara-section {
-  margin: 0 16px 16px;
-  padding: 14px;
-  border: 1px solid rgba(200, 168, 75, 0.35);
-  border-radius: 5px;
-  background: rgba(200, 168, 75, 0.05);
-}
-
-.wagara-title {
-  color: var(--muted-ink);
-  font-size: 9px;
-  letter-spacing: 3px;
-  margin-bottom: 8px;
-}
-
-.wagara-name {
-  color: var(--gold);
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.wagara-section p {
-  margin: 0;
-  color: var(--ink);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
 .btn-save {
   padding: 12px;
   border: 1px solid var(--ink);
@@ -402,12 +372,6 @@ h1 {
   color: var(--muted-ink);
   font-size: 11px;
   line-height: 1.7;
-}
-
-.archive-card-wagara {
-  color: var(--gold);
-  font-size: 12px;
-  margin-top: 5px;
 }
 
 .btn-delete {
