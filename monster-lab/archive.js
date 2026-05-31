@@ -34,7 +34,7 @@ function renderArchive() {
   count.textContent = archive.length > 0 ? `${archive.length} 件` : "";
 
   if (archive.length === 0) {
-    list.innerHTML = '<div class="archive-empty">NO SPECIMENS REGISTERED</div>';
+    list.innerHTML = '<div class="archive-empty">NO IDEAS SAVED</div>';
     return;
   }
 
@@ -43,7 +43,7 @@ function renderArchive() {
       <div class="archive-card-info">
         <div class="archive-card-name">${monster.name}</div>
         <div class="archive-card-meta">
-          No.${monster.specimen} / ${monster.themeLabel} / DANGER:${monster.danger}<br>
+          No.${monster.specimen} / ${monster.themeLabel} / TONE:${monster.danger}<br>
           ${monster.motif} - ${monster.trait}<br>
           ${monster.habitat}
         </div>

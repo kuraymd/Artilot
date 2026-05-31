@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abyssal Monster Generator</title>
-  <meta name="description" content="深海、森林、廃墟、宇宙、夢、都市伝説の異常標本を生成する研究端末風ガチャサイトです。">
+  <title>Monster Idea Generator</title>
+  <meta name="description" content="創作に使えるモンスターやキャラクターのアイデアを、テーマ別にランダム生成するツールです。">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,32 +18,32 @@
 <body>
   <div class="container">
     <header class="site-header">
-      <div class="label-en">IHYLI - ANOMALOUS RESEARCH DIVISION</div>
-      <h1>異常モンスター<br>標本生成システム</h1>
+      <div class="label-en">IHYLI - CREATURE IDEA TERMINAL</div>
+      <h1>モンスターアイデア<br>生成ツール</h1>
       <div class="divider"></div>
     </header>
 
     <main>
-      <section class="terminal-panel" aria-label="標本生成端末">
+      <section class="terminal-panel" aria-label="アイデア生成端末">
         <label class="theme-control" for="themeSelect">
           <span>THEME SELECT</span>
           <select id="themeSelect" name="theme"></select>
         </label>
-        <button class="btn-generate" id="generateBtn" type="button">標本を生成する</button>
+        <button class="btn-generate" id="generateBtn" type="button">アイデアを生成する</button>
       </section>
 
       <section id="result" class="result" aria-live="polite">
         <div class="placeholder">
-          <div class="placeholder-icon">SPECIMEN</div>
-          <div class="placeholder-text">AWAITING SPECIMEN DATA...</div>
+          <div class="placeholder-icon">IDEA</div>
+          <div class="placeholder-text">AWAITING CREATURE IDEA...</div>
         </div>
       </section>
 
-      <button class="btn-save" id="saveBtn" type="button" disabled>この標本を標本庫に登録する</button>
+      <button class="btn-save" id="saveBtn" type="button" disabled>このアイデアを保存する</button>
 
-      <section class="archive-section" aria-label="標本庫">
+      <section class="archive-section" aria-label="アイデア庫">
         <div class="archive-header">
-          <span class="archive-title">SPECIMEN ARCHIVE - 標本庫</span>
+          <span class="archive-title">IDEA ARCHIVE - アイデア庫</span>
           <span class="archive-count" id="archiveCount"></span>
         </div>
         <div id="archiveList" class="archive-list"></div>

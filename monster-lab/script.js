@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       specimen,
       themeKey,
       themeLabel: theme.label,
-      name: `${motif}型異常体`,
+      name: `${motif}型クリーチャー`,
       motif,
       trait,
       color,
@@ -86,22 +86,22 @@ document.addEventListener("DOMContentLoaded", () => {
     result.innerHTML = `
       <article class="specimen-card">
         <div class="specimen-header">
-          <span class="specimen-no">SPECIMEN NO.${monster.specimen}</span>
-          <span class="danger-badge">DANGER: ${monster.danger}</span>
+          <span class="specimen-no">IDEA NO.${monster.specimen}</span>
+          <span class="danger-badge">TONE: ${escapeHtml(monster.danger)}</span>
         </div>
         <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
         <dl class="data-grid">
           <div class="data-item"><dt>THEME</dt><dd>${escapeHtml(monster.themeLabel)}</dd></div>
-          <div class="data-item"><dt>SIZE</dt><dd>${escapeHtml(monster.size)}</dd></div>
+          <div class="data-item"><dt>SCALE</dt><dd>${escapeHtml(monster.size)}</dd></div>
           <div class="data-item"><dt>MOTIF</dt><dd>${escapeHtml(monster.motif)}</dd></div>
           <div class="data-item"><dt>COLOR</dt><dd>${escapeHtml(monster.color)}</dd></div>
           <div class="data-item full"><dt>TRAIT</dt><dd>${escapeHtml(monster.trait)}</dd></div>
           <div class="data-item full"><dt>ABILITY</dt><dd>${escapeHtml(monster.ability)}</dd></div>
-          <div class="data-item full"><dt>HABITAT</dt><dd>${escapeHtml(monster.habitat)}</dd></div>
+          <div class="data-item full"><dt>SCENE</dt><dd>${escapeHtml(monster.habitat)}</dd></div>
         </dl>
         <p class="description">
-          ${escapeHtml(monster.habitat)}で確認された${escapeHtml(monster.themeLabel)}系異常標本。
-          ${escapeHtml(monster.motif)}に類似した体構造と、${escapeHtml(monster.trait)}性質を併せ持つ。
+          ${escapeHtml(monster.themeLabel)}テーマの創作用アイデア。
+          ${escapeHtml(monster.habitat)}を舞台に、${escapeHtml(monster.motif)}の要素と「${escapeHtml(monster.trait)}」性格を組み合わせる。
         </p>
         ${wagaraHtml}
       </article>
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMonster = buildMonster();
     renderMonster(currentMonster);
     saveBtn.disabled = false;
-    saveBtn.textContent = "この標本を標本庫に登録する";
+    saveBtn.textContent = "このアイデアを保存する";
     return currentMonster;
   };
 
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!currentMonster) return;
     saveMonsterToArchive(currentMonster);
     saveBtn.disabled = true;
-    saveBtn.textContent = "標本庫に登録しました";
+    saveBtn.textContent = "アイデアを保存しました";
   });
 
   setupThemes();
