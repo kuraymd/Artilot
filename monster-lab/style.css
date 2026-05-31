@@ -137,30 +137,49 @@ h1 {
 
 .result {
   position: relative;
-  margin: 28px auto 18px;
-  max-width: 600px;
+  margin: 28px auto 24px;
+  max-width: 680px;
+  padding: 30px clamp(12px, 5vw, 42px);
 }
 
-.result::before,
-.result::after {
-  content: "";
+.paper-stack {
   position: absolute;
-  inset: 32px 0 auto;
-  width: 86%;
-  height: min(72vw, 520px);
-  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.result::before {
-  left: -56px;
-  background: var(--paper-back);
-  transform: rotate(-4deg);
+.paper-sheet {
+  position: absolute;
+  left: 50%;
+  top: 50px;
+  width: min(92vw, 590px);
+  height: calc(100% - 36px);
+  min-height: 560px;
+  transform-origin: 50% 22%;
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.05);
 }
 
-.result::after {
-  right: -56px;
-  background: var(--paper-shadow);
-  transform: rotate(7deg);
+.sheet-a {
+  background: #dadada;
+  transform: translateX(-58%) rotate(-7deg);
+}
+
+.sheet-b {
+  background: #9a99ab;
+  transform: translateX(-38%) rotate(8deg);
+}
+
+.sheet-c {
+  background: #c9c4ba;
+  transform: translateX(-52%) rotate(-2deg);
+  opacity: 0.72;
+}
+
+.sheet-d {
+  background: #b6b2c2;
+  transform: translateX(-43%) rotate(4deg);
+  opacity: 0.62;
 }
 
 .placeholder {
@@ -183,6 +202,7 @@ h1 {
 .specimen-card {
   position: relative;
   overflow: visible;
+  z-index: 1;
   background: var(--paper);
   border: none;
   color: var(--ink);
@@ -396,6 +416,89 @@ h1 {
   cursor: pointer;
 }
 
+.info-section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.info-column {
+  background: var(--control);
+  border: 1px solid #cfc8bc;
+  border-radius: 6px;
+  padding: 18px;
+}
+
+.info-column h2 {
+  margin: 0 0 14px;
+  font-size: 18px;
+}
+
+.info-list {
+  display: grid;
+  gap: 10px;
+}
+
+.info-card {
+  border-top: 1px solid #cfc8bc;
+  padding-top: 10px;
+}
+
+.info-card span {
+  display: block;
+  color: var(--muted-ink);
+  font: 11px "Share Tech Mono", monospace;
+  margin-bottom: 4px;
+}
+
+.info-card strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.info-card p,
+.info-empty,
+.request-status {
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.request-form {
+  display: grid;
+  gap: 12px;
+}
+
+.request-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--muted-ink);
+  font-size: 13px;
+}
+
+.request-form select,
+.request-form textarea {
+  width: 100%;
+  border: 1px solid #bbb2a4;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  padding: 10px;
+}
+
+.request-submit {
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 700;
+  padding: 11px 14px;
+  cursor: pointer;
+}
+
 @media (max-width: 560px) {
   body {
     padding: 18px 10px 44px;
@@ -419,8 +522,33 @@ h1 {
     font-size: 14px;
   }
 
-  .result::before,
-  .result::after {
+  .result {
+    padding: 12px 0;
+  }
+
+  .paper-stack {
+    display: block;
+    overflow: hidden;
+  }
+
+  .paper-sheet {
+    width: 92%;
+    left: 50%;
+    top: 22px;
+    height: calc(100% - 18px);
+    min-height: 520px;
+  }
+
+  .sheet-a {
+    transform: translateX(-54%) rotate(-4deg);
+  }
+
+  .sheet-b {
+    transform: translateX(-46%) rotate(5deg);
+  }
+
+  .sheet-c,
+  .sheet-d {
     display: none;
   }
 
@@ -457,5 +585,9 @@ h1 {
 
   .btn-delete {
     width: 100%;
+  }
+
+  .info-section {
+    grid-template-columns: 1fr;
   }
 }

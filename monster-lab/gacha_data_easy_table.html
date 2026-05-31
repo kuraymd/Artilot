@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monster Lab 入力しやすいガチャ内容サンプル</title>
+  <style>
+    body {
+      font-family: system-ui, "Yu Gothic", Meiryo, sans-serif;
+      margin: 24px;
+      color: #222;
+    }
+
+    p {
+      max-width: 920px;
+      line-height: 1.7;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 1280px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f4cccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>gacha_data 入力しやすい形式</h1>
+  <p>
+    リクエストで増やしたい言葉は、該当する列に追記してください。
+    特定テーマやトーンだけで出したい場合は、同じ行の <strong>targetTheme</strong> / <strong>targetTone</strong> に条件を書きます。
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>theme</th>
+        <th>themeKey</th>
+        <th>tone</th>
+        <th>toneKey</th>
+        <th>rank</th>
+        <th>species</th>
+        <th>color</th>
+        <th>feature</th>
+        <th>ability</th>
+        <th>scene</th>
+        <th>nameWord</th>
+        <th>targetTheme</th>
+        <th>targetTone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>動物</td><td>animal</td><td>ホラー</td><td>horror</td><td>SS</td><td>きつね</td><td>青白い灰</td><td>目を合わせると黙る</td><td>足音を真似る</td><td>丘の上</td><td>裏窓</td><td></td><td></td></tr>
+      <tr><td>深海</td><td>deepsea</td><td>かわいい</td><td>cute</td><td>C</td><td>クラゲ</td><td>クリーム色</td><td>人懐っこい</td><td>小さな幸運を運ぶ</td><td>海中洞窟</td><td>こ</td><td></td><td></td></tr>
+      <tr><td>植物</td><td>plant</td><td>明るい</td><td>cheerful</td><td>B</td><td>若葉</td><td>オーロラグリーン</td><td>好奇心が強い</td><td>光るサインを出す</td><td>川沿いの草むら</td><td>きら</td><td></td><td></td></tr>
+      <tr><td>ファンタジー</td><td>fantasy</td><td>ダーク</td><td>dark</td><td>S</td><td>月のうさぎ</td><td>濡れた黒</td><td>秘密を持っている</td><td>影に溶ける</td><td>図書館の奥</td><td>黒羽</td><td></td><td></td></tr>
+      <tr><td>廃墟</td><td>ruin</td><td>ゆるい</td><td>soft</td><td>C</td><td>割れた人形</td><td>錆びた赤</td><td>古い記憶を集める</td><td>隠れた扉を見つける</td><td>古い学校</td><td>まる</td><td></td><td></td></tr>
+      <tr><td>都市</td><td>city</td><td>神秘的</td><td>mystic</td><td>A</td><td>信号機</td><td>ネオンピンク</td><td>音や光に反応する</td><td>光るサインを出す</td><td>ビルの屋上</td><td>月影</td><td></td><td></td></tr>
+      <tr><td>日常</td><td>everyday</td><td>コミカル</td><td>comic</td><td>B</td><td>マグカップ</td><td>ミルキーピンク</td><td>すぐ眠くなる</td><td>相手を少し元気にする</td><td>机の上</td><td>ランナー</td><td></td><td></td></tr>
+      <tr><td>宇宙</td><td>space</td><td>不気味</td><td>eerie</td><td>S</td><td>小さな星</td><td>月白</td><td>重力に少し逆らう</td><td>星図を描く</td><td>月面基地</td><td>赤目</td><td></td><td></td></tr>
+      <tr><td>ふしぎ</td><td>mysterious</td><td>強そう</td><td>strong</td><td>A</td><td>ランタン</td><td>銀色</td><td>夜になると元気</td><td>小さな修理をする</td><td>地下通路</td><td>しるべ</td><td></td><td></td></tr>
+      <tr><td>機械</td><td>machine</td><td>クール</td><td>cool</td><td>A</td><td>小型ロボット</td><td>深い青</td><td>壊れたものを直そうとする</td><td>水流を操る</td><td>工房</td><td>影</td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td>廃駅の番人</td><td></td><td></td><td></td><td></td><td></td><td>廃墟</td><td>ホラー</td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td>古い赤</td><td></td><td></td><td></td><td></td><td></td><td>ホラー</td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>見られていない時だけ動く</td><td></td><td></td><td></td><td></td><td>ホラー</td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>視界の端に現れる</td><td></td><td></td><td></td><td>ホラー</td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>廃駅</td><td></td><td>廃墟</td><td>ホラー</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

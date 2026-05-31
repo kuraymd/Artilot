@@ -44,8 +44,8 @@ function renderArchive() {
         <div class="archive-card-name">${monster.name}</div>
         <div class="archive-card-meta">
           No.${monster.specimen} / ${monster.themeLabel} / ${monster.toneLabel || "トーン未設定"} / RANK:${monster.danger}<br>
-          ${monster.motif} - ${monster.trait}<br>
-          ${monster.habitat}
+          ${(monster.species || monster.motif)} - ${(monster.feature || monster.trait)}<br>
+          ${monster.scene || monster.habitat}
         </div>
       </div>
       <button class="btn-delete" type="button" data-delete-id="${monster.id}" aria-label="${monster.name}を削除">DELETE</button>

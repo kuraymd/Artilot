@@ -1,0 +1,75 @@
+/* Minimal: monochrome, spacious, and quiet */
+:root {
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --panel-soft: #f7f7f7;
+  --ink: #111111;
+  --muted: #5e5e5e;
+  --cyan: #111111;
+  --lime: #111111;
+  --pink: #777777;
+  --violet: #333333;
+  --orange: #999999;
+  --cream: #f6f6f6;
+  --line: rgba(17, 17, 17, 0.16);
+  --shadow: 0 18px 52px rgba(0, 0, 0, 0.08);
+  --paper-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  color: var(--ink);
+  background: #ffffff;
+}
+
+body::before {
+  background: none;
+}
+
+.site-header,
+.commission-card,
+.youtube-card,
+.route-card,
+.tool-card,
+.link-banner,
+.hero-panel {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: #dcdcdc;
+  box-shadow: none;
+}
+
+.brand-orb,
+.button.primary {
+  background: #111111;
+  box-shadow: none;
+}
+
+.button.primary {
+  color: #ffffff;
+}
+
+.button.ghost {
+  background: #ffffff;
+  border-color: #dcdcdc;
+}
+
+h1 span,
+.kicker,
+.route-card strong,
+.play-card a {
+  color: #111111;
+}
+
+.hero-token,
+.tag-marquee,
+.tool-status {
+  color: #ffffff;
+  background: #111111;
+}
+
+.template-hero-art,
+.template-about-art,
+.template-card-art {
+  background: linear-gradient(135deg, #ffffff, #f3f3f3);
+  border: 1px solid #111111;
+  box-shadow: none;
+}
