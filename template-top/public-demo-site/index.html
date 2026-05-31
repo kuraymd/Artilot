@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="販売用テンプレートの雰囲気を安全に見せるための公開デモカタログです。"
+    />
+    <title>Website Template Demo Catalog</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top">Website Template Demo</a>
+      <nav class="nav" aria-label="ページ内メニュー">
+        <a href="#templates">Templates</a>
+        <a href="#policy">Demo Policy</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">PUBLIC PREVIEW CATALOG</p>
+        <h1>テンプレートの雰囲気だけを、安全に見せる。</h1>
+        <p class="lead">
+          販売用のHTML/CSS/JS本体は公開せず、カテゴリ・テーマ・見た目の方向性を選べる
+          デモカタログとして使うためのページです。
+        </p>
+      </section>
+
+      <section class="toolbar" aria-label="テンプレート絞り込み">
+        <label>
+          Category
+          <select id="categoryFilter"></select>
+        </label>
+        <label>
+          Mood
+          <select id="themeFilter"></select>
+        </label>
+      </section>
+
+      <section class="templates" id="templates" aria-labelledby="templates-title">
+        <div class="section-heading">
+          <p class="eyebrow">TEMPLATES</p>
+          <h2 id="templates-title">公開デモ一覧</h2>
+        </div>
+        <div class="template-grid" id="templateGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="policy" id="policy" aria-labelledby="policy-title">
+        <div>
+          <p class="eyebrow">DEMO POLICY</p>
+          <h2 id="policy-title">この公開版に商品本体は含めません。</h2>
+        </div>
+        <p>
+          GitHub Pagesなどの公開サイトでは、閲覧者がHTML/CSS/JSを確認できます。
+          そのため、このカタログには販売用テンプレート本体を入れず、購入前に雰囲気を確認するための情報だけを掲載します。
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© Website Template Demo. Preview only.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
