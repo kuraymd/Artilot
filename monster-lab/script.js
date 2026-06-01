@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadMonsterData() {
     const res = await fetch(API_URL);
-    if (!res.ok) throw new Error("データ取得に失敗しました");
+    if (!res.ok) throw new Error("標本データの取得に失敗しました");
     return await res.json();
   }
 
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMonster = buildMonster();
     renderMonster(currentMonster);
     saveBtn.disabled = false;
-    saveBtn.textContent = "このアイデアを保存する";
+    saveBtn.textContent = "この標本を保存する";
     return currentMonster;
   };
 
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!currentMonster) return;
     saveMonsterToArchive(currentMonster);
     saveBtn.disabled = true;
-    saveBtn.textContent = "アイデアを保存しました";
+    saveBtn.textContent = "標本を保存しました";
   });
 
   function setupRequestForm() {
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const idea = String(formData.get("idea") || "").trim();
 
       if (!idea) {
-        if (requestStatus) requestStatus.textContent = "追加してほしい内容を入力してください。";
+        if (requestStatus) requestStatus.textContent = "調査メモを入力してください。";
         return;
       }
 
@@ -280,21 +280,21 @@ document.addEventListener("DOMContentLoaded", () => {
       payload.set("category", String(formData.get("category") || "other"));
       payload.set("idea", idea);
 
-      if (requestStatus) requestStatus.textContent = "リクエストを送信中です...";
+      if (requestStatus) requestStatus.textContent = "調査依頼を送信中です...";
 
       try {
         await postRequest(payload);
-        if (requestStatus) requestStatus.textContent = "リクエストを送信しました。ありがとうございます。";
+        if (requestStatus) requestStatus.textContent = "調査依頼を受け付けました。ありがとうございます。";
         requestForm.reset();
       } catch (error) {
-        if (requestStatus) requestStatus.textContent = "送信できませんでした。時間をおいてもう一度お試しください。";
+        if (requestStatus) requestStatus.textContent = "通信に失敗しました。時間をおいてもう一度お試しください。";
       }
     });
   }
 
   async function init() {
     generateBtn.disabled = true;
-    setStatus("ガチャデータを読み込み中...");
+    setStatus("研究端末を起動しています...");
     setupRequestForm();
     renderArchive();
 
@@ -303,9 +303,9 @@ document.addEventListener("DOMContentLoaded", () => {
       monsterData = normalizeMonsterData(data);
       renderAnnouncements(getAnnouncements(data));
       generateBtn.disabled = false;
-      setStatus("ガチャデータを読み込みました。各シートから独立抽選します。");
+      setStatus("標本生成プロトコル、起動可能です。");
     } catch (error) {
-      setStatus("ガチャデータを読み込めませんでした。", true);
+      setStatus("標本データへの接続に失敗しました。", true);
       renderLoadError(error);
     }
   }
