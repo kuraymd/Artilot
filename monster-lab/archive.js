@@ -1,5 +1,15 @@
 const ARCHIVE_STORAGE_KEY = "monsterLabArchive";
 
+function escapeArchiveHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
 function getArchive() {
   try {
     const archive = JSON.parse(localStorage.getItem(ARCHIVE_STORAGE_KEY) || "[]");
@@ -31,26 +41,35 @@ function renderArchive() {
   if (!list || !count) return;
 
   const archive = getArchive();
-  count.textContent = archive.length > 0 ? `${archive.length} 件` : "";
+  count.textContent = archive.length > 0 ? `${archive.length}件` : "";
 
   if (archive.length === 0) {
     list.innerHTML = '<div class="archive-empty">NO IDEAS SAVED</div>';
     return;
   }
 
-  list.innerHTML = archive.map(monster => `
-    <article class="archive-card">
-      <div class="archive-card-info">
-        <div class="archive-card-name">${monster.name}</div>
-        <div class="archive-card-meta">
-          No.${monster.specimen} / ${monster.themeLabel} / ${monster.toneLabel || "トーン未設定"} / RANK:${monster.danger}<br>
-          ${(monster.species || monster.motif)} - ${(monster.feature || monster.trait)}<br>
-          ${monster.scene || monster.habitat}
+  list.innerHTML = archive.map(monster => {
+    const name = monster.name || "未命名の標本";
+    const category = monster.category || monster.themeLabel || "未分類";
+    const rank = monster.status || monster.danger || "-";
+    const species = monster.species || monster.motif || "-";
+    const body = monster.bodyFeature || monster.feature || monster.trait || "-";
+    const habitat = monster.habitat || monster.scene || "-";
+
+    return `
+      <article class="archive-card">
+        <div class="archive-card-info">
+          <div class="archive-card-name">${escapeArchiveHtml(name)}</div>
+          <div class="archive-card-meta">
+            No.${escapeArchiveHtml(monster.specimen)} / ${escapeArchiveHtml(category)} / RANK:${escapeArchiveHtml(rank)}<br>
+            ${escapeArchiveHtml(species)} - ${escapeArchiveHtml(body)}<br>
+            ${escapeArchiveHtml(habitat)}
+          </div>
         </div>
-      </div>
-      <button class="btn-delete" type="button" data-delete-id="${monster.id}" aria-label="${monster.name}を削除">DELETE</button>
-    </article>
-  `).join("");
+        <button class="btn-delete" type="button" data-delete-id="${escapeArchiveHtml(monster.id)}" aria-label="${escapeArchiveHtml(name)}を削除">DELETE</button>
+      </article>
+    `;
+  }).join("");
 
   list.querySelectorAll("[data-delete-id]").forEach(button => {
     button.addEventListener("click", () => deleteMonsterFromArchive(button.dataset.deleteId));

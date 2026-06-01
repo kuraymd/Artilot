@@ -1,313 +1,143 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const GAS_URL = "";
+  const API_URL = "https://script.google.com/macros/s/AKfycbz6wMfIMZtVen0zPwaL6nvUAWhYP1h0muLTnJLANuROJUevpL7RTepQovEzIWXLhGMS/exec";
+  const REQUIRED_LISTS = [
+    "categories",
+    "habitats",
+    "species",
+    "body_features",
+    "face_features",
+    "behaviors",
+    "abilities",
+    "comments",
+    "nicknames",
+    "statuses"
+  ];
+  const SIZES = ["手のひらサイズ", "30cm", "80cm", "1.5m", "3m", "7m", "12m", "20m", "ビル1階分", "測定不能"];
 
-  const themeSelect = document.getElementById("themeSelect");
-  const toneSelect = document.getElementById("toneSelect");
   const generateBtn = document.getElementById("generateBtn");
   const saveBtn = document.getElementById("saveBtn");
   const result = document.getElementById("result");
+  const dataStatus = document.getElementById("dataStatus");
   const requestForm = document.getElementById("requestForm");
   const requestStatus = document.getElementById("requestStatus");
-  const newsList = document.getElementById("newsList");
+
+  let monsterData = null;
   let currentMonster = null;
-  let gachaSource = createFallbackSource();
 
-  const randomItem = items => items[Math.floor(Math.random() * items.length)];
-  const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    "\"": "&quot;",
-    "'": "&#039;"
-  })[char]);
-
-  function slugify(value, prefix) {
-    return `${prefix}-${String(value).trim().toLowerCase().replace(/\s+/g, "-")}`;
+  function escapeHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#039;"
+    })[char]);
   }
 
-  function toEntry(value, extra = {}) {
-    if (value && typeof value === "object") {
-      return {
-        key: value.key || value.id || slugify(value.label || value.value || value.name, "item"),
-        label: value.label || value.value || value.name || "",
-        value: value.value || value.label || value.name || "",
-        themeKey: value.themeKey || value.theme || "",
-        toneKey: value.toneKey || value.tone || "",
-        rank: value.rank || value.grade || "",
-        ...extra
-      };
+  function pick(list) {
+    return list[Math.floor(Math.random() * list.length)];
+  }
+
+  async function loadMonsterData() {
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error("データ取得に失敗しました");
+    return await res.json();
+  }
+
+  function valueFromObject(item, key) {
+    const fieldMap = {
+      categories: ["category", "value", "label", "name", "text"],
+      habitats: ["habitat", "value", "label", "name", "text"],
+      species: ["species", "value", "label", "name", "text"],
+      body_features: ["body_feature", "feature", "value", "label", "name", "text"],
+      face_features: ["face_feature", "feature", "value", "label", "name", "text"],
+      behaviors: ["behavior", "value", "label", "name", "text"],
+      abilities: ["ability", "value", "label", "name", "text"],
+      comments: ["comment", "value", "label", "name", "text"],
+      statuses: ["status", "rank", "status_type", "capture_status", "value", "label", "name", "text"]
+    };
+
+    if (key === "nicknames") {
+      const prefix = String(item.nickname_prefix || item.prefix || "").trim();
+      const suffix = String(item.nickname_suffix || item.suffix || "").trim();
+      if (prefix || suffix) return `${prefix}${suffix}`;
     }
 
-    return {
-      key: slugify(value, "item"),
-      label: String(value),
-      value: String(value),
-      ...extra
-    };
-  }
-
-  function uniqueEntries(entries) {
-    const seen = new Set();
-    return entries.filter(entry => {
-      const id = `${entry.key}:${entry.value}:${entry.themeKey || ""}:${entry.toneKey || ""}`;
-      if (seen.has(id)) return false;
-      seen.add(id);
-      return entry.value || entry.label;
-    });
-  }
-
-  function createFallbackSource() {
-    const source = {
-      themes: [],
-      tones: [],
-      species: [],
-      colors: [],
-      features: [],
-      abilities: [],
-      scenes: [],
-      nameWords: []
-    };
-
-    Object.entries(THEMES).forEach(([themeKey, theme]) => {
-      source.themes.push({ key: themeKey, label: theme.label, value: theme.label });
-      source.species.push(...theme.motifs.map(value => toEntry(value, { themeKey })));
-      source.colors.push(...theme.colors.map(value => toEntry(value, { themeKey })));
-      source.features.push(...theme.traits.map(value => toEntry(value, { themeKey })));
-      source.abilities.push(...theme.abilities.map(value => toEntry(value, { themeKey })));
-      source.scenes.push(...theme.habitats.map(value => toEntry(value, { themeKey })));
-    });
-
-    Object.entries(TONES).forEach(([toneKey, tone]) => {
-      source.tones.push({ key: toneKey, label: tone.label, value: tone.label, rank: tone.grade });
-      source.nameWords.push(...tone.nameWords.map(value => toEntry(value, { toneKey })));
-      source.colors.push(...tone.colors.map(value => toEntry(value, { toneKey })));
-      source.features.push(...tone.traits.map(value => toEntry(value, { toneKey })));
-      source.abilities.push(...tone.abilities.map(value => toEntry(value, { toneKey })));
-    });
-
-    Object.keys(source).forEach(key => {
-      source[key] = uniqueEntries(source[key]);
-    });
-
-    return source;
-  }
-
-  function normalizeCategory(value) {
-    const key = String(value || "").trim().toLowerCase();
-    const map = {
-      theme: "themes",
-      "テーマ": "themes",
-      tone: "tones",
-      "トーン": "tones",
-      species: "species",
-      "種族": "species",
-      motif: "species",
-      "モチーフ": "species",
-      color: "colors",
-      "カラー": "colors",
-      "色": "colors",
-      feature: "features",
-      trait: "features",
-      "特徴": "features",
-      "性格": "features",
-      ability: "abilities",
-      "能力": "abilities",
-      scene: "scenes",
-      habitat: "scenes",
-      "シーン": "scenes",
-      "場所": "scenes",
-      nameword: "nameWords",
-      name_word: "nameWords",
-      "名前": "nameWords",
-      "語尾": "nameWords",
-      "■■": "nameWords"
-    };
-
-    return map[key] || "";
-  }
-
-  function readCell(row, names) {
-    for (const name of names) {
-      if (row[name] !== undefined && row[name] !== null && String(row[name]).trim()) {
-        return String(row[name]).trim();
+    for (const field of fieldMap[key] || []) {
+      if (item[field] !== undefined && item[field] !== null && String(item[field]).trim()) {
+        return item[field];
       }
     }
-    return "";
+
+    const firstValue = Object.values(item).find(entry => entry !== undefined && entry !== null && String(entry).trim());
+    return firstValue || "";
   }
 
-  function normalizeGachaRows(rows) {
-    const source = {
-      themes: [],
-      tones: [],
-      species: [],
-      colors: [],
-      features: [],
-      abilities: [],
-      scenes: [],
-      nameWords: []
-    };
-
-    rows.forEach(row => {
-      const category = normalizeCategory(readCell(row, ["category", "カテゴリ", "種別"]));
-      const value = readCell(row, ["value", "item", "word", "内容", "候補", "名前"]);
-      if (!category || !value) {
-        normalizeEasyRow(row, source);
-        return;
-      }
-
-      const themeRef = readCell(row, ["theme", "themeKey", "テーマ"]);
-      const toneRef = readCell(row, ["tone", "toneKey", "トーン"]);
-      const rank = readCell(row, ["rank", "grade", "ランク"]);
-
-      const entry = toEntry(value, {
-        key: readCell(row, ["key", "id", "キー"]) || slugify(value, category),
-        label: readCell(row, ["label", "表示名"]) || value,
-        themeKey: themeRef,
-        toneKey: toneRef,
-        rank
-      });
-
-      source[category].push(entry);
-    });
-
-    Object.keys(source).forEach(key => {
-      source[key] = uniqueEntries(source[key]);
-    });
-
-    return source;
+  function normalizeList(value, key) {
+    if (!Array.isArray(value)) return [];
+    return value
+      .map(item => {
+        if (item && typeof item === "object") {
+          return valueFromObject(item, key);
+        }
+        return item;
+      })
+      .map(item => String(item ?? "").trim())
+      .filter(Boolean);
   }
 
-  function normalizeEasyRow(row, source) {
-    const targetTheme = readCell(row, ["targetTheme", "target_theme", "対象テーマ", "絞り込みテーマ"]);
-    const targetTone = readCell(row, ["targetTone", "target_tone", "対象トーン", "絞り込みトーン"]);
+  function normalizeMonsterData(data) {
+    const normalized = {};
+    REQUIRED_LISTS.forEach(key => {
+      normalized[key] = normalizeList(data[key], key);
+    });
 
-    const theme = readCell(row, ["theme", "テーマ"]);
-    if (theme) {
-      source.themes.push(toEntry(theme, {
-        key: readCell(row, ["themeKey", "theme_key", "テーマkey", "テーマキー"]) || slugify(theme, "theme"),
-        label: readCell(row, ["themeLabel", "theme_label", "テーマ表示名"]) || theme
-      }));
+    const missing = REQUIRED_LISTS.filter(key => normalized[key].length === 0);
+    if (missing.length > 0) {
+      throw new Error(`データが空です: ${missing.join(", ")}`);
     }
 
-    const tone = readCell(row, ["tone", "トーン"]);
-    if (tone) {
-      source.tones.push(toEntry(tone, {
-        key: readCell(row, ["toneKey", "tone_key", "トーンkey", "トーンキー"]) || slugify(tone, "tone"),
-        label: readCell(row, ["toneLabel", "tone_label", "トーン表示名"]) || tone,
-        rank: readCell(row, ["rank", "ランク"])
-      }));
-    }
-
-    [
-      ["species", "species", ["species", "種族"]],
-      ["colors", "color", ["color", "カラー", "色"]],
-      ["features", "feature", ["feature", "特徴", "性格"]],
-      ["abilities", "ability", ["ability", "能力"]],
-      ["scenes", "scene", ["scene", "シーン", "場所"]],
-      ["nameWords", "nameWord", ["nameWord", "name_word", "名前", "語尾", "■■"]]
-    ].forEach(([sourceKey, prefix, names]) => {
-      const item = readCell(row, names);
-      if (!item) return;
-
-      source[sourceKey].push(toEntry(item, {
-        key: slugify(item, prefix),
-        themeKey: targetTheme,
-        toneKey: targetTone
-      }));
-    });
+    return normalized;
   }
 
-  function mergeWithFallback(source) {
-    const fallback = createFallbackSource();
-    Object.keys(fallback).forEach(key => {
-      if (!source[key] || source[key].length === 0) {
-        source[key] = fallback[key];
-      }
-    });
-    return source;
-  }
-
-  function getRowsFromResponse(data) {
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data.gacha)) return data.gacha;
-    if (Array.isArray(data.gachaData)) return data.gachaData;
-    if (Array.isArray(data["ガチャ内容"])) return data["ガチャ内容"];
-    return [];
-  }
-
-  async function loadSpreadsheetData() {
-    if (!GAS_URL) return;
-
-    try {
-      const url = new URL(GAS_URL);
-      url.searchParams.set("action", "gacha");
-      const response = await fetch(url.toString());
-      const data = await response.json();
-      const rows = getRowsFromResponse(data);
-      if (!rows.length) return;
-
-      gachaSource = mergeWithFallback(normalizeGachaRows(rows));
-    } catch (error) {
-      console.warn("Spreadsheet data could not be loaded. Fallback data is used.", error);
-    }
-  }
-
-  function setupSelect(select, entries) {
-    select.innerHTML = "";
-    entries.forEach(entry => {
-      const option = document.createElement("option");
-      option.value = entry.key;
-      option.textContent = entry.label || entry.value;
-      select.appendChild(option);
-    });
-  }
-
-  function setupControls() {
-    setupSelect(themeSelect, gachaSource.themes);
-    setupSelect(toneSelect, gachaSource.tones);
-  }
-
-  function matchEntry(entry, selectedTheme, selectedTone) {
-    const themeOk = !entry.themeKey || entry.themeKey === selectedTheme.key || entry.themeKey === selectedTheme.label;
-    const toneOk = !entry.toneKey || entry.toneKey === selectedTone.key || entry.toneKey === selectedTone.label;
-    return themeOk && toneOk;
-  }
-
-  function pickFrom(category, selectedTheme, selectedTone) {
-    const pool = gachaSource[category].filter(entry => matchEntry(entry, selectedTheme, selectedTone));
-    return randomItem(pool.length ? pool : gachaSource[category]);
+  function setStatus(message, isError = false) {
+    if (!dataStatus) return;
+    dataStatus.textContent = message;
+    dataStatus.classList.toggle("is-error", isError);
   }
 
   function buildMonster() {
-    const selectedTheme = gachaSource.themes.find(entry => entry.key === themeSelect.value) || gachaSource.themes[0];
-    const selectedTone = gachaSource.tones.find(entry => entry.key === toneSelect.value) || gachaSource.tones[0];
-    const species = pickFrom("species", selectedTheme, selectedTone);
-    const feature = pickFrom("features", selectedTheme, selectedTone);
-    const color = pickFrom("colors", selectedTheme, selectedTone);
-    const ability = pickFrom("abilities", selectedTheme, selectedTone);
-    const scene = pickFrom("scenes", selectedTheme, selectedTone);
-    const nameWord = pickFrom("nameWords", selectedTheme, selectedTone);
+    const category = pick(monsterData.categories);
+    const habitat = pick(monsterData.habitats);
+    const species = pick(monsterData.species);
+    const bodyFeature = pick(monsterData.body_features);
+    const faceFeature = pick(monsterData.face_features);
+    const behavior = pick(monsterData.behaviors);
+    const ability = pick(monsterData.abilities);
+    const comment = pick(monsterData.comments);
+    const nickname = pick(monsterData.nicknames);
+    const status = pick(monsterData.statuses);
+    const size = pick(SIZES);
     const specimen = Math.floor(Math.random() * 900) + 100;
-    const rank = selectedTone.rank || randomItem(["C", "B", "A", "S", "SS"]);
-    const size = randomItem(SIZES);
 
     return {
       id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
       specimen,
-      themeKey: selectedTheme.key,
-      themeLabel: selectedTheme.label,
-      toneKey: selectedTone.key,
-      toneLabel: selectedTone.label,
-      name: `${species.value}型${nameWord.value}`,
-      species: species.value,
-      motif: species.value,
-      feature: feature.value,
-      trait: feature.value,
-      color: color.value,
-      ability: ability.value,
-      scene: scene.value,
-      habitat: scene.value,
-      danger: rank,
+      name: `${species}型${nickname}`,
+      category,
+      themeLabel: category,
+      habitat,
+      scene: habitat,
+      species,
+      motif: species,
+      bodyFeature,
+      faceFeature,
+      behavior,
+      ability,
+      comment,
+      nickname,
+      status,
+      danger: status,
       size,
       createdAt: new Date().toISOString()
     };
@@ -330,111 +160,38 @@ document.addEventListener("DOMContentLoaded", () => {
           <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
           <div class="danger-box">
             <span>RANK</span>
-            <strong>${escapeHtml(monster.danger)}</strong>
+            <strong>${escapeHtml(monster.status)}</strong>
           </div>
         </div>
         <dl class="data-grid">
-          <div class="data-item"><dt>THEME</dt><dd>${escapeHtml(monster.themeLabel)}</dd></div>
-          <div class="data-item"><dt>TONE</dt><dd>${escapeHtml(monster.toneLabel)}</dd></div>
+          <div class="data-item"><dt>CATEGORY</dt><dd>${escapeHtml(monster.category)}</dd></div>
           <div class="data-item"><dt>SPECIES</dt><dd>${escapeHtml(monster.species)}</dd></div>
-          <div class="data-item"><dt>COLOR</dt><dd>${escapeHtml(monster.color)}</dd></div>
+          <div class="data-item"><dt>NICKNAME</dt><dd>${escapeHtml(monster.nickname)}</dd></div>
           <div class="data-item"><dt>SCALE</dt><dd>${escapeHtml(monster.size)}</dd></div>
-          <div class="data-item full"><dt>FEATURE</dt><dd>${escapeHtml(monster.feature)}</dd></div>
+          <div class="data-item full"><dt>BODY</dt><dd>${escapeHtml(monster.bodyFeature)}</dd></div>
+          <div class="data-item full"><dt>FACE</dt><dd>${escapeHtml(monster.faceFeature)}</dd></div>
+          <div class="data-item full"><dt>BEHAVIOR</dt><dd>${escapeHtml(monster.behavior)}</dd></div>
           <div class="data-item full"><dt>ABILITY</dt><dd>${escapeHtml(monster.ability)}</dd></div>
-          <div class="data-item full"><dt>SCENE</dt><dd>${escapeHtml(monster.scene)}</dd></div>
+          <div class="data-item full"><dt>SCENE</dt><dd>${escapeHtml(monster.habitat)}</dd></div>
         </dl>
         <p class="description">
-          ${escapeHtml(monster.themeLabel)}テーマの創作用アイデア。
-          ${escapeHtml(monster.scene)}を舞台に、${escapeHtml(monster.species)}の要素と「${escapeHtml(monster.feature)}」特徴を組み合わせる。
-          トーンは「${escapeHtml(monster.toneLabel)}」。
+          ${escapeHtml(monster.comment)}
         </p>
       </article>
     `;
   }
 
-  function normalizeNews(item) {
-    return {
-      date: item.date || item.day || item.month || item["日付"] || "",
-      title: item.title || item.label || item["タイトル"] || item["見出し"] || "お知らせ",
-      text: item.text || item.body || item.message || item["本文"] || item["内容"] || item["お知らせ"] || ""
-    };
-  }
-
-  function renderNews(items = []) {
-    if (!newsList) return;
-
-    if (!items.length) {
-      newsList.innerHTML = '<p class="info-empty">まだお知らせはありません。</p>';
-      return;
-    }
-
-    newsList.innerHTML = items.slice(0, 5).map(normalizeNews).filter(item => item.text).map(item => `
-      <article class="info-card">
-        <span>${escapeHtml(item.date)}</span>
-        <strong>${escapeHtml(item.title)}</strong>
-        <p>${escapeHtml(item.text)}</p>
-      </article>
-    `).join("");
-  }
-
-  async function loadNews() {
-    if (!GAS_URL) {
-      renderNews([]);
-      return;
-    }
-
-    try {
-      const url = new URL(GAS_URL);
-      url.searchParams.set("action", "news");
-      const response = await fetch(url.toString());
-      const data = await response.json();
-      renderNews(Array.isArray(data) ? data : data.news || data["お知らせ"] || []);
-    } catch (error) {
-      renderNews([]);
-    }
-  }
-
-  function setupRequestForm() {
-    if (!requestForm) return;
-
-    requestForm.addEventListener("submit", async event => {
-      event.preventDefault();
-      const formData = new FormData(requestForm);
-      const idea = String(formData.get("idea") || "").trim();
-
-      if (!idea) {
-        requestStatus.textContent = "内容を入力してください。";
-        return;
-      }
-
-      if (!GAS_URL) {
-        requestStatus.textContent = "送信先URLが未設定です。";
-        return;
-      }
-
-      const payload = new URLSearchParams();
-      payload.set("action", "request");
-      payload.set("createdAt", new Date().toISOString());
-      payload.set("category", String(formData.get("category") || ""));
-      payload.set("idea", idea);
-
-      requestStatus.textContent = "送信中です...";
-
-      try {
-        await fetch(GAS_URL, {
-          method: "POST",
-          body: payload,
-          mode: "no-cors"
-        });
-        requestStatus.textContent = "送信しました。ありがとうございます。";
-        requestForm.reset();
-      } catch (error) {
-        requestStatus.textContent = "送信できませんでした。時間をおいてもう一度お試しください。";
-      }
-    });
+  function renderLoadError(error) {
+    result.innerHTML = `
+      <div class="placeholder">
+        <div class="placeholder-icon">ERROR</div>
+        <div class="placeholder-text">${escapeHtml(error.message)}</div>
+      </div>
+    `;
   }
 
   window.generateMonster = function generateMonster() {
+    if (!monsterData) return null;
     currentMonster = buildMonster();
     renderMonster(currentMonster);
     saveBtn.disabled = false;
@@ -453,12 +210,31 @@ document.addEventListener("DOMContentLoaded", () => {
     saveBtn.textContent = "アイデアを保存しました";
   });
 
+  function setupRequestForm() {
+    if (!requestForm) return;
+    requestForm.addEventListener("submit", event => {
+      event.preventDefault();
+      if (requestStatus) {
+        requestStatus.textContent = "リクエストありがとうございます。スプレッドシートに追記して反映してください。";
+      }
+      requestForm.reset();
+    });
+  }
+
   async function init() {
-    await loadSpreadsheetData();
-    setupControls();
+    generateBtn.disabled = true;
+    setStatus("ガチャデータを読み込み中...");
     setupRequestForm();
     renderArchive();
-    loadNews();
+
+    try {
+      monsterData = normalizeMonsterData(await loadMonsterData());
+      generateBtn.disabled = false;
+      setStatus("ガチャデータを読み込みました。各シートから独立抽選します。");
+    } catch (error) {
+      setStatus("ガチャデータを読み込めませんでした。", true);
+      renderLoadError(error);
+    }
   }
 
   init();
