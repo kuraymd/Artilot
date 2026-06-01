@@ -47,7 +47,7 @@
       <section class="info-section" aria-label="お知らせとリクエスト">
         <div class="info-column">
           <h2>お知らせ</h2>
-          <div class="info-list">
+          <div id="newsList" class="info-list" aria-live="polite">
             <p class="info-empty">ガチャ内容は Google スプレッドシート側の各シートから読み込みます。</p>
           </div>
         </div>
@@ -55,6 +55,22 @@
         <div class="info-column">
           <h2>リクエスト</h2>
           <form id="requestForm" class="request-form">
+            <label>
+              <span>追加先</span>
+              <select name="category">
+                <option value="categories">カテゴリ</option>
+                <option value="habitats">生息地・シーン</option>
+                <option value="species">種族</option>
+                <option value="body_features">体の特徴</option>
+                <option value="face_features">顔の特徴</option>
+                <option value="behaviors">行動</option>
+                <option value="abilities">能力</option>
+                <option value="comments">コメント</option>
+                <option value="nicknames">ニックネーム</option>
+                <option value="statuses">ステータス</option>
+                <option value="other">その他</option>
+              </select>
+            </label>
             <label>
               <span>追加してほしい内容</span>
               <textarea name="idea" rows="4" placeholder="例: 雨の日にだけ現れる小さな種族"></textarea>

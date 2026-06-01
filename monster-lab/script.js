@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dataStatus = document.getElementById("dataStatus");
   const requestForm = document.getElementById("requestForm");
   const requestStatus = document.getElementById("requestStatus");
+  const newsList = document.getElementById("newsList");
 
   let monsterData = null;
   let currentMonster = null;
@@ -42,6 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const res = await fetch(API_URL);
     if (!res.ok) throw new Error("データ取得に失敗しました");
     return await res.json();
+  }
+
+  async function postRequest(payload) {
+    await fetch(API_URL, {
+      method: "POST",
+      body: payload,
+      mode: "no-cors"
+    });
   }
 
   function valueFromObject(item, key) {
@@ -144,6 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderMonster(monster) {
+    const rankClass = monster.status.length >= 4 ? " rank-long" : "";
+
     result.innerHTML = `
       <div class="paper-stack" aria-hidden="true">
         <span class="paper-sheet sheet-a"></span>
@@ -158,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div class="report-subhead">
           <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
-          <div class="danger-box">
+          <div class="danger-box${rankClass}">
             <span>RANK</span>
             <strong>${escapeHtml(monster.status)}</strong>
           </div>
@@ -190,6 +201,47 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
+  function normalizeAnnouncement(item) {
+    if (typeof item === "string") {
+      return { date: "", title: "お知らせ", text: item };
+    }
+
+    return {
+      date: item.date || item.createdAt || item.day || "",
+      title: item.title || item.label || item.heading || "お知らせ",
+      text: item.text || item.body || item.message || item.comment || ""
+    };
+  }
+
+  function getAnnouncements(data) {
+    const candidates = [
+      data.announcements,
+      data.news,
+      data.information,
+      data.notices,
+      data["お知らせ"]
+    ];
+    const source = candidates.find(Array.isArray);
+    return source ? source.map(normalizeAnnouncement).filter(item => item.text || item.title) : [];
+  }
+
+  function renderAnnouncements(items) {
+    if (!newsList) return;
+
+    if (!items.length) {
+      newsList.innerHTML = '<p class="info-empty">まだお知らせはありません。</p>';
+      return;
+    }
+
+    newsList.innerHTML = items.slice(0, 5).map(item => `
+      <article class="info-card">
+        ${item.date ? `<span>${escapeHtml(item.date)}</span>` : ""}
+        <strong>${escapeHtml(item.title)}</strong>
+        <p>${escapeHtml(item.text)}</p>
+      </article>
+    `).join("");
+  }
+
   window.generateMonster = function generateMonster() {
     if (!monsterData) return null;
     currentMonster = buildMonster();
@@ -212,12 +264,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setupRequestForm() {
     if (!requestForm) return;
-    requestForm.addEventListener("submit", event => {
+    requestForm.addEventListener("submit", async event => {
       event.preventDefault();
-      if (requestStatus) {
-        requestStatus.textContent = "リクエストありがとうございます。スプレッドシートに追記して反映してください。";
+      const formData = new FormData(requestForm);
+      const idea = String(formData.get("idea") || "").trim();
+
+      if (!idea) {
+        if (requestStatus) requestStatus.textContent = "追加してほしい内容を入力してください。";
+        return;
       }
-      requestForm.reset();
+
+      const payload = new URLSearchParams();
+      payload.set("action", "request");
+      payload.set("createdAt", new Date().toISOString());
+      payload.set("category", String(formData.get("category") || "other"));
+      payload.set("idea", idea);
+
+      if (requestStatus) requestStatus.textContent = "リクエストを送信中です...";
+
+      try {
+        await postRequest(payload);
+        if (requestStatus) requestStatus.textContent = "リクエストを送信しました。ありがとうございます。";
+        requestForm.reset();
+      } catch (error) {
+        if (requestStatus) requestStatus.textContent = "送信できませんでした。時間をおいてもう一度お試しください。";
+      }
     });
   }
 
@@ -228,7 +299,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderArchive();
 
     try {
-      monsterData = normalizeMonsterData(await loadMonsterData());
+      const data = await loadMonsterData();
+      monsterData = normalizeMonsterData(data);
+      renderAnnouncements(getAnnouncements(data));
       generateBtn.disabled = false;
       setStatus("ガチャデータを読み込みました。各シートから独立抽選します。");
     } catch (error) {

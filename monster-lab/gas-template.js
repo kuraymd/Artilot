@@ -1,40 +1,48 @@
 const SHEETS = {
-  gacha: "ガチャ内容",
-  requests: "リクエスト",
-  news: "お知らせ"
+  categories: "categories",
+  habitats: "habitats",
+  species: "species",
+  body_features: "body_features",
+  face_features: "face_features",
+  behaviors: "behaviors",
+  abilities: "abilities",
+  comments: "comments",
+  nicknames: "nicknames",
+  statuses: "statuses",
+  announcements: "announcements",
+  requests: "requests"
 };
 
 function setupMonsterLabSheets() {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 
-  const gacha = getOrCreateSheet_(spreadsheet, SHEETS.gacha);
-  gacha.clear();
-  gacha.appendRow(["theme", "themeKey", "tone", "toneKey", "rank", "species", "color", "feature", "ability", "scene", "nameWord", "targetTheme", "targetTone"]);
-  gacha.appendRow(["動物", "animal", "ホラー", "horror", "SS", "きつね", "青白い灰", "目を合わせると黙る", "足音を真似る", "丘の上", "裏窓", "", ""]);
-  gacha.appendRow(["深海", "deepsea", "かわいい", "cute", "C", "クラゲ", "クリーム色", "人懐っこい", "小さな幸運を運ぶ", "海中洞窟", "こ", "", ""]);
-  gacha.appendRow(["植物", "plant", "明るい", "cheerful", "B", "若葉", "オーロラグリーン", "好奇心が強い", "光るサインを出す", "川沿いの草むら", "きら", "", ""]);
-  gacha.appendRow(["", "", "", "", "", "割れた人形", "", "", "", "", "", "廃墟", "ホラー"]);
-
-  const requests = getOrCreateSheet_(spreadsheet, SHEETS.requests);
-  requests.clear();
-  requests.appendRow(["createdAt", "category", "idea"]);
-
-  const news = getOrCreateSheet_(spreadsheet, SHEETS.news);
-  news.clear();
-  news.appendRow(["date", "title", "text"]);
-  news.appendRow(["2026.05", "Monster Lab 更新", "テーマ、トーン、種族などをスプレッドシートから管理できるようにしました。"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.categories, ["category", "sub_category"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.habitats, ["habitat", "habitat_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.species, ["species", "species_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.body_features, ["body_feature", "feature_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.face_features, ["face_feature", "feature_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.behaviors, ["behavior", "behavior_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.abilities, ["ability", "ability_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.comments, ["comment", "comment_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.nicknames, ["nickname_prefix", "nickname_suffix"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.statuses, ["status", "status_type"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.announcements, ["date", "title", "text"]);
+  createSheetWithHeader_(spreadsheet, SHEETS.requests, ["createdAt", "category", "idea"]);
 }
 
-function doGet(e) {
-  const action = e.parameter.action || "gacha";
-
-  if (action === "news") {
-    return json_(readSheetObjects_(SHEETS.news));
-  }
-
+function doGet() {
   return json_({
-    gacha: readSheetObjects_(SHEETS.gacha),
-    news: readSheetObjects_(SHEETS.news)
+    categories: readSheetObjects_(SHEETS.categories),
+    habitats: readSheetObjects_(SHEETS.habitats),
+    species: readSheetObjects_(SHEETS.species),
+    body_features: readSheetObjects_(SHEETS.body_features),
+    face_features: readSheetObjects_(SHEETS.face_features),
+    behaviors: readSheetObjects_(SHEETS.behaviors),
+    abilities: readSheetObjects_(SHEETS.abilities),
+    comments: readSheetObjects_(SHEETS.comments),
+    nicknames: readSheetObjects_(SHEETS.nicknames),
+    statuses: readSheetObjects_(SHEETS.statuses),
+    announcements: readSheetObjects_(SHEETS.announcements)
   });
 }
 
@@ -43,17 +51,28 @@ function doPost(e) {
 
   if (action === "request") {
     const sheet = getOrCreateSheet_(SpreadsheetApp.getActiveSpreadsheet(), SHEETS.requests);
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["createdAt", "category", "idea"]);
-    }
+    ensureHeader_(sheet, ["createdAt", "category", "idea"]);
     sheet.appendRow([
       e.parameter.createdAt || new Date().toISOString(),
-      e.parameter.category || "",
+      e.parameter.category || "other",
       e.parameter.idea || ""
     ]);
   }
 
   return json_({ ok: true });
+}
+
+function createSheetWithHeader_(spreadsheet, name, headers) {
+  const sheet = getOrCreateSheet_(spreadsheet, name);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(headers);
+  }
+}
+
+function ensureHeader_(sheet, headers) {
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(headers);
+  }
 }
 
 function getOrCreateSheet_(spreadsheet, name) {
