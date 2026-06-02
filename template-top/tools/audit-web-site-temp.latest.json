@@ -1,0 +1,228 @@
+﻿{
+  "root": "C:\\Users\\81903\\Desktop\\website\\web-site-temp",
+  "templates": 22,
+  "grouped": {},
+  "summaries": [
+    {
+      "template": "template-top",
+      "css": 1,
+      "js": 1,
+      "images": 1,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web01/Cafe-Template-Cool",
+      "css": 1,
+      "js": 1,
+      "images": 15,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web01/Cafe-Template-Dark",
+      "css": 1,
+      "js": 1,
+      "images": 15,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web01/Cafe-Template-Girly",
+      "css": 1,
+      "js": 1,
+      "images": 15,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web01/Cafe-Template-Minimal",
+      "css": 1,
+      "js": 1,
+      "images": 15,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web01/Cafe-Template-Retropop",
+      "css": 1,
+      "js": 1,
+      "images": 15,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web02/Nail-Template-Cool",
+      "css": 1,
+      "js": 1,
+      "images": 0,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web02/Nail-Template-Dark",
+      "css": 1,
+      "js": 1,
+      "images": 0,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web02/Nail-Template-Minimal",
+      "css": 1,
+      "js": 1,
+      "images": 0,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web02/Rose-Veil-Template-Girly",
+      "css": 1,
+      "js": 1,
+      "images": 9,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web02/Rose-Veil-Template-pop",
+      "css": 1,
+      "js": 1,
+      "images": 9,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web03/Creator-Portfolio-Template-Cool",
+      "css": 2,
+      "js": 1,
+      "images": 1,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web03/Creator-Portfolio-Template-Dark",
+      "css": 2,
+      "js": 1,
+      "images": 1,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web03/Creator-Portfolio-Template-Girly",
+      "css": 2,
+      "js": 1,
+      "images": 1,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web03/Creator-Portfolio-Template-Minimal",
+      "css": 2,
+      "js": 1,
+      "images": 1,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web03/Creator-Portfolio-Template-RetroPop",
+      "css": 2,
+      "js": 1,
+      "images": 1,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web04/Portfolio-Template-Cool",
+      "css": 1,
+      "js": 1,
+      "images": 8,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web04/Portfolio-Template-Dark",
+      "css": 1,
+      "js": 1,
+      "images": 8,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web04/Portfolio-Template-Girly",
+      "css": 1,
+      "js": 1,
+      "images": 8,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web04/Portfolio-Template-Minimal",
+      "css": 1,
+      "js": 1,
+      "images": 8,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "web04/Portfolio-Template-RetroPop",
+      "css": 1,
+      "js": 1,
+      "images": 8,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    },
+    {
+      "template": "website-template-demo-main",
+      "css": 6,
+      "js": 5,
+      "images": 77,
+      "hrefHash": 0,
+      "missingRefs": 0,
+      "readme": true,
+      "license": true
+    }
+  ],
+  "issues": []
+}
