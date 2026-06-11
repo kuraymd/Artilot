@@ -166,9 +166,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="paper-sheet sheet-d"></span>
       </div>
       <article class="specimen-card">
+        <div class="report-band">MONSTER RESEARCH REPORT</div>
         <div class="specimen-header">
-          <span class="specimen-no">NO.${monster.specimen}</span>
-          <span class="report-title">報告書</span>
+          <span class="specimen-no">No.${monster.specimen}</span>
+          <span class="report-title">標本観察報告書</span>
         </div>
         <div class="report-subhead">
           <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
@@ -177,22 +178,47 @@ document.addEventListener("DOMContentLoaded", () => {
             <strong>${escapeHtml(monster.status)}</strong>
           </div>
         </div>
-        <dl class="data-grid">
+        <dl class="data-grid basic-data">
           <div class="data-item"><dt>CATEGORY</dt><dd>${escapeHtml(monster.category)}</dd></div>
           <div class="data-item"><dt>SPECIES</dt><dd>${escapeHtml(monster.species)}</dd></div>
           <div class="data-item"><dt>NICKNAME</dt><dd>${escapeHtml(monster.nickname)}</dd></div>
           <div class="data-item"><dt>SCALE</dt><dd>${escapeHtml(monster.size)}</dd></div>
-          <div class="data-item full"><dt>BODY</dt><dd>${escapeHtml(monster.bodyFeature)}</dd></div>
-          <div class="data-item full"><dt>FACE</dt><dd>${escapeHtml(monster.faceFeature)}</dd></div>
-          <div class="data-item full"><dt>BEHAVIOR</dt><dd>${escapeHtml(monster.behavior)}</dd></div>
-          <div class="data-item full"><dt>ABILITY</dt><dd>${escapeHtml(monster.ability)}</dd></div>
-          <div class="data-item full"><dt>SCENE</dt><dd>${escapeHtml(monster.habitat)}</dd></div>
         </dl>
-        <p class="description">
-          ${escapeHtml(monster.comment)}
-        </p>
+        <dl class="observation-grid">
+          <div class="observation-item">
+            <dt><i data-lucide="gem"></i><span>BODY</span></dt>
+            <dd>${escapeHtml(monster.bodyFeature)}</dd>
+          </div>
+          <div class="observation-item">
+            <dt><i data-lucide="eye"></i><span>FACE</span></dt>
+            <dd>${escapeHtml(monster.faceFeature)}</dd>
+          </div>
+          <div class="observation-item">
+            <dt><i data-lucide="footprints"></i><span>BEHAVIOR</span></dt>
+            <dd>${escapeHtml(monster.behavior)}</dd>
+          </div>
+          <div class="observation-item">
+            <dt><i data-lucide="scan-search"></i><span>ABILITY</span></dt>
+            <dd>${escapeHtml(monster.ability)}</dd>
+          </div>
+          <div class="observation-item">
+            <dt><i data-lucide="building-2"></i><span>SCENE</span></dt>
+            <dd>${escapeHtml(monster.habitat)}</dd>
+          </div>
+        </dl>
+        <div class="report-note">
+          <span>RESEARCH NOTE</span>
+          <p>${escapeHtml(monster.comment)}</p>
+        </div>
+        <div class="report-footer-mark">IHYLI · MONSTER LAB</div>
       </article>
     `;
+
+    if (window.lucide) {
+      window.lucide.createIcons({
+        attrs: { "stroke-width": 1.5 }
+      });
+    }
   }
 
   function renderLoadError(error) {
