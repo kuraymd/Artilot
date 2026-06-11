@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const generateBtn = document.getElementById("generateBtn");
   const saveBtn = document.getElementById("saveBtn");
+  const imageSaveBtn = document.getElementById("imageSaveBtn");
   const result = document.getElementById("result");
   const dataStatus = document.getElementById("dataStatus");
   const requestForm = document.getElementById("requestForm");
@@ -153,7 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderMonster(monster) {
-    const rankClass = monster.status.length >= 4 ? " rank-long" : "";
+    const rankClass = /^(SSS|SS|S|AA|A|B|C|D|E)$/i.test(monster.status)
+      ? " rank-code"
+      : " rank-word";
 
     result.innerHTML = `
       <div class="paper-stack" aria-hidden="true">
@@ -247,7 +250,9 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMonster = buildMonster();
     renderMonster(currentMonster);
     saveBtn.disabled = false;
-    saveBtn.textContent = "この標本を保存する";
+    saveBtn.textContent = "標本庫に保存する";
+    imageSaveBtn.disabled = false;
+    imageSaveBtn.textContent = "PNG画像で保存する";
     return currentMonster;
   };
 
@@ -260,6 +265,51 @@ document.addEventListener("DOMContentLoaded", () => {
     saveMonsterToArchive(currentMonster);
     saveBtn.disabled = true;
     saveBtn.textContent = "標本を保存しました";
+  });
+
+  imageSaveBtn.addEventListener("click", async () => {
+    const card = result.querySelector(".specimen-card");
+    if (!card || !currentMonster) return;
+
+    if (typeof html2canvas !== "function") {
+      setStatus("画像保存機能を読み込めませんでした。", true);
+      return;
+    }
+
+    imageSaveBtn.disabled = true;
+    imageSaveBtn.textContent = "画像を作成中...";
+    result.classList.add("is-exporting");
+
+    try {
+      if (document.fonts?.ready) await document.fonts.ready;
+
+      const canvas = await html2canvas(card, {
+        backgroundColor: "#e8dfd2",
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+      if (!blob) throw new Error("画像を作成できませんでした");
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `monster-lab-NO-${currentMonster.specimen}.png`;
+      link.click();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      imageSaveBtn.textContent = "PNG画像を保存しました";
+    } catch (error) {
+      console.error(error);
+      imageSaveBtn.textContent = "画像保存に失敗しました";
+    } finally {
+      result.classList.remove("is-exporting");
+      window.setTimeout(() => {
+        imageSaveBtn.disabled = false;
+        imageSaveBtn.textContent = "PNG画像で保存する";
+      }, 1400);
+    }
   });
 
   function setupRequestForm() {

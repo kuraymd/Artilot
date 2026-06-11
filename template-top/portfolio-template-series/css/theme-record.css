@@ -1,0 +1,295 @@
+:root {
+  --bg: #eb6c00;
+  --panel: #fffdf3;
+  --ink: #090704;
+  --muted: #e7d8b9;
+  --accent: #ef7100;
+  --accent-2: #8fc34a;
+  --shadow: #232323;
+  --grid: rgba(255, 255, 255, 0.16);
+}
+
+.theme-record {
+  background: #eb6c00;
+}
+
+.theme-record .record-hero {
+  min-height: 100vh;
+  display: block;
+  padding: 20px 0 64px;
+  overflow: hidden;
+}
+
+.theme-record .record-stage {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 84px);
+  padding: 0 0 52px;
+  background: transparent;
+  --turntable-size: clamp(360px, 50vw, 645px);
+  --record-size: clamp(330px, 44vw, 570px);
+  --record-gap: clamp(44px, 7vw, 90px);
+}
+
+.theme-record .record-stage::before {
+  display: none;
+}
+
+.theme-record .record-header {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: calc(100vw - 54px);
+  min-height: 54px;
+  margin: 0 auto;
+  padding: 0 clamp(28px, 4vw, 50px);
+  background: #fffdf3;
+  font-family: "Arial Rounded MT Bold", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  font-weight: 800;
+}
+
+.theme-record .record-header a {
+  color: #050505;
+  text-decoration: none;
+}
+
+.theme-record .record-header nav {
+  display: flex;
+  gap: clamp(34px, 4vw, 58px);
+  font-size: clamp(1.55rem, 2.7vw, 2.55rem);
+}
+
+.theme-record .record-header > a {
+  font-size: clamp(1.55rem, 2.7vw, 2.55rem);
+}
+
+.theme-record .record-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: var(--record-size) var(--turntable-size) var(--record-size);
+  align-items: center;
+  justify-content: center;
+  gap: var(--record-gap);
+  width: max-content;
+  margin: clamp(92px, 12vh, 132px) 50% 0;
+  transform: translateX(-50%);
+}
+
+.theme-record .turntable {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--turntable-size);
+  height: var(--turntable-size);
+  background: #6b5029;
+  box-shadow: inset 0 0 0 2px rgba(9, 7, 4, 0.18);
+}
+
+.theme-record .vinyl {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: clamp(18px, 3vw, 40px) solid #050505;
+  background:
+    radial-gradient(circle, #050505 0 9%, #8fc34a 9.4% 22%, transparent 22.4%),
+    repeating-radial-gradient(circle, #fffdf3 0 9px, #1a1a1a 9.5px 11px, #fffdf3 11.5px 16px);
+  color: #ef7100;
+  font-family: "Arial Rounded MT Bold", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  font-size: clamp(3rem, 6.4vw, 5.7rem);
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.theme-record .vinyl-left,
+.theme-record .vinyl-right {
+  width: var(--record-size);
+}
+
+.theme-record .vinyl-main {
+  width: calc(var(--turntable-size) * 0.88);
+}
+
+.theme-record .vinyl::before,
+.theme-record .vinyl::after {
+  content: "";
+  position: absolute;
+  inset: clamp(18px, 3vw, 40px);
+  border-radius: 50%;
+  border: 1px solid rgba(5, 5, 5, 0.75);
+}
+
+.theme-record .vinyl::after {
+  inset: clamp(28px, 4.4vw, 58px);
+}
+
+.theme-record .vinyl-label {
+  position: relative;
+  z-index: 2;
+  transform: rotate(-2deg);
+  text-shadow:
+    2px 2px 0 #fffdf3,
+    -1px -1px 0 rgba(255, 253, 243, 0.65);
+}
+
+.theme-record .record-layout.is-spinning .vinyl-main {
+  animation: record-spin 420ms ease;
+}
+
+@keyframes record-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  55% {
+    transform: rotate(24deg) scale(1.04);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.theme-record .tonearm {
+  position: absolute;
+  right: 15%;
+  top: 9%;
+  z-index: 4;
+  width: clamp(116px, 15vw, 205px);
+  height: 7px;
+  border-radius: 999px;
+  background: #f0bd14;
+  transform: rotate(-42deg);
+  transform-origin: right center;
+}
+
+.theme-record .tonearm::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 1px;
+  width: 18px;
+  height: 54px;
+  border-left: 7px solid #f0bd14;
+  border-radius: 999px;
+  transform: rotate(20deg);
+}
+
+.theme-record .record-controls {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(48px, 6vw, 78px);
+  width: clamp(430px, 36vw, 520px);
+  height: 54px;
+  margin: 44px auto 0;
+  background: #fffdf3;
+}
+
+.theme-record .record-controls button {
+  position: relative;
+  display: block;
+  width: 54px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.theme-record .record-prev::before,
+.theme-record .record-prev::after,
+.theme-record .record-play::before,
+.theme-record .record-next::before,
+.theme-record .record-next::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+}
+
+.theme-record .record-prev::before {
+  left: 0;
+  border-right: 28px solid #050505;
+}
+
+.theme-record .record-prev::after {
+  left: 24px;
+  border-right: 28px solid #050505;
+}
+
+.theme-record .record-play::before {
+  left: 10px;
+  border-left: 36px solid #050505;
+}
+
+.theme-record .record-next::before {
+  right: 24px;
+  border-left: 28px solid #050505;
+}
+
+.theme-record .record-next::after {
+  right: 0;
+  border-left: 28px solid #050505;
+}
+
+.theme-record .section,
+.theme-record .site-footer {
+  width: min(614px, calc(100% - 32px));
+}
+
+.theme-record .section {
+  background: #fffdf3;
+}
+
+@media (max-width: 720px) {
+  .theme-record .record-stage {
+    min-height: auto;
+    padding: 22px 24px 34px;
+  }
+
+  .theme-record .record-stage::before {
+    inset: 22px 24px 34px;
+  }
+
+  .theme-record .record-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 8px 12px;
+  }
+
+  .theme-record .record-header nav {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .theme-record .record-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    width: 100%;
+    margin: 26px 0 0;
+    transform: none;
+  }
+
+  .theme-record .vinyl-left,
+  .theme-record .vinyl-right,
+  .theme-record .vinyl-main,
+  .theme-record .turntable {
+    width: min(260px, calc(100vw - 110px));
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .theme-record .turntable {
+    height: min(260px, calc(100vw - 110px));
+  }
+}

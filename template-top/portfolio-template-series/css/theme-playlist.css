@@ -1,0 +1,10 @@
+:root {
+  --bg: #686d67;
+  --panel: #fffef7;
+  --ink: #050505;
+  --muted: #d8d8d0;
+  --accent: #88bd38;
+  --accent-2: #e7d255;
+  --shadow: #343434;
+  --grid: rgba(255, 255, 255, 0.24);
+}

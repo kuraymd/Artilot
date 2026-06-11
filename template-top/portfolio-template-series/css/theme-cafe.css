@@ -1,0 +1,30 @@
+:root {
+  --bg: #796653;
+  --panel: #fff8e7;
+  --ink: #2f241a;
+  --muted: #e9dbc5;
+  --accent: #5f7d51;
+  --accent-2: #c78344;
+  --shadow: #3d3025;
+  --grid: rgba(255, 248, 231, 0.16);
+}
+
+.theme-cafe .cover-art {
+  background: #304030;
+}
+
+.theme-cafe .cover-art::before {
+  left: 12%;
+  top: 20%;
+  width: 76%;
+  height: 4px;
+  border-radius: 0;
+  background: repeating-linear-gradient(90deg, var(--panel) 0 28px, transparent 28px 40px);
+  box-shadow: 0 64px 0 var(--panel), 0 128px 0 var(--panel), 0 192px 0 var(--panel);
+}
+
+.theme-cafe .cover-art::after,
+.theme-cafe .avatar-face,
+.theme-cafe .avatar-mark {
+  display: none;
+}

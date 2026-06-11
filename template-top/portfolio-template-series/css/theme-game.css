@@ -1,0 +1,29 @@
+:root {
+  --bg: #101826;
+  --panel: #eef9ff;
+  --ink: #07111f;
+  --muted: #b7d2e3;
+  --accent: #46d7ff;
+  --accent-2: #80ff9f;
+  --shadow: #000;
+  --grid: rgba(70, 215, 255, 0.2);
+}
+
+.theme-game .hero-card {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--ink), 10px 10px 0 #000;
+}
+
+.theme-game .cover-art {
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    #16263d;
+  background-size: 22px 22px;
+}
+
+.theme-game .cover-art::before {
+  border-radius: 0;
+  background: var(--accent);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}

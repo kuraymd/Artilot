@@ -1,0 +1,22 @@
+:root {
+  --bg: #cbbba8;
+  --panel: #fffaf0;
+  --ink: #372d29;
+  --muted: #e8ded4;
+  --accent: #d47c91;
+  --accent-2: #8ab0bb;
+  --shadow: #6b5f56;
+  --grid: rgba(55, 45, 41, 0.14);
+}
+
+.theme-canvas .hero-card {
+  transform: rotate(-1.5deg);
+}
+
+.theme-canvas .cover-art {
+  background:
+    linear-gradient(90deg, rgba(55, 45, 41, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(55, 45, 41, 0.08) 1px, transparent 1px),
+    #fffaf0;
+  background-size: 26px 26px;
+}

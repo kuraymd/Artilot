@@ -162,7 +162,8 @@ h1 {
 }
 
 .btn-generate,
-.btn-save {
+.btn-save,
+.btn-image {
   display: block;
   width: 100%;
   border-radius: 4px;
@@ -194,7 +195,8 @@ h1 {
 }
 
 .btn-generate:active,
-.btn-save:active {
+.btn-save:active,
+.btn-image:active {
   transform: scale(0.98);
 }
 
@@ -305,40 +307,43 @@ h1 {
 
 .report-subhead {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(150px, auto);
-  align-items: center;
-  gap: clamp(18px, 5vw, 38px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(20px, 5vw, 42px);
   margin: 0 0 24px;
-  min-height: 124px;
+  min-height: 94px;
 }
 
 .danger-box {
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   justify-self: end;
-  gap: 10px;
+  gap: 8px;
   color: var(--ink);
-  max-width: min(42vw, 270px);
+  width: clamp(104px, 18vw, 144px);
+  padding: 8px 0 8px 16px;
+  border-left: 1px solid rgba(17, 17, 17, 0.48);
 }
 
 .danger-box span {
+  width: 100%;
   font-family: "Share Tech Mono", monospace;
-  font-size: clamp(13px, 2.6vw, 18px);
+  font-size: 12px;
   letter-spacing: 1px;
-  border-bottom: 2px solid var(--ink);
-  padding: 0 clamp(24px, 5vw, 44px) 4px 0;
+  border-bottom: 1.5px solid var(--ink);
+  padding: 0 0 4px;
 }
 
 .danger-box strong {
   color: var(--accent);
   font-family: "Comic Sans MS", "Segoe Print", "Yu Gothic", cursive;
-  font-size: clamp(46px, 9vw, 86px);
+  font-size: clamp(38px, 6vw, 58px);
   font-weight: 900;
   font-style: italic;
-  line-height: 0.84;
-  letter-spacing: -0.04em;
-  transform: rotate(-7deg) skewX(-8deg);
+  line-height: 1;
+  letter-spacing: 0;
+  transform: rotate(-5deg) skewX(-5deg);
   text-shadow:
     1px 0 0 var(--accent),
     -1px 1px 0 rgba(217, 31, 36, 0.75),
@@ -347,25 +352,12 @@ h1 {
   -webkit-text-stroke: 1px rgba(217, 31, 36, 0.24);
 }
 
-.danger-box.rank-long {
-  grid-template-columns: 1fr;
-  gap: 6px;
-  align-items: end;
-  text-align: right;
-}
-
-.danger-box.rank-long span {
-  justify-self: end;
-}
-
-.danger-box.rank-long strong {
-  display: block;
+.danger-box.rank-word strong {
   max-width: 100%;
-  font-size: clamp(34px, 6vw, 58px);
-  line-height: 0.95;
+  font-size: clamp(23px, 4vw, 34px);
+  line-height: 1.15;
   letter-spacing: 0;
   word-break: keep-all;
-  overflow-wrap: normal;
   white-space: nowrap;
 }
 
@@ -373,7 +365,7 @@ h1 {
   margin: 0;
   padding: 0;
   color: var(--ink);
-  font-size: clamp(30px, 5.8vw, 48px);
+  font-size: clamp(28px, 5vw, 43px);
   line-height: 1.25;
   border-bottom: 0;
   word-break: keep-all;
@@ -426,7 +418,14 @@ h1 {
   padding-bottom: 20px;
 }
 
-.btn-save {
+.specimen-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.btn-save,
+.btn-image {
   padding: 12px;
   border: 1px solid rgba(16, 22, 20, 0.62);
   background:
@@ -437,15 +436,41 @@ h1 {
   letter-spacing: 0.08em;
 }
 
-.btn-save:hover:not(:disabled) {
+.btn-image {
+  border-color: rgba(126, 219, 199, 0.58);
+  background:
+    linear-gradient(180deg, rgba(126, 219, 199, 0.12), transparent),
+    var(--lab-dark);
+  color: #e9fff9;
+}
+
+.btn-save:hover:not(:disabled),
+.btn-image:hover:not(:disabled) {
   border-color: var(--lab-glow);
-  background: #eef8f3;
   box-shadow: 0 8px 20px rgba(16, 22, 20, 0.14);
 }
 
-.btn-save:disabled {
+.btn-save:hover:not(:disabled) {
+  background: #eef8f3;
+}
+
+.btn-save:disabled,
+.btn-image:disabled {
   opacity: 0.45;
   cursor: default;
+}
+
+.result.is-exporting {
+  padding: 0;
+}
+
+.result.is-exporting .paper-stack {
+  display: none;
+}
+
+.result.is-exporting .specimen-card {
+  transform: none;
+  box-shadow: none;
 }
 
 .archive-section {
@@ -684,18 +709,28 @@ h1 {
   }
 
   .report-subhead {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
     min-height: 0;
   }
 
   .danger-box {
     justify-self: end;
-    max-width: 100%;
+    width: 92px;
+    padding-left: 10px;
   }
 
-  .danger-box.rank-long strong {
-    font-size: clamp(34px, 13vw, 58px);
-    white-space: normal;
+  .danger-box strong {
+    font-size: clamp(32px, 11vw, 46px);
+  }
+
+  .danger-box.rank-word strong {
+    font-size: clamp(20px, 7vw, 28px);
+    white-space: nowrap;
+  }
+
+  .monster-name {
+    font-size: clamp(25px, 8vw, 38px);
   }
 
   .data-grid {
@@ -715,6 +750,10 @@ h1 {
   }
 
   .info-section {
+    grid-template-columns: 1fr;
+  }
+
+  .specimen-actions {
     grid-template-columns: 1fr;
   }
 }
