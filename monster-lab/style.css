@@ -349,7 +349,7 @@ h1 {
 }
 
 .danger-box strong {
-  color: #303a36;
+  color: #a72d31;
   font-family: var(--generated-font);
   font-size: clamp(25px, 4.4vw, 36px);
   font-weight: 400;

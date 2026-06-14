@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="report-subhead">
           <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
           <div class="danger-box${rankClass}">
-            <span>RANK</span>
+            <span>判定</span>
             <strong>${escapeHtml(monster.status)}</strong>
           </div>
         </div>
