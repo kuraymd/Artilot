@@ -186,23 +186,23 @@ document.addEventListener("DOMContentLoaded", () => {
         </dl>
         <dl class="observation-grid">
           <div class="observation-item">
-            <dt><i data-lucide="gem"></i><span>BODY</span></dt>
+            <dt><i data-lucide="dna"></i><span>BODY</span></dt>
             <dd>${escapeHtml(monster.bodyFeature)}</dd>
           </div>
           <div class="observation-item">
-            <dt><i data-lucide="eye"></i><span>FACE</span></dt>
+            <dt><i data-lucide="smile"></i><span>FACE</span></dt>
             <dd>${escapeHtml(monster.faceFeature)}</dd>
           </div>
           <div class="observation-item">
-            <dt><i data-lucide="footprints"></i><span>BEHAVIOR</span></dt>
+            <dt><i data-lucide="route"></i><span>BEHAVIOR</span></dt>
             <dd>${escapeHtml(monster.behavior)}</dd>
           </div>
           <div class="observation-item">
-            <dt><i data-lucide="scan-search"></i><span>ABILITY</span></dt>
+            <dt><i data-lucide="sparkles"></i><span>ABILITY</span></dt>
             <dd>${escapeHtml(monster.ability)}</dd>
           </div>
           <div class="observation-item">
-            <dt><i data-lucide="building-2"></i><span>SCENE</span></dt>
+            <dt><i data-lucide="map-pin"></i><span>SCENE</span></dt>
             <dd>${escapeHtml(monster.habitat)}</dd>
           </div>
         </dl>
