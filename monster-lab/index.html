@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monster Lab</title>
-  <meta name="description" content="未知のモンスター標本を報告書形式でランダム生成する創作用ラボです。">
+  <meta name="description" content="未知のモンスターについての報告書をランダム生成する創作用ラボです。">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,26 +24,26 @@
     </header>
 
     <main>
-      <section class="terminal-panel" aria-label="標本生成端末">
+      <section class="terminal-panel" aria-label="報告書作成端末">
         <p class="data-status" id="dataStatus">研究端末を起動しています...</p>
-        <button class="btn-generate" id="generateBtn" type="button" disabled>標本を生成する</button>
+        <button class="btn-generate" id="generateBtn" type="button" disabled>報告書を作成する</button>
       </section>
 
       <section id="result" class="result" aria-live="polite">
         <div class="placeholder">
           <div class="placeholder-icon">LAB</div>
-          <div class="placeholder-text">AWAITING SPECIMEN DATA...</div>
+          <div class="placeholder-text">AWAITING REPORT DATA...</div>
         </div>
       </section>
 
       <div class="specimen-actions">
-        <button class="btn-save" id="saveBtn" type="button" disabled>標本庫に保存する</button>
+        <button class="btn-save" id="saveBtn" type="button" disabled>報告記録に保存する</button>
         <button class="btn-image" id="imageSaveBtn" type="button" disabled>PNG画像で保存する</button>
       </div>
 
-      <section class="archive-section" aria-label="標本アーカイブ">
+      <section class="archive-section" aria-label="報告記録アーカイブ">
         <div class="archive-header">
-          <span class="archive-title">SPECIMEN ARCHIVE - 標本アーカイブ</span>
+          <span class="archive-title">REPORT ARCHIVE - 報告記録</span>
           <span class="archive-count" id="archiveCount"></span>
         </div>
         <div id="archiveList" class="archive-list"></div>
@@ -81,7 +81,7 @@
               <textarea name="idea" rows="4" placeholder="例: 雨の日にだけ現れる小さな種族"></textarea>
             </label>
             <button class="request-submit" type="submit">メモする</button>
-            <p id="requestStatus" class="request-status">追加調査してほしい標本情報があれば、ここから送れます。</p>
+            <p id="requestStatus" class="request-status">追加調査してほしい報告内容があれば、ここから送れます。</p>
           </form>
         </div>
       </section>

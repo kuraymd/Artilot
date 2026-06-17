@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadMonsterData() {
     const res = await fetch(API_URL);
-    if (!res.ok) throw new Error("標本データの取得に失敗しました");
+    if (!res.ok) throw new Error("報告データの取得に失敗しました");
     return await res.json();
   }
 
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="report-band">MONSTER RESEARCH REPORT</div>
         <div class="specimen-header">
           <span class="specimen-no">No.${monster.specimen}</span>
-          <span class="report-title">標本観察報告書</span>
+          <span class="report-title">異常存在報告書</span>
         </div>
         <div class="report-subhead">
           <h2 class="monster-name">${escapeHtml(monster.name)}</h2>
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMonster = buildMonster();
     renderMonster(currentMonster);
     saveBtn.disabled = false;
-    saveBtn.textContent = "標本庫に保存する";
+    saveBtn.textContent = "報告記録に保存する";
     imageSaveBtn.disabled = false;
     imageSaveBtn.textContent = "PNG画像で保存する";
     return currentMonster;
@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!currentMonster) return;
     saveMonsterToArchive(currentMonster);
     saveBtn.disabled = true;
-    saveBtn.textContent = "標本を保存しました";
+    saveBtn.textContent = "報告を保存しました";
   });
 
   imageSaveBtn.addEventListener("click", async () => {
@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `monster-lab-NO-${currentMonster.specimen}.png`;
+      link.download = `monster-lab-report-NO-${currentMonster.specimen}.png`;
       link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 1000);
       imageSaveBtn.textContent = "PNG画像を保存しました";
@@ -379,9 +379,9 @@ document.addEventListener("DOMContentLoaded", () => {
       monsterData = normalizeMonsterData(data);
       renderAnnouncements(getAnnouncements(data));
       generateBtn.disabled = false;
-      setStatus("標本生成プロトコル、起動可能です。");
+      setStatus("報告書作成プロトコル、起動可能です。");
     } catch (error) {
-      setStatus("標本データへの接続に失敗しました。", true);
+      setStatus("報告データへの接続に失敗しました。", true);
       renderLoadError(error);
     }
   }

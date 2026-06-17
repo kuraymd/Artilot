@@ -44,12 +44,12 @@ function renderArchive() {
   count.textContent = archive.length > 0 ? `${archive.length}件` : "";
 
   if (archive.length === 0) {
-    list.innerHTML = '<div class="archive-empty">NO IDEAS SAVED</div>';
+    list.innerHTML = '<div class="archive-empty">NO REPORTS SAVED</div>';
     return;
   }
 
   list.innerHTML = archive.map(monster => {
-    const name = monster.name || "未命名の標本";
+    const name = monster.name || "未命名の報告";
     const category = monster.category || monster.themeLabel || "未分類";
     const rank = monster.status || monster.danger || "-";
     const species = monster.species || monster.motif || "-";
@@ -61,7 +61,7 @@ function renderArchive() {
         <div class="archive-card-info">
           <div class="archive-card-name">${escapeArchiveHtml(name)}</div>
           <div class="archive-card-meta">
-            No.${escapeArchiveHtml(monster.specimen)} / ${escapeArchiveHtml(category)} / RANK:${escapeArchiveHtml(rank)}<br>
+            No.${escapeArchiveHtml(monster.specimen)} / ${escapeArchiveHtml(category)} / 判定:${escapeArchiveHtml(rank)}<br>
             ${escapeArchiveHtml(species)} - ${escapeArchiveHtml(body)}<br>
             ${escapeArchiveHtml(habitat)}
           </div>
