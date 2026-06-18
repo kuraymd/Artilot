@@ -52,6 +52,7 @@ function renderArchive() {
     const name = monster.name || "未命名の報告";
     const category = monster.category || monster.themeLabel || "未分類";
     const rank = monster.status || monster.danger || "-";
+    const statusDetail = monster.statusDetail || "";
     const species = monster.species || monster.motif || "-";
     const body = monster.bodyFeature || monster.feature || monster.trait || "-";
     const habitat = monster.habitat || monster.scene || "-";
@@ -61,7 +62,7 @@ function renderArchive() {
         <div class="archive-card-info">
           <div class="archive-card-name">${escapeArchiveHtml(name)}</div>
           <div class="archive-card-meta">
-            No.${escapeArchiveHtml(monster.specimen)} / ${escapeArchiveHtml(category)} / 判定:${escapeArchiveHtml(rank)}<br>
+            No.${escapeArchiveHtml(monster.specimen)} / ${escapeArchiveHtml(category)} / 判定:${escapeArchiveHtml(rank)}${statusDetail ? `（${escapeArchiveHtml(statusDetail)}）` : ""}<br>
             ${escapeArchiveHtml(species)} - ${escapeArchiveHtml(body)}<br>
             ${escapeArchiveHtml(habitat)}
           </div>

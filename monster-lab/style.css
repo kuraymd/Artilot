@@ -370,6 +370,17 @@ h1 {
   white-space: nowrap;
 }
 
+.danger-box small {
+  width: 100%;
+  color: var(--muted-ink);
+  font-family: var(--generated-font);
+  font-size: 10px;
+  line-height: 1.45;
+  text-align: right;
+  word-break: auto-phrase;
+  overflow-wrap: anywhere;
+}
+
 .monster-name {
   margin: 0;
   padding: 0;
@@ -815,6 +826,10 @@ h1 {
   .danger-box.rank-word strong {
     font-size: clamp(17px, 5.5vw, 22px);
     white-space: nowrap;
+  }
+
+  .danger-box small {
+    font-size: 9px;
   }
 
   .monster-name {

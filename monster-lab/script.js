@@ -96,10 +96,27 @@ document.addEventListener("DOMContentLoaded", () => {
       .filter(Boolean);
   }
 
+  function normalizeStatuses(value) {
+    if (!Array.isArray(value)) return [];
+
+    return value.map(item => {
+      if (item && typeof item === "object") {
+        const type = String(item.status_type || item.type || item.status || "").trim();
+        const detail = String(item.capture_status || item.detail || item.label || "").trim();
+        return { type: type || detail, detail: detail || type };
+      }
+
+      const label = String(item || "").trim();
+      return { type: label, detail: label };
+    }).filter(item => item.type || item.detail);
+  }
+
   function normalizeMonsterData(data) {
     const normalized = {};
     REQUIRED_LISTS.forEach(key => {
-      normalized[key] = normalizeList(data[key], key);
+      normalized[key] = key === "statuses"
+        ? normalizeStatuses(data[key])
+        : normalizeList(data[key], key);
     });
 
     const missing = REQUIRED_LISTS.filter(key => normalized[key].length === 0);
@@ -146,8 +163,9 @@ document.addEventListener("DOMContentLoaded", () => {
       ability,
       comment,
       nickname,
-      status,
-      danger: status,
+      status: status.type,
+      statusDetail: status.detail,
+      danger: status.type,
       size,
       createdAt: new Date().toISOString()
     };
@@ -176,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="danger-box${rankClass}">
             <span>判定</span>
             <strong>${escapeHtml(monster.status)}</strong>
+            <small>${escapeHtml(monster.statusDetail)}</small>
           </div>
         </div>
         <dl class="data-grid basic-data">
