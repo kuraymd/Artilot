@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>ギャラリー追加 | IHYLI.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #2a2321;
+    --paper: #fff8e6;
+    --yellow: #ffd84d;
+    --pink: #ff8fb8;
+    --white: #ffffff;
+    --ok: #1f8a4c;
+    --ng: #c0262d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 16px 16px 48px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "M PLUS Rounded 1c", system-ui, sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  main { max-width: 560px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; font-weight: 800; margin: 8px 0 4px; }
+  .lead { margin: 0 0 20px; font-size: .95rem; }
+  section, details {
+    background: var(--white);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 4px 4px 0 var(--ink);
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  details > summary {
+    cursor: pointer;
+    font-weight: 800;
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  h2 { font-size: 1.1rem; font-weight: 800; margin: 0 0 12px; }
+  label { display: block; font-weight: 700; font-size: .9rem; margin: 12px 0 4px; }
+  input[type="text"], input[type="password"], select {
+    width: 100%;
+    font: inherit;
+    font-size: 16px; /* iOSでズームしない */
+    padding: 10px 12px;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    background: var(--white);
+    color: var(--ink);
+  }
+  button {
+    font: inherit;
+    font-weight: 800;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 12px 20px;
+    background: var(--yellow);
+    color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    cursor: pointer;
+  }
+  button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.pink { background: var(--pink); }
+  button.small { padding: 6px 12px; font-size: .85rem; box-shadow: 2px 2px 0 var(--ink); }
+  button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--pink);
+    outline-offset: 2px;
+  }
+  .picker {
+    display: block;
+    text-align: center;
+    border: 2px dashed var(--ink);
+    border-radius: 14px;
+    padding: 28px 12px;
+    background: var(--paper);
+    font-weight: 800;
+    cursor: pointer;
+    margin: 0;
+  }
+  .picker input { display: none; }
+  .rows { margin-top: 16px; display: grid; gap: 14px; }
+  .row {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 12px;
+    padding: 12px;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    background: var(--paper);
+  }
+  .row img {
+    width: 84px; height: 84px;
+    object-fit: contain;
+    background: var(--white);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+  }
+  .row label { margin: 0 0 2px; font-size: .8rem; }
+  .row .fields { display: grid; gap: 6px; }
+  .row .remove { justify-self: end; }
+  .note { font-size: .85rem; margin: 8px 0 0; }
+  .actions { margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .log {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--ink);
+    color: #fff;
+    font-size: .9rem;
+    white-space: pre-wrap;
+    display: none;
+  }
+  .log.show { display: block; }
+  .log .ok { color: #9be7b4; }
+  .log .ng { color: #ffb3b6; }
+  .status { font-size: .85rem; margin-top: 8px; }
+  .status.ok { color: var(--ok); font-weight: 700; }
+  a { color: var(--ink); font-weight: 700; }
+</style>
+</head>
+<body>
+<main>
+  <h1>ギャラリーにイラストを追加</h1>
+  <p class="lead">画像を選んで「追加する」を押すだけ。サイトのギャラリーに反映されます。</p>
+
+  <details id="settings">
+    <summary>設定(最初の1回だけ)</summary>
+    <label for="repo">リポジトリ名</label>
+    <input type="text" id="repo" value="kuraymd/Artilot" autocomplete="off" autocapitalize="off" />
+    <label for="branch">ブランチ名</label>
+    <input type="text" id="branch" value="main" autocomplete="off" autocapitalize="off" />
+    <label for="token">アクセストークン</label>
+    <input type="password" id="token" placeholder="github_pat_..." autocomplete="off" />
+    <p class="note">トークンはこの端末のブラウザの中にだけ保存されます。サイトのファイルには書き込まれません。</p>
+    <div class="actions">
+      <button type="button" id="saveSettings">保存する</button>
+      <button type="button" id="clearToken" class="small">トークンを消す</button>
+    </div>
+    <p class="status" id="settingsStatus"></p>
+  </details>
+
+  <section>
+    <h2>1. 画像を選ぶ</h2>
+    <label class="picker">
+      タップして画像を選ぶ(複数OK)
+      <input type="file" id="files" accept="image/png,image/jpeg,image/webp,image/gif" multiple />
+    </label>
+    <p class="note">使える形式:JPG・PNG・WebP・GIF</p>
+    <div class="rows" id="rows"></div>
+  </section>
+
+  <section>
+    <h2>2. 追加する</h2>
+    <label for="position">ギャラリーでの表示位置</label>
+    <select id="position">
+      <option value="start">いちばん最初(新しい絵が目立つ)</option>
+      <option value="end">同じカテゴリの最後</option>
+    </select>
+    <div class="actions">
+      <button type="button" id="submit" class="pink" disabled>追加する</button>
+    </div>
+    <div class="log" id="log" role="status" aria-live="polite"></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var CATS = ["その他", "たべもの", "ちびキャラ", "バストアップ", "フルボディ"];
+  var API = "https://api.github.com";
+  var KEY = { token: "ihyli_admin_token", repo: "ihyli_admin_repo", branch: "ihyli_admin_branch" };
+  var items = []; // { file, title, cat, url }
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function load(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }
+  function drop(k) { try { localStorage.removeItem(k); } catch (e) {} }
+
+  // ---------- 設定 ----------
+  function initSettings() {
+    if (load(KEY.repo)) $("repo").value = load(KEY.repo);
+    if (load(KEY.branch)) $("branch").value = load(KEY.branch);
+    if (load(KEY.token)) {
+      $("token").value = load(KEY.token);
+      showStatus("トークン保存済み", true);
+    } else {
+      $("settings").open = true;
+    }
+  }
+  function showStatus(text, ok) {
+    var el = $("settingsStatus");
+    el.textContent = text;
+    el.className = "status" + (ok ? " ok" : "");
+  }
+  $("saveSettings").addEventListener("click", function () {
+    var repo = $("repo").value.trim();
+    var branch = $("branch").value.trim() || "main";
+    var token = $("token").value.trim();
+    if (!repo || repo.indexOf("/") < 1) { showStatus("リポジトリ名は 「ユーザー名/リポジトリ名」 の形で入力してください", false); return; }
+    if (!token) { showStatus("トークンを入力してください", false); return; }
+    store(KEY.repo, repo); store(KEY.branch, branch); store(KEY.token, token);
+    showStatus("保存しました", true);
+    updateSubmit();
+  });
+  $("clearToken").addEventListener("click", function () {
+    drop(KEY.token);
+    $("token").value = "";
+    showStatus("トークンを消しました", false);
+    updateSubmit();
+  });
+
+  // ---------- 画像リスト ----------
+  function splitName(name) {
+    var m = name.match(/^(.*?)(\.[^.]+)?$/);
+    return { base: m[1] || name, ext: m[2] || "" };
+  }
+
+  $("files").addEventListener("change", function (e) {
+    var list = Array.prototype.slice.call(e.target.files);
+    list.forEach(function (f) {
+      var n = splitName(f.name);
+      items.push({ file: f, title: n.base, ext: n.ext, cat: CATS[0], url: URL.createObjectURL(f) });
+    });
+    e.target.value = "";
+    renderRows();
+  });
+
+  function renderRows() {
+    var box = $("rows");
+    box.innerHTML = "";
+    items.forEach(function (it, i) {
+      var row = document.createElement("div");
+      row.className = "row";
+
+      var img = document.createElement("img");
+      img.src = it.url;
+      img.alt = "選んだ画像のプレビュー";
+      row.appendChild(img);
+
+      var fields = document.createElement("div");
+      fields.className = "fields";
+
+      var l1 = document.createElement("label");
+      l1.textContent = "タイトル";
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.value = it.title;
+      inp.addEventListener("input", function () { it.title = inp.value; });
+      l1.appendChild(inp);
+      inp.style.marginTop = "2px";
+
+      var l2 = document.createElement("label");
+      l2.textContent = "カテゴリ";
+      var sel = document.createElement("select");
+      sel.style.marginTop = "2px";
+      CATS.forEach(function (c) {
+        var o = document.createElement("option");
+        o.value = c; o.textContent = c;
+        if (c === it.cat) o.selected = true;
+        sel.appendChild(o);
+      });
+      sel.addEventListener("change", function () { it.cat = sel.value; });
+      l2.appendChild(sel);
+
+      var rm = document.createElement("button");
+      rm.type = "button";
+      rm.className = "small remove";
+      rm.textContent = "外す";
+      rm.addEventListener("click", function () {
+        URL.revokeObjectURL(it.url);
+        items.splice(i, 1);
+        renderRows();
+      });
+
+      fields.appendChild(l1); fields.appendChild(l2); fields.appendChild(rm);
+      row.appendChild(fields);
+      box.appendChild(row);
+    });
+    updateSubmit();
+  }
+
+  function updateSubmit() {
+    $("submit").disabled = !(items.length && load(KEY.token));
+  }
+
+  // ---------- GitHub API ----------
+  function conf() {
+    return { token: load(KEY.token), repo: load(KEY.repo) || "kuraymd/Artilot", branch: load(KEY.branch) || "main" };
+  }
+  function headers(c) {
+    return {
+      "Authorization": "Bearer " + c.token,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    };
+  }
+  function encPath(p) { return p.split("/").map(encodeURIComponent).join("/"); }
+
+  function explain(res) {
+    if (res.status === 401) return "トークンが正しくないか、期限が切れています(設定を確認してください)";
+    if (res.status === 403) return "権限がありません。トークンの「Contents」を「Read and write」にしてください";
+    if (res.status === 404) return "見つかりません。リポジトリ名とトークンの対象リポジトリを確認してください";
+    if (res.status === 409 || res.status === 422) return "保存が競合しました。もう一度試してください";
+    return "エラーが起きました(" + res.status + ")";
+  }
+
+  function getFile(c, path) {
+    return fetch(API + "/repos/" + c.repo + "/contents/" + encPath(path) + "?ref=" + encodeURIComponent(c.branch) + "&t=" + Date.now(), { headers: headers(c), cache: "no-store" })
+      .then(function (res) {
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(explain(res));
+        return res.json();
+      });
+  }
+
+  function putFile(c, path, b64, message, sha) {
+    var body = { message: message, content: b64, branch: c.branch };
+    if (sha) body.sha = sha;
+    return fetch(API + "/repos/" + c.repo + "/contents/" + encPath(path), {
+      method: "PUT",
+      headers: Object.assign({ "Content-Type": "application/json" }, headers(c)),
+      body: JSON.stringify(body)
+    }).then(function (res) {
+      if (!res.ok) throw new Error(explain(res));
+      return res.json();
+    });
+  }
+
+  function b64ToText(b64) {
+    var bin = atob(b64.replace(/\s/g, ""));
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+  function textToB64(text) {
+    var bytes = new TextEncoder().encode(text);
+    var bin = "";
+    for (var i = 0; i < bytes.length; i += 8192) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
+    }
+    return btoa(bin);
+  }
+  function fileToB64(file) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(String(r.result).split(",")[1]); };
+      r.onerror = function () { reject(new Error("画像を読み込めませんでした")); };
+      r.readAsDataURL(file);
+    });
+  }
+
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // ---------- ログ ----------
+  function log(msg, cls) {
+    var el = $("log");
+    el.classList.add("show");
+    var line = document.createElement("div");
+    if (cls) line.className = cls;
+    line.textContent = msg;
+    el.appendChild(line);
+  }
+  function clearLog() { var el = $("log"); el.innerHTML = ""; el.classList.remove("show"); }
+
+  // ---------- 追加処理 ----------
+  function validate() {
+    var seen = {};
+    for (var i = 0; i < items.length; i++) {
+      var t = items[i].title.trim();
+      if (!t) return (i + 1) + "枚目のタイトルが空です";
+      if (/[\/\\#?%"]/.test(t)) return "「" + t + "」には使えない文字( / \\ # ? % \" )が入っています";
+      var k = items[i].cat + "/" + t + items[i].ext.toLowerCase();
+      if (seen[k]) return "「" + t + "」が同じカテゴリで重複しています";
+      seen[k] = true;
+    }
+    return "";
+  }
+
+  function buildFigure(it) {
+    var t = esc(it.title.trim());
+    var src = srcOf(it);
+    return '<figure class="gallery-item" data-tag="' + esc(it.cat) + '"><img src="' + esc(src) + '" alt="' + t + '" loading="lazy" /><figcaption>' + t + "</figcaption></figure>";
+  }
+
+  function srcOf(it) { return "./image/gallery/" + it.cat + "/" + it.title.trim() + it.ext; }
+
+  function insertFigures(html, done, position) {
+    done = done.filter(function (it) { return html.indexOf(esc(srcOf(it))) < 0; });
+    if (!done.length) throw new Error("同じ名前の絵がすでにギャラリーにあります。タイトルを変えて、もう一度試してください");
+    var eol = html.indexOf("\r\n") >= 0 ? "\r\n" : "\n";
+    var marker = '<div class="gallery-grid filterable-gallery">';
+    if (html.indexOf(marker) < 0) throw new Error("work.html の形が変わっているため、自動で追加できません");
+
+    if (position === "start") {
+      var pos = html.indexOf(marker) + marker.length;
+      var block = done.map(buildFigure).join(eol + eol);
+      return html.slice(0, pos) + eol + eol + block + html.slice(pos);
+    }
+    done.forEach(function (it) {
+      var tagPos = html.lastIndexOf('data-tag="' + it.cat + '"');
+      var at;
+      if (tagPos >= 0) {
+        at = html.indexOf("</figure>", tagPos) + "</figure>".length;
+      } else {
+        var gridStart = html.indexOf(marker) + marker.length;
+        at = gridStart;
+      }
+      html = html.slice(0, at) + eol + eol + buildFigure(it) + html.slice(at);
+    });
+    return html;
+  }
+
+  function updateHtml(c, done, position, attempt) {
+    return getFile(c, "work.html").then(function (f) {
+      if (!f) throw new Error("work.html が見つかりません");
+      var html = b64ToText(f.content);
+      var next = insertFigures(html, done, position);
+      var msg = "ギャラリーに " + done.length + " 枚追加";
+      return putFile(c, "work.html", textToB64(next), msg, f.sha);
+    }).catch(function (e) {
+      if (attempt < 1 && /競合/.test(e.message)) return updateHtml(c, done, position, attempt + 1);
+      throw e;
+    });
+  }
+
+  $("submit").addEventListener("click", function () {
+    clearLog();
+    var problem = validate();
+    if (problem) { log(problem, "ng"); return; }
+
+    var c = conf();
+    var btn = $("submit");
+    btn.disabled = true;
+    var done = [];
+    var position = $("position").value;
+
+    // 画像を1枚ずつアップロード
+    var chain = Promise.resolve();
+    items.forEach(function (it) {
+      chain = chain.then(function () {
+        var title = it.title.trim();
+        var path = "image/gallery/" + it.cat + "/" + title + it.ext;
+        log("アップロード中: " + title + " ...");
+        return getFile(c, path).then(function (exists) {
+          if (exists) {
+            log("「" + title + "」は同じ名前の画像があるため、アップロードは省略します");
+            done.push({ title: title, cat: it.cat, ext: it.ext });
+            return;
+          }
+          return fileToB64(it.file).then(function (b64) {
+            return putFile(c, path, b64, "イラスト追加: " + title);
+          }).then(function () {
+            log("完了: " + title, "ok");
+            done.push({ title: title, cat: it.cat, ext: it.ext });
+          });
+        });
+      });
+    });
+
+    chain.then(function () {
+      if (!done.length) throw new Error("追加できる画像がありませんでした");
+      log("ギャラリーのページを更新中 ...");
+      return updateHtml(c, done, position, 0);
+    }).then(function () {
+      log("✔ " + done.length + "枚を追加しました。サイトに反映されるまで1〜2分かかります。", "ok");
+      items.forEach(function (it) { URL.revokeObjectURL(it.url); });
+      items = [];
+      renderRows();
+      var a = document.createElement("a");
+      a.href = "https://ihyli.com/work.html";
+      a.target = "_blank";
+      a.rel = "noreferrer";
+      a.textContent = "ギャラリーを見る";
+      a.style.color = "#fff";
+      $("log").appendChild(a);
+    }).catch(function (e) {
+      log("失敗: " + e.message, "ng");
+      if (done.length) log("画像は保存済みですが、ギャラリーページに反映されていません。もう一度「追加する」を押すと続きから進めます", "ng");
+    }).then(function () {
+      updateSubmit();
+    });
+  });
+
+  initSettings();
+  renderRows();
+})();
+</script>
+</body>
+</html>
