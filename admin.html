@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
-<title>ギャラリー追加 | IHYLI.com</title>
+<title>ギャラリー管理 | IHYLI.com</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet" />
@@ -19,9 +19,10 @@
     --ng: #c0262d;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body {
     margin: 0;
-    padding: 16px 16px 48px;
+    padding: 16px 16px 120px;
     background: var(--paper);
     color: var(--ink);
     font-family: "M PLUS Rounded 1c", system-ui, sans-serif;
@@ -39,18 +40,14 @@
     padding: 16px;
     margin-bottom: 20px;
   }
-  details > summary {
-    cursor: pointer;
-    font-weight: 800;
-    list-style: none;
-  }
+  details > summary { cursor: pointer; font-weight: 800; list-style: none; }
   details > summary::-webkit-details-marker { display: none; }
   h2 { font-size: 1.1rem; font-weight: 800; margin: 0 0 12px; }
   label { display: block; font-weight: 700; font-size: .9rem; margin: 12px 0 4px; }
   input[type="text"], input[type="password"], select {
     width: 100%;
     font: inherit;
-    font-size: 16px; /* iOSでズームしない */
+    font-size: 16px;
     padding: 10px 12px;
     border: 2px solid var(--ink);
     border-radius: 10px;
@@ -76,6 +73,9 @@
     outline: 3px solid var(--pink);
     outline-offset: 2px;
   }
+  .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+  .tabs button { flex: 1; background: var(--white); }
+  .tabs button[aria-selected="true"] { background: var(--pink); }
   .picker {
     display: block;
     text-align: center;
@@ -125,13 +125,53 @@
   .log .ng { color: #ffb3b6; }
   .status { font-size: .85rem; margin-top: 8px; }
   .status.ok { color: var(--ok); font-weight: 700; }
+  .status.ng { color: var(--ng); font-weight: 700; }
   a { color: var(--ink); font-weight: 700; }
+
+  .mlist { margin-top: 14px; display: grid; gap: 10px; }
+  .mitem {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    background: var(--paper);
+  }
+  .mitem img {
+    width: 64px; height: 64px;
+    object-fit: contain;
+    background: var(--white);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+  }
+  .mitem .meta { min-width: 0; }
+  .mitem .ttl { font-weight: 800; overflow-wrap: anywhere; }
+  .mitem .cat { font-size: .8rem; }
+  .mitem .btns { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; }
+  .mitem.deleted { background: #ffe3e3; }
+  .mitem.deleted .ttl { text-decoration: line-through; }
+  .checkline { display: flex; gap: 8px; align-items: flex-start; font-weight: 700; margin: 14px 0 0; }
+  .checkline input { margin-top: 5px; width: 18px; height: 18px; flex: none; }
+  .savebar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: var(--white);
+    border-top: 2px solid var(--ink);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+  .savebar span { font-size: .85rem; font-weight: 700; }
 </style>
 </head>
 <body>
 <main>
-  <h1>ギャラリーにイラストを追加</h1>
-  <p class="lead">画像を選んで「追加する」を押すだけ。サイトのギャラリーに反映されます。</p>
+  <h1>ギャラリー管理</h1>
+  <p class="lead">絵の追加、整理(削除・並べ替え)ができます。</p>
 
   <details id="settings">
     <summary>設定(最初の1回だけ)</summary>
@@ -149,38 +189,82 @@
     <p class="status" id="settingsStatus"></p>
   </details>
 
-  <section>
-    <h2>1. 画像を選ぶ</h2>
-    <label class="picker">
-      タップして画像を選ぶ(複数OK)
-      <input type="file" id="files" accept="image/png,image/jpeg,image/webp,image/gif" multiple />
-    </label>
-    <p class="note">使える形式:JPG・PNG・WebP・GIF</p>
-    <div class="rows" id="rows"></div>
-  </section>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="btn-add" aria-selected="true" aria-controls="tab-add">追加</button>
+    <button type="button" role="tab" id="btn-manage" aria-selected="false" aria-controls="tab-manage">整理</button>
+  </div>
 
-  <section>
-    <h2>2. 追加する</h2>
-    <label for="position">ギャラリーでの表示位置</label>
-    <select id="position">
-      <option value="start">いちばん最初(新しい絵が目立つ)</option>
-      <option value="end">同じカテゴリの最後</option>
-    </select>
-    <div class="actions">
-      <button type="button" id="submit" class="pink" disabled>追加する</button>
-    </div>
-    <div class="log" id="log" role="status" aria-live="polite"></div>
-  </section>
+  <!-- ========== 追加 ========== -->
+  <div id="tab-add" role="tabpanel" aria-labelledby="btn-add">
+    <section>
+      <h2>1. 画像を選ぶ</h2>
+      <label class="picker">
+        タップして画像を選ぶ(複数OK)
+        <input type="file" id="files" accept="image/png,image/jpeg,image/webp,image/gif" multiple />
+      </label>
+      <p class="note">使える形式:JPG・PNG・WebP・GIF</p>
+      <div class="rows" id="rows"></div>
+    </section>
+
+    <section>
+      <h2>2. 追加する</h2>
+      <label for="resize">画像のサイズ</label>
+      <select id="resize">
+        <option value="2000" selected>長辺2000pxまで縮小(おすすめ)</option>
+        <option value="1500">長辺1500pxまで縮小</option>
+        <option value="1000">長辺1000pxまで縮小</option>
+        <option value="0">元のサイズのまま</option>
+      </select>
+      <p class="note">元より大きいときだけ縮小します。GIFは縮小しません。</p>
+
+      <label for="position">ギャラリーでの表示位置</label>
+      <select id="position">
+        <option value="start">いちばん最初(新しい絵が目立つ)</option>
+        <option value="end">同じカテゴリの最後</option>
+      </select>
+      <div class="actions">
+        <button type="button" id="submit" class="pink" disabled>追加する</button>
+      </div>
+      <div class="log" id="log" role="status" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <!-- ========== 整理 ========== -->
+  <div id="tab-manage" role="tabpanel" aria-labelledby="btn-manage" hidden>
+    <section>
+      <h2>絵の整理</h2>
+      <p class="note">「↑」「↓」で並べ替え、「削除」でギャラリーから外します。最後に「変更を保存」を押すとサイトに反映されます。</p>
+      <label for="mFilter">表示するカテゴリ</label>
+      <select id="mFilter"></select>
+      <div class="actions">
+        <button type="button" id="mReload" class="small">読み込み直す</button>
+      </div>
+      <p class="status" id="mStatus" role="status" aria-live="polite"></p>
+      <div class="mlist" id="mList"></div>
+      <label class="checkline">
+        <input type="checkbox" id="mDelFiles" />
+        <span>削除する絵の画像ファイルも消す(サイトの他のページで使っている画像は消さないでください)</span>
+      </label>
+    </section>
+  </div>
 </main>
+
+<div class="savebar" id="saveBar" hidden>
+  <span id="mDirty">未保存の変更があります</span>
+  <button type="button" id="mSave" class="pink">変更を保存</button>
+</div>
 
 <script>
 (function () {
   "use strict";
 
-  var CATS = ["その他", "たべもの", "ちびキャラ", "バストアップ", "フルボディ"];
+  var DEFAULT_CATS = ["その他", "たべもの", "ちびキャラ", "バストアップ", "フルボディ"];
+  var CATS = DEFAULT_CATS.slice();
   var API = "https://api.github.com";
   var KEY = { token: "ihyli_admin_token", repo: "ihyli_admin_repo", branch: "ihyli_admin_branch" };
-  var items = []; // { file, title, cat, url }
+  var NEW = "__new__";
+  var BAD_CHARS = /[\/\\#?%"<>&]/;
+  var items = []; // 追加タブ: { file, title, ext, cat, isNew, newName, url }
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -188,114 +272,16 @@
   function load(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }
   function drop(k) { try { localStorage.removeItem(k); } catch (e) {} }
 
-  // ---------- 設定 ----------
-  function initSettings() {
-    if (load(KEY.repo)) $("repo").value = load(KEY.repo);
-    if (load(KEY.branch)) $("branch").value = load(KEY.branch);
-    if (load(KEY.token)) {
-      $("token").value = load(KEY.token);
-      showStatus("トークン保存済み", true);
-    } else {
-      $("settings").open = true;
-    }
+  // ================= 共通ヘルパー =================
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
-  function showStatus(text, ok) {
-    var el = $("settingsStatus");
-    el.textContent = text;
-    el.className = "status" + (ok ? " ok" : "");
+  function unesc(s) {
+    return s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&");
   }
-  $("saveSettings").addEventListener("click", function () {
-    var repo = $("repo").value.trim();
-    var branch = $("branch").value.trim() || "main";
-    var token = $("token").value.trim();
-    if (!repo || repo.indexOf("/") < 1) { showStatus("リポジトリ名は 「ユーザー名/リポジトリ名」 の形で入力してください", false); return; }
-    if (!token) { showStatus("トークンを入力してください", false); return; }
-    store(KEY.repo, repo); store(KEY.branch, branch); store(KEY.token, token);
-    showStatus("保存しました", true);
-    updateSubmit();
-  });
-  $("clearToken").addEventListener("click", function () {
-    drop(KEY.token);
-    $("token").value = "";
-    showStatus("トークンを消しました", false);
-    updateSubmit();
-  });
-
-  // ---------- 画像リスト ----------
-  function splitName(name) {
-    var m = name.match(/^(.*?)(\.[^.]+)?$/);
-    return { base: m[1] || name, ext: m[2] || "" };
+  function fmtSize(n) {
+    return n >= 1048576 ? (n / 1048576).toFixed(1) + "MB" : Math.max(1, Math.round(n / 1024)) + "KB";
   }
-
-  $("files").addEventListener("change", function (e) {
-    var list = Array.prototype.slice.call(e.target.files);
-    list.forEach(function (f) {
-      var n = splitName(f.name);
-      items.push({ file: f, title: n.base, ext: n.ext, cat: CATS[0], url: URL.createObjectURL(f) });
-    });
-    e.target.value = "";
-    renderRows();
-  });
-
-  function renderRows() {
-    var box = $("rows");
-    box.innerHTML = "";
-    items.forEach(function (it, i) {
-      var row = document.createElement("div");
-      row.className = "row";
-
-      var img = document.createElement("img");
-      img.src = it.url;
-      img.alt = "選んだ画像のプレビュー";
-      row.appendChild(img);
-
-      var fields = document.createElement("div");
-      fields.className = "fields";
-
-      var l1 = document.createElement("label");
-      l1.textContent = "タイトル";
-      var inp = document.createElement("input");
-      inp.type = "text";
-      inp.value = it.title;
-      inp.addEventListener("input", function () { it.title = inp.value; });
-      l1.appendChild(inp);
-      inp.style.marginTop = "2px";
-
-      var l2 = document.createElement("label");
-      l2.textContent = "カテゴリ";
-      var sel = document.createElement("select");
-      sel.style.marginTop = "2px";
-      CATS.forEach(function (c) {
-        var o = document.createElement("option");
-        o.value = c; o.textContent = c;
-        if (c === it.cat) o.selected = true;
-        sel.appendChild(o);
-      });
-      sel.addEventListener("change", function () { it.cat = sel.value; });
-      l2.appendChild(sel);
-
-      var rm = document.createElement("button");
-      rm.type = "button";
-      rm.className = "small remove";
-      rm.textContent = "外す";
-      rm.addEventListener("click", function () {
-        URL.revokeObjectURL(it.url);
-        items.splice(i, 1);
-        renderRows();
-      });
-
-      fields.appendChild(l1); fields.appendChild(l2); fields.appendChild(rm);
-      row.appendChild(fields);
-      box.appendChild(row);
-    });
-    updateSubmit();
-  }
-
-  function updateSubmit() {
-    $("submit").disabled = !(items.length && load(KEY.token));
-  }
-
-  // ---------- GitHub API ----------
   function conf() {
     return { token: load(KEY.token), repo: load(KEY.repo) || "kuraymd/Artilot", branch: load(KEY.branch) || "main" };
   }
@@ -361,11 +347,216 @@
     });
   }
 
-  function esc(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  function eolOf(html) { return html.indexOf("\r\n") >= 0 ? "\r\n" : "\n"; }
+
+  // ================= 設定 =================
+  function showStatus(text, ok) {
+    var el = $("settingsStatus");
+    el.textContent = text;
+    el.className = "status" + (ok ? " ok" : "");
+  }
+  function initSettings() {
+    if (load(KEY.repo)) $("repo").value = load(KEY.repo);
+    if (load(KEY.branch)) $("branch").value = load(KEY.branch);
+    if (load(KEY.token)) {
+      $("token").value = load(KEY.token);
+      showStatus("トークン保存済み", true);
+    } else {
+      $("settings").open = true;
+    }
+  }
+  $("saveSettings").addEventListener("click", function () {
+    var repo = $("repo").value.trim();
+    var branch = $("branch").value.trim() || "main";
+    var token = $("token").value.trim();
+    if (!repo || repo.indexOf("/") < 1) { showStatus("リポジトリ名は 「ユーザー名/リポジトリ名」 の形で入力してください", false); return; }
+    if (!token) { showStatus("トークンを入力してください", false); return; }
+    store(KEY.repo, repo); store(KEY.branch, branch); store(KEY.token, token);
+    showStatus("保存しました", true);
+    updateSubmit();
+    loadCats();
+  });
+  $("clearToken").addEventListener("click", function () {
+    drop(KEY.token);
+    $("token").value = "";
+    showStatus("トークンを消しました", false);
+    updateSubmit();
+  });
+
+  // ================= タブ =================
+  var manage = { loaded: false, sha: "", list: [], filter: "all", dirty: false };
+
+  function showTab(name) {
+    ["add", "manage"].forEach(function (n) {
+      $("tab-" + n).hidden = n !== name;
+      $("btn-" + n).setAttribute("aria-selected", n === name ? "true" : "false");
+    });
+    $("saveBar").hidden = !(name === "manage" && manage.dirty);
+    if (name === "manage" && !manage.loaded) loadManage();
+  }
+  $("btn-add").addEventListener("click", function () { showTab("add"); });
+  $("btn-manage").addEventListener("click", function () { showTab("manage"); });
+
+  // ================= カテゴリ =================
+  function parseCats(text) {
+    var re = /data-filter="([^"]+)"/g, m, out = [];
+    while ((m = re.exec(text))) {
+      var v = unesc(m[1]);
+      if (v !== "all" && out.indexOf(v) < 0) out.push(v);
+    }
+    return out;
+  }
+  function loadCats() {
+    var c = conf();
+    if (!c.token) return Promise.resolve();
+    return getFile(c, "work.html").then(function (f) {
+      if (!f) return;
+      var cats = parseCats(b64ToText(f.content));
+      if (cats.length) { CATS = cats; renderRows(); }
+    }).catch(function () {});
   }
 
-  // ---------- ログ ----------
+  // ================= 追加:画像リスト =================
+  function splitName(name) {
+    var m = name.match(/^(.*?)(\.[^.]+)?$/);
+    return { base: m[1] || name, ext: m[2] || "" };
+  }
+  function catOf(it) { return it.isNew ? (it.newName || "").trim() : it.cat; }
+
+  $("files").addEventListener("change", function (e) {
+    var list = Array.prototype.slice.call(e.target.files);
+    list.forEach(function (f) {
+      var n = splitName(f.name);
+      items.push({ file: f, title: n.base, ext: n.ext, cat: CATS[0], isNew: false, newName: "", url: URL.createObjectURL(f) });
+    });
+    e.target.value = "";
+    renderRows();
+  });
+
+  function renderRows() {
+    var box = $("rows");
+    box.innerHTML = "";
+    items.forEach(function (it, i) {
+      var row = document.createElement("div");
+      row.className = "row";
+
+      var img = document.createElement("img");
+      img.src = it.url;
+      img.alt = "選んだ画像のプレビュー";
+      row.appendChild(img);
+
+      var fields = document.createElement("div");
+      fields.className = "fields";
+
+      var l1 = document.createElement("label");
+      l1.textContent = "タイトル";
+      var inp = document.createElement("input");
+      inp.type = "text";
+      inp.value = it.title;
+      inp.style.marginTop = "2px";
+      inp.addEventListener("input", function () { it.title = inp.value; });
+      l1.appendChild(inp);
+
+      var l2 = document.createElement("label");
+      l2.textContent = "カテゴリ";
+      var sel = document.createElement("select");
+      sel.style.marginTop = "2px";
+      CATS.forEach(function (c) {
+        var o = document.createElement("option");
+        o.value = c; o.textContent = c;
+        if (!it.isNew && c === it.cat) o.selected = true;
+        sel.appendChild(o);
+      });
+      var on = document.createElement("option");
+      on.value = NEW; on.textContent = "+ 新しいカテゴリを作る";
+      if (it.isNew) on.selected = true;
+      sel.appendChild(on);
+      sel.addEventListener("change", function () {
+        if (sel.value === NEW) { it.isNew = true; } else { it.isNew = false; it.cat = sel.value; }
+        renderRows();
+      });
+      l2.appendChild(sel);
+
+      fields.appendChild(l1);
+      fields.appendChild(l2);
+
+      if (it.isNew) {
+        var l3 = document.createElement("label");
+        l3.textContent = "新しいカテゴリ名";
+        var ni = document.createElement("input");
+        ni.type = "text";
+        ni.value = it.newName;
+        ni.placeholder = "例:背景";
+        ni.style.marginTop = "2px";
+        ni.addEventListener("input", function () { it.newName = ni.value; });
+        l3.appendChild(ni);
+        fields.appendChild(l3);
+      }
+
+      var rm = document.createElement("button");
+      rm.type = "button";
+      rm.className = "small remove";
+      rm.textContent = "外す";
+      rm.addEventListener("click", function () {
+        URL.revokeObjectURL(it.url);
+        items.splice(i, 1);
+        renderRows();
+      });
+      fields.appendChild(rm);
+
+      row.appendChild(fields);
+      box.appendChild(row);
+    });
+    updateSubmit();
+  }
+
+  function updateSubmit() {
+    $("submit").disabled = !(items.length && load(KEY.token));
+  }
+
+  // ================= 画像の縮小 =================
+  function loadBitmap(file) {
+    function viaImg() {
+      return new Promise(function (res, rej) {
+        var u = URL.createObjectURL(file);
+        var im = new Image();
+        im.onload = function () {
+          URL.revokeObjectURL(u);
+          res({ width: im.naturalWidth, height: im.naturalHeight, img: im, close: function () {} });
+        };
+        im.onerror = function () { URL.revokeObjectURL(u); rej(new Error("画像を開けませんでした")); };
+        im.src = u;
+      });
+    }
+    if (window.createImageBitmap) {
+      return createImageBitmap(file, { imageOrientation: "from-image" })
+        .catch(function () { return createImageBitmap(file); })
+        .catch(viaImg);
+    }
+    return viaImg();
+  }
+
+  function resizeFile(file, maxEdge, ext) {
+    if (!maxEdge || /\.gif$/i.test(ext)) return Promise.resolve(file);
+    return loadBitmap(file).then(function (bm) {
+      var w = bm.width, h = bm.height, m = Math.max(w, h);
+      if (m <= maxEdge) { if (bm.close) bm.close(); return file; }
+      var s = maxEdge / m;
+      var cw = Math.round(w * s), ch = Math.round(h * s);
+      var cv = document.createElement("canvas");
+      cv.width = cw; cv.height = ch;
+      var ctx = cv.getContext("2d");
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(bm.img || bm, 0, 0, cw, ch);
+      if (bm.close) bm.close();
+      var type = /\.png$/i.test(ext) ? "image/png" : (/\.webp$/i.test(ext) ? "image/webp" : "image/jpeg");
+      return new Promise(function (res) {
+        cv.toBlob(function (b) { res(b && b.size < file.size ? b : file); }, type, 0.9);
+      });
+    });
+  }
+
+  // ================= ログ =================
   function log(msg, cls) {
     var el = $("log");
     el.classList.add("show");
@@ -376,34 +567,56 @@
   }
   function clearLog() { var el = $("log"); el.innerHTML = ""; el.classList.remove("show"); }
 
-  // ---------- 追加処理 ----------
+  // ================= 追加:HTMLの書き換え =================
   function validate() {
     var seen = {};
     for (var i = 0; i < items.length; i++) {
-      var t = items[i].title.trim();
+      var it = items[i];
+      var t = it.title.trim();
+      var cat = catOf(it);
       if (!t) return (i + 1) + "枚目のタイトルが空です";
-      if (/[\/\\#?%"]/.test(t)) return "「" + t + "」には使えない文字( / \\ # ? % \" )が入っています";
-      var k = items[i].cat + "/" + t + items[i].ext.toLowerCase();
+      if (BAD_CHARS.test(t)) return "「" + t + "」には使えない文字( / \\ # ? % \" < > & )が入っています";
+      if (!cat) return (i + 1) + "枚目の新しいカテゴリ名が空です";
+      if (BAD_CHARS.test(cat)) return "カテゴリ名「" + cat + "」には使えない文字( / \\ # ? % \" < > & )が入っています";
+      if (cat.toLowerCase() === "all") return "カテゴリ名に「all」は使えません";
+      var k = cat + "/" + t + it.ext.toLowerCase();
       if (seen[k]) return "「" + t + "」が同じカテゴリで重複しています";
       seen[k] = true;
     }
     return "";
   }
 
+  function srcOf(it) { return "./image/gallery/" + it.cat + "/" + it.title.trim() + it.ext; }
+
   function buildFigure(it) {
     var t = esc(it.title.trim());
-    var src = srcOf(it);
-    return '<figure class="gallery-item" data-tag="' + esc(it.cat) + '"><img src="' + esc(src) + '" alt="' + t + '" loading="lazy" /><figcaption>' + t + "</figcaption></figure>";
+    return '<figure class="gallery-item" data-tag="' + esc(it.cat) + '"><img src="' + esc(srcOf(it)) + '" alt="' + t + '" loading="lazy" /><figcaption>' + t + "</figcaption></figure>";
   }
 
-  function srcOf(it) { return "./image/gallery/" + it.cat + "/" + it.title.trim() + it.ext; }
+  function ensureFilters(html, cats, eol) {
+    var have = {};
+    var re = /data-filter="([^"]+)"/g, m;
+    while ((m = re.exec(html))) have[unesc(m[1])] = true;
+    var add = [];
+    cats.forEach(function (c) { if (!have[c] && add.indexOf(c) < 0) add.push(c); });
+    if (!add.length) return html;
+    var p = html.lastIndexOf('class="filter-button"');
+    if (p < 0) throw new Error("work.html の絞り込みボタンが見つからないため、新しいカテゴリを追加できません");
+    var at = html.indexOf("</button>", p) + "</button>".length;
+    var lines = add.map(function (c) {
+      return '<button class="filter-button" type="button" data-filter="' + esc(c) + '">' + esc(c) + "</button>";
+    });
+    return html.slice(0, at) + eol + eol + lines.join(eol + eol) + html.slice(at);
+  }
 
   function insertFigures(html, done, position) {
     done = done.filter(function (it) { return html.indexOf(esc(srcOf(it))) < 0; });
     if (!done.length) throw new Error("同じ名前の絵がすでにギャラリーにあります。タイトルを変えて、もう一度試してください");
-    var eol = html.indexOf("\r\n") >= 0 ? "\r\n" : "\n";
+    var eol = eolOf(html);
     var marker = '<div class="gallery-grid filterable-gallery">';
     if (html.indexOf(marker) < 0) throw new Error("work.html の形が変わっているため、自動で追加できません");
+
+    html = ensureFilters(html, done.map(function (it) { return it.cat; }), eol);
 
     if (position === "start") {
       var pos = html.indexOf(marker) + marker.length;
@@ -416,8 +629,8 @@
       if (tagPos >= 0) {
         at = html.indexOf("</figure>", tagPos) + "</figure>".length;
       } else {
-        var gridStart = html.indexOf(marker) + marker.length;
-        at = gridStart;
+        var lastFig = html.lastIndexOf("</figure>");
+        at = lastFig >= 0 ? lastFig + "</figure>".length : html.indexOf(marker) + marker.length;
       }
       html = html.slice(0, at) + eol + eol + buildFigure(it) + html.slice(at);
     });
@@ -429,8 +642,7 @@
       if (!f) throw new Error("work.html が見つかりません");
       var html = b64ToText(f.content);
       var next = insertFigures(html, done, position);
-      var msg = "ギャラリーに " + done.length + " 枚追加";
-      return putFile(c, "work.html", textToB64(next), msg, f.sha);
+      return putFile(c, "work.html", textToB64(next), "ギャラリーに " + done.length + " 枚追加", f.sha);
     }).catch(function (e) {
       if (attempt < 1 && /競合/.test(e.message)) return updateHtml(c, done, position, attempt + 1);
       throw e;
@@ -447,25 +659,32 @@
     btn.disabled = true;
     var done = [];
     var position = $("position").value;
+    var maxEdge = Number($("resize").value) || 0;
 
-    // 画像を1枚ずつアップロード
     var chain = Promise.resolve();
     items.forEach(function (it) {
       chain = chain.then(function () {
         var title = it.title.trim();
-        var path = "image/gallery/" + it.cat + "/" + title + it.ext;
+        var cat = catOf(it);
+        var path = "image/gallery/" + cat + "/" + title + it.ext;
         log("アップロード中: " + title + " ...");
         return getFile(c, path).then(function (exists) {
           if (exists) {
             log("「" + title + "」は同じ名前の画像があるため、アップロードは省略します");
-            done.push({ title: title, cat: it.cat, ext: it.ext });
+            done.push({ title: title, cat: cat, ext: it.ext });
             return;
           }
-          return fileToB64(it.file).then(function (b64) {
+          return resizeFile(it.file, maxEdge, it.ext).catch(function () {
+            log("縮小できなかったので、元のサイズで追加します");
+            return it.file;
+          }).then(function (blob) {
+            if (blob !== it.file) log("縮小: " + fmtSize(it.file.size) + " → " + fmtSize(blob.size));
+            return fileToB64(blob);
+          }).then(function (b64) {
             return putFile(c, path, b64, "イラスト追加: " + title);
           }).then(function () {
             log("完了: " + title, "ok");
-            done.push({ title: title, cat: it.cat, ext: it.ext });
+            done.push({ title: title, cat: cat, ext: it.ext });
           });
         });
       });
@@ -479,7 +698,9 @@
       log("✔ " + done.length + "枚を追加しました。サイトに反映されるまで1〜2分かかります。", "ok");
       items.forEach(function (it) { URL.revokeObjectURL(it.url); });
       items = [];
+      manage.loaded = false;
       renderRows();
+      loadCats();
       var a = document.createElement("a");
       a.href = "https://ihyli.com/work.html";
       a.target = "_blank";
@@ -495,8 +716,234 @@
     });
   });
 
+  // ================= 整理 =================
+  function parseItems(text) {
+    var re = /<figure class="gallery-item"[\s\S]*?<\/figure>/g, m, out = [];
+    while ((m = re.exec(text))) {
+      var raw = m[0];
+      var tag = raw.match(/data-tag="([^"]*)"/);
+      var src = raw.match(/<img[^>]*\ssrc="([^"]*)"/);
+      var cap = raw.match(/<figcaption>([\s\S]*?)<\/figcaption>/);
+      out.push({
+        raw: raw,
+        cat: tag ? unesc(tag[1]) : "",
+        src: src ? src[1] : "",
+        title: cap ? unesc(cap[1]) : "",
+        deleted: false
+      });
+    }
+    return out;
+  }
+
+  function buildHtml(text, list) {
+    var re = /<figure class="gallery-item"[\s\S]*?<\/figure>/g, m, first = -1, last = -1;
+    while ((m = re.exec(text))) {
+      if (first < 0) first = m.index;
+      last = m.index + m[0].length;
+    }
+    if (first < 0) throw new Error("work.html に絵が見つかりません");
+    var region = text.slice(first, last);
+    if (region.replace(/<figure class="gallery-item"[\s\S]*?<\/figure>/g, "").trim() !== "") {
+      throw new Error("work.html の形が想定と違うため、整理できません");
+    }
+    var eol = eolOf(text);
+    return text.slice(0, first) + list.map(function (i) { return i.raw; }).join(eol + eol) + text.slice(last);
+  }
+
+  function mStatus(msg, cls) {
+    var el = $("mStatus");
+    el.textContent = msg || "";
+    el.className = "status" + (cls ? " " + cls : "");
+  }
+
+  function setDirty(v) {
+    manage.dirty = v;
+    $("saveBar").hidden = !v || $("tab-manage").hidden;
+  }
+
+  function loadManage() {
+    var c = conf();
+    if (!c.token) { mStatus("先に「設定」でトークンを保存してください", "ng"); return Promise.resolve(); }
+    mStatus("読み込み中 ...");
+    return getFile(c, "work.html").then(function (f) {
+      if (!f) throw new Error("work.html が見つかりません");
+      manage.sha = f.sha;
+      var text = b64ToText(f.content);
+      manage.list = parseItems(text);
+      var cats = parseCats(text);
+      if (cats.length) CATS = cats;
+      manage.filter = "all";
+      manage.loaded = true;
+      setDirty(false);
+      mStatus(manage.list.length + "枚の絵を読み込みました", "ok");
+      renderManage();
+    }).catch(function (e) {
+      mStatus("失敗: " + e.message, "ng");
+    });
+  }
+
+  function move(i, dir) {
+    var L = manage.list, f = manage.filter;
+    var j = i + dir;
+    while (j >= 0 && j < L.length && f !== "all" && L[j].cat !== f) j += dir;
+    if (j < 0 || j >= L.length) return;
+    var t = L[i]; L[i] = L[j]; L[j] = t;
+    setDirty(true);
+    renderManage();
+  }
+  function toTop(i) {
+    var it = manage.list.splice(i, 1)[0];
+    manage.list.unshift(it);
+    setDirty(true);
+    renderManage();
+  }
+  function toggleDelete(i) {
+    manage.list[i].deleted = !manage.list[i].deleted;
+    setDirty(true);
+    renderManage();
+  }
+
+  function renderManage() {
+    // フィルタ選択肢
+    var counts = {};
+    manage.list.forEach(function (it) { counts[it.cat] = (counts[it.cat] || 0) + 1; });
+    var sel = $("mFilter");
+    sel.innerHTML = "";
+    var oa = document.createElement("option");
+    oa.value = "all"; oa.textContent = "すべて(" + manage.list.length + ")";
+    sel.appendChild(oa);
+    var names = CATS.slice();
+    Object.keys(counts).forEach(function (k) { if (names.indexOf(k) < 0) names.push(k); });
+    names.forEach(function (c) {
+      var o = document.createElement("option");
+      o.value = c; o.textContent = c + "(" + (counts[c] || 0) + ")";
+      sel.appendChild(o);
+    });
+    sel.value = manage.filter;
+    if (sel.value !== manage.filter) { manage.filter = "all"; sel.value = "all"; }
+
+    // 一覧
+    var box = $("mList");
+    box.innerHTML = "";
+    manage.list.forEach(function (it, i) {
+      if (manage.filter !== "all" && it.cat !== manage.filter) return;
+
+      var row = document.createElement("div");
+      row.className = "mitem" + (it.deleted ? " deleted" : "");
+
+      var img = document.createElement("img");
+      img.src = unesc(it.src);
+      img.alt = it.title;
+      img.loading = "lazy";
+      row.appendChild(img);
+
+      var meta = document.createElement("div");
+      meta.className = "meta";
+      var t = document.createElement("div");
+      t.className = "ttl";
+      t.textContent = it.title;
+      var cat = document.createElement("div");
+      cat.className = "cat";
+      cat.textContent = it.cat + (it.deleted ? "(削除予定)" : "");
+      meta.appendChild(t);
+      meta.appendChild(cat);
+      row.appendChild(meta);
+
+      var btns = document.createElement("div");
+      btns.className = "btns";
+      function mk(label, aria, fn) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "small";
+        b.textContent = label;
+        b.setAttribute("aria-label", aria + ":" + it.title);
+        b.addEventListener("click", fn);
+        btns.appendChild(b);
+        return b;
+      }
+      mk("↑", "上へ", function () { move(i, -1); });
+      mk("↓", "下へ", function () { move(i, 1); });
+      mk("先頭へ", "いちばん最初へ", function () { toTop(i); });
+      var del = mk(it.deleted ? "戻す" : "削除", it.deleted ? "削除を取り消す" : "削除する", function () { toggleDelete(i); });
+      if (!it.deleted) del.className = "small pink";
+      row.appendChild(btns);
+
+      box.appendChild(row);
+    });
+  }
+
+  $("mFilter").addEventListener("change", function () {
+    manage.filter = $("mFilter").value;
+    renderManage();
+  });
+  $("mReload").addEventListener("click", function () {
+    if (manage.dirty && !window.confirm("保存していない変更は消えます。読み込み直しますか?")) return;
+    loadManage();
+  });
+
+  function deleteImages(c, list) {
+    var chain = Promise.resolve();
+    var fails = 0;
+    list.forEach(function (it) {
+      var path = unesc(it.src).replace(/^\.\//, "");
+      if (path.indexOf("image/gallery/") !== 0) return;
+      chain = chain.then(function () {
+        return getFile(c, path).then(function (f) {
+          if (!f) return;
+          return fetch(API + "/repos/" + c.repo + "/contents/" + encPath(path), {
+            method: "DELETE",
+            headers: Object.assign({ "Content-Type": "application/json" }, headers(c)),
+            body: JSON.stringify({ message: "画像削除: " + it.title, sha: f.sha, branch: c.branch })
+          }).then(function (res) { if (!res.ok) fails++; });
+        }).catch(function () { fails++; });
+      });
+    });
+    return chain.then(function () { return fails; });
+  }
+
+  $("mSave").addEventListener("click", function () {
+    var c = conf();
+    var btn = $("mSave");
+    var removed = manage.list.filter(function (i) { return i.deleted; });
+    var keep = manage.list.filter(function (i) { return !i.deleted; });
+    var delFiles = $("mDelFiles").checked;
+    if (removed.length && !window.confirm(removed.length + "枚をギャラリーから削除して保存します。よろしいですか?")) return;
+
+    btn.disabled = true;
+    mStatus("保存中 ...");
+    getFile(c, "work.html").then(function (f) {
+      if (!f) throw new Error("work.html が見つかりません");
+      if (f.sha !== manage.sha) {
+        throw new Error("サイトのページが別の場所で更新されています。「読み込み直す」を押してから、もう一度やり直してください");
+      }
+      var next = buildHtml(b64ToText(f.content), keep);
+      return putFile(c, "work.html", textToB64(next), "ギャラリー整理(削除" + removed.length + "件・並べ替え)", f.sha);
+    }).then(function () {
+      if (delFiles && removed.length) {
+        mStatus("画像ファイルを削除中 ...");
+        return deleteImages(c, removed);
+      }
+      return 0;
+    }).then(function (fails) {
+      setDirty(false);
+      var msg = "✔ 保存しました。サイトに反映されるまで1〜2分かかります。";
+      if (fails) msg += "(画像ファイル " + fails + "件は削除できませんでした)";
+      return loadManage().then(function () { mStatus(msg, "ok"); });
+    }).catch(function (e) {
+      mStatus("失敗: " + e.message, "ng");
+    }).then(function () {
+      btn.disabled = false;
+    });
+  });
+
+  window.addEventListener("beforeunload", function (e) {
+    if (manage.dirty) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  // ================= 起動 =================
   initSettings();
   renderRows();
+  loadCats();
 })();
 </script>
 </body>
