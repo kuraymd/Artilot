@@ -149,6 +149,7 @@
   .mitem .ttl { font-weight: 800; overflow-wrap: anywhere; }
   .mitem .cat { font-size: .8rem; }
   .mitem .btns { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; }
+  .mitem .catsel { flex: 1 1 100%; width: 100%; padding: 6px 10px; border-radius: 999px; }
   .mitem.deleted { background: #ffe3e3; }
   .mitem.deleted .ttl { text-decoration: line-through; }
   .checkline { display: flex; gap: 8px; align-items: flex-start; font-weight: 700; margin: 14px 0 0; }
@@ -233,7 +234,7 @@
   <div id="tab-manage" role="tabpanel" aria-labelledby="btn-manage" hidden>
     <section>
       <h2>絵の整理</h2>
-      <p class="note">「↑」「↓」で並べ替え、「削除」でギャラリーから外します。最後に「変更を保存」を押すとサイトに反映されます。</p>
+      <p class="note">「↑」「↓」で並べ替え、「削除」でギャラリーから外し、カテゴリの変更もできます。最後に「変更を保存」を押すとサイトに反映されます。</p>
       <label for="mFilter">表示するカテゴリ</label>
       <select id="mFilter"></select>
       <div class="actions">
@@ -797,6 +798,15 @@
     setDirty(true);
     renderManage();
   }
+  function changeCat(i, cat) {
+    var it = manage.list[i];
+    if (it.cat === cat) return;
+    it.raw = it.raw.replace(/data-tag="[^"]*"/, 'data-tag="' + esc(cat) + '"');
+    it.cat = cat;
+    if (CATS.indexOf(cat) < 0) CATS.push(cat);
+    setDirty(true);
+    renderManage();
+  }
   function toggleDelete(i) {
     manage.list[i].deleted = !manage.list[i].deleted;
     setDirty(true);
@@ -866,6 +876,37 @@
       mk("先頭へ", "いちばん最初へ", function () { toTop(i); });
       var del = mk(it.deleted ? "戻す" : "削除", it.deleted ? "削除を取り消す" : "削除する", function () { toggleDelete(i); });
       if (!it.deleted) del.className = "small pink";
+
+      if (!it.deleted) {
+        var cs = document.createElement("select");
+        cs.className = "catsel";
+        cs.setAttribute("aria-label", "カテゴリを変える:" + it.title);
+        var opts = CATS.slice();
+        if (opts.indexOf(it.cat) < 0) opts.push(it.cat);
+        opts.forEach(function (c) {
+          var o = document.createElement("option");
+          o.value = c; o.textContent = "カテゴリ:" + c;
+          if (c === it.cat) o.selected = true;
+          cs.appendChild(o);
+        });
+        var on = document.createElement("option");
+        on.value = NEW; on.textContent = "+ 新しいカテゴリに移す...";
+        cs.appendChild(on);
+        cs.addEventListener("change", function () {
+          var v = cs.value;
+          if (v === NEW) {
+            v = (window.prompt("新しいカテゴリ名を入力してください", "") || "").trim();
+            if (!v) { cs.value = it.cat; return; }
+            if (BAD_CHARS.test(v) || v.toLowerCase() === "all") {
+              window.alert("使えない文字( / \\ # ? % \" < > & )か、「all」は使えません");
+              cs.value = it.cat;
+              return;
+            }
+          }
+          changeCat(i, v);
+        });
+        btns.appendChild(cs);
+      }
       row.appendChild(btns);
 
       box.appendChild(row);
@@ -916,8 +957,9 @@
       if (f.sha !== manage.sha) {
         throw new Error("サイトのページが別の場所で更新されています。「読み込み直す」を押してから、もう一度やり直してください");
       }
-      var next = buildHtml(b64ToText(f.content), keep);
-      return putFile(c, "work.html", textToB64(next), "ギャラリー整理(削除" + removed.length + "件・並べ替え)", f.sha);
+      var built = buildHtml(b64ToText(f.content), keep);
+      var next = ensureFilters(built, keep.map(function (i) { return i.cat; }), eolOf(built));
+      return putFile(c, "work.html", textToB64(next), "ギャラリー整理(削除" + removed.length + "件・並べ替え・カテゴリ)", f.sha);
     }).then(function () {
       if (delFiles && removed.length) {
         mStatus("画像ファイルを削除中 ...");
